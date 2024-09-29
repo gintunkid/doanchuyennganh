@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mesach-bookhaven</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <section class="top">
+        <div class="container">
+            <div class="row">
+                <div class="top-logo">
+                    <img src="/img/Màu tối Giữa video Cửa hàng  Cá nhân Nhà thiết kế Trang sức Ảnh bìa Facebook.jpg" alt="">
+                </div>
+                <div class="top-menu-items">
+                    <ul>
+                        <li>Giáo khoa tham khảo
+                            <ul class="top-menu-item">
+                                <li><a href="">Manga - Comic</a></li>
+                                <li><a href="">Tâm lý - Kĩ năng sống</a></li>
+                                <li><a href="">Sách học ngoại ngữ</a></li>
+                            </ul>
+                        </li>
+                        <li>VPP - Dụng cụ học sinh
+                            <ul class="top-menu-items">
+                                <li><a href="">Bút - Viết</a></li>
+                                <li><a href="">Sản phẩm về giấy</a></li>
+                                <li><a href="">Dụng cụ văn phòng</a></li>
+                            </ul>
+                        </li>
+                        <li>Đồ chơi
+                            <ul class="top-menu-items">
+                                <li><a href="">Đồ chơi giáo dục</a></li>
+                                <li><a href="">Mô hình các loại</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="top-menu-icons">
+                    <ul>
+                        <li>
+                            <input type="text" placeholder="tìm kiếm">
+                            <i class="fas fa-search"></i>
+                        </li>
+                        <li>
+                            <i class="fa-regular fa-user"></i>
+                        </li>
+                        <li>
+                            <i class="fas fa-shopping-cart"></i>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+<!------------------ Cartegory ------------------->
+ <section class="cartegory">
+    <div class="container">
+        <div class="cartegory-top">
+            <p>Trang chủ</p> <span>&#10230; </span> <p></p>
+        </div>
+    </div>
+ </section>
+<!-------------------- footer --------------------->
+<section class="footer">
+    <div class="footer-container">
+        <p>Tải ứng dụng <a href="">Mê sách</a></p>
+        <div class="app-google">
+            <a href=""><img src="/img/Screenshot 2024-05-15 003849.png" alt=""></a>
+            <a href=""><img src="/img/Screenshot 2024-05-15 003813.png" alt=""></a>
+        </div>
+        <p>Nhận bản tin -Mê sách-</p>
+        <div class="input-email">
+            <input type="text" placeholder="Nhập email của bạn">
+            <i class="fas fa-arow-left"></i>
+        </div>
+        <div class="footer-items">
+            <li><a href=""><img src="/img/Screenshot 2024-05-15 003506.png" alt=""></a></li>
+            <li><a href="">Liên hệ</a></li>
+            <li><a href="">Tuyển dụng</a></li>
+            <li><a href="">Giới thiệu</a></li>
+            <li><a href=""><i class="fab fa-facebook-f"></i></a><a href=""><i class="fab fa-youtube"></i></a></li>
+        </div>
+        <div class="footer-text">
+            Địa chỉ đăng ký: 254/5, đường Lê Văn Thọ, phường 11, quận Gò Vấp
+            Đặt hàng online: 0797268602
+        </div>
+        <div class="footer-bottom">
+            @ Mê sách - Book Haven
+        </div>
+    </div>
+</section>
+<script>
+    let lastScrollTop = 0; // Lưu vị trí cuộn trước đó
+const topSection = document.querySelector('.top');
+
+window.addEventListener('scroll', function() {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+    if (scrollTop > lastScrollTop) {
+        // Kéo chuột xuống
+        topSection.style.top = "-100px"; // Ẩn phần tử
+    } else {
+        // Kéo chuột lên
+        topSection.style.top = "0"; // Hiện phần tử
+    }
+    lastScrollTop = scrollTop; // Cập nhật vị trí cuộn
+});
+
+</script>    
+</body>
+</html>
