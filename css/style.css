@@ -63,6 +63,20 @@ a {
     flex: 3;
 }
 
+.top-menu-items a {
+    color: black; /* Màu mặc định */
+    text-decoration: none; /* Bỏ gạch chân */
+    transition: color 0.3s ease, background-color 0.3s ease; /* Hiệu ứng chuyển tiếp */
+    padding: 5px 2px; /* Thêm khoảng cách xung quanh liên kết */
+}
+
+.top-menu-items a:hover {
+    color: #fff; /* Màu khi hover */
+    background-color: rgb(2, 2, 26); /* Màu nền khi hover */
+    border-radius: 30px; /* Bo góc cho nền */
+    transition: all 0.5s ease;
+}
+
 .top-menu-items >ul {
     height: 100%;
     display: flex;
@@ -80,11 +94,6 @@ a {
     font-weight: bold;
     cursor: pointer;
     position: relative;
-}
-
-.top-menu-items li a:hover {
-    color: red;
-
 }
 
 .top-menu-items ul li::before {
@@ -119,8 +128,8 @@ a {
 
 
 .top-menu-item li:hover a {
-    color: red;
-    transition: all 0.2s ease;
+    color: #fff;
+    transition: all 0.4s ease;
 }
 
 
@@ -369,6 +378,12 @@ a {
 .cartegory-top {
     margin-bottom: 50px;
 }
+
+.cartegory-top a:hover {
+    color: yellow;
+    text-shadow: 0 0 5px rgba(209, 226, 53, 0.8);
+}
+
 
 .cartegory-top p {
     font-family: var(--main-text-font);
