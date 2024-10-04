@@ -64,11 +64,116 @@
 <section class="product">
     <div class="container">
         <div class="product-top">
-            <p></p>
+            <p><a href="/html-cartegory/CARTEGORY.html" style="color: black;">Trang chủ</a></p>
+        </div>
+        <div class="product-content">
+            <div class="product-content-left">
+                <div class="product-content-left-big-img">
+                    <img src="" alt="">
+                </div>
+                <div class="product-content-left-small-img">
+                    <img src="" alt="">
+                </div>
+            </div>
+            <div class="product-cotent-right">
+                <div class="product-content-right-product-name">
+                    <h1>...</h1>
+                    <p>MSP: ...</p>
+                </div>
+                <div class="product-content-right-product-price">
+                    <p>...<sup>đ</sup></p>
+                </div>
+                <div class="product-content-right-product-color">
+                    <p><span style="font-weight: bold;">Màu sắc</span>:Xanh cổ vịt <span style="color:red;">*</span></p>
+                    <div class="product-content-right-product-color-img">
+                        <img src="" alt="">
+                    </div>
+                </div>
+                <div class="quantity">
+                    <p style="font-weight: bold;">Số lượng</p>
+                    <input type="number" min="0" value="1">
+                </div>
+                <div class="product-content-right-product-button">
+                    <button><i class="fas fa-shopping-cart"></i> <p>MUA HÀNG</p></button>
+                    <button><p>TÌM TẠI CỬA HÀNG</p></button>
+                </div>
+                <div class="product-content-right-product-icon">
+                    <div class="product-content-right-product-icon-item">
+                        <i class="fas fa-phone-alt"></i> <p>Hotline</p>
+                    </div>
+                    <div class="product-content-right-product-icon-item">
+                        <i class="far fa-comments"></i> <p>Mail</p>
+                    </div>
+                    <div class="product-content-right-product-icon-item">
+                        <i class="far fa-envelope"></i> <p>Mail</p>
+                    </div>
+                </div>
+                <div class="product-content-right-product-QR">
+                    <img src="" alt="">
+                </div>
+                <div class="product-content-right-bottom">
+                    <div class="product-content-right-bottom-top">
+                        &#8744;
+                    </div>
+                    <div class="product-content-right-bottom-content-big">
+                        <div class="product-content-right-bottom-content-title row">
+                            <div class="product-content-right-bottom-content-title-item">
+                                <p>Chi tiết</p>
+                            </div>
+                            <div class="product-content-right-bottom-content-title-item">
+                                <p>Bảo quản</p>
+                            </div>
+                            <div class="product-content-right-bottom-content-title-item">
+                                <p>Tham khảo chất lượng</p>
+                            </div>
+                        </div>
+                        <div class="product-content-right-bottom-content">
+                            <div class="product-content-right-bottom-content-chitiet">
+                                ...
+                            </div>
+                            <div class="product-content-right-bottom-content-baoquan">
+                                ...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
+<!-------------------------PRODUCT-RELATED ------------------------>
+<section class="product-related">
+    <div class="product-related-title">
+        <p>Sản phẩm liên quan</p>
+    </div>
+    <div class="row product-content">
+        <div class="product-related-item">
+            <img src="" alt="">
+                <h1>...</h1>
+                <p>...<sup>đ</sup></p>
+            </img>
+        </div>
+        <div class="product-related-item">
+            <img src="" alt="">
+                <h1>...</h1>
+                <p>...<sup>đ</sup></p>
+            </img>
+        </div>
+        <div class="product-related-item">
+            <img src="" alt="">
+                <h1>...</h1>
+                <p>...<sup>đ</sup></p>
+            </img>
+        </div>
+        <div class="product-related-item">
+            <img src="" alt="">
+                <h1>...</h1>
+                <p>...<sup>đ</sup></p>
+            </img>
+        </div>
+    </div>
+</section>
   
 <!-------------------- footer --------------------->
 <section class="footer">
@@ -99,40 +204,6 @@
         </div>
     </div>
 </section>
-<script>
-let lastScrollTop = 0; // Lưu vị trí cuộn trước đó
-const topSection = document.querySelector('.top');
-
-window.addEventListener('scroll', function() {
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-    if (scrollTop > lastScrollTop) {
-        // Kéo chuột xuống
-        topSection.style.top = "-100px"; // Ẩn phần tử
-    } else {
-        // Kéo chuột lên
-        topSection.style.top = "0"; // Hiện phần tử
-    }
-    lastScrollTop = scrollTop; // Cập nhật vị trí cuộn
-});
-
-// Thêm chức năng cho nút "Thêm vào giỏ hàng"
-const addToCartButtons = document.querySelectorAll('.add-to-cart');
-
-addToCartButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        alert('Sản phẩm đã được thêm vào giỏ hàng!');
-    });
-});
-
-// Menu-Cartegory
-const itemsliderbar = document.querySelectorAll(".cartegory-left-li")
-itemsliderbar.forEach(function(menu,index){
-    menu.addEventListener("click",function(){
-        menu.classList.toggle("block")
-    })
-})
-
-</script>    
+<script src="/js/function.js"></script>
 </body>
 </html>

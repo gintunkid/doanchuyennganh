@@ -64,7 +64,7 @@
 <section class="cartegory">
     <div class="container">
         <div class="cartegory-top row">
-            <p><a href="/home.html" style="color: black;">Trang chủ</a></p> <span>&#10230; </span> <p><a href="">Đồ chơi</a></p> <span>&#10230; </span> <p>Đồ chơi giáo dục</p>
+            <p><a href="/html-cartegory/CARTEGORY.html">Trang chủ</a></p> <span>&#10230; </span> <p><a href="">Đồ chơi</a></p> <span>&#10230; </span> <p>Đồ chơi giáo dục</p>
         </div>
     </div>
     <div class="container">
@@ -226,40 +226,6 @@
         </div>
     </div>
 </section>
-<script>
-let lastScrollTop = 0; // Lưu vị trí cuộn trước đó
-const topSection = document.querySelector('.top');
-
-window.addEventListener('scroll', function() {
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-    if (scrollTop > lastScrollTop) {
-        // Kéo chuột xuống
-        topSection.style.top = "-100px"; // Ẩn phần tử
-    } else {
-        // Kéo chuột lên
-        topSection.style.top = "0"; // Hiện phần tử
-    }
-    lastScrollTop = scrollTop; // Cập nhật vị trí cuộn
-});
-
-// Thêm chức năng cho nút "Thêm vào giỏ hàng"
-const addToCartButtons = document.querySelectorAll('.add-to-cart');
-
-addToCartButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        alert('Sản phẩm đã được thêm vào giỏ hàng!');
-    });
-});
-
-// Menu-Cartegory
-const itemsliderbar = document.querySelectorAll(".cartegory-left-li")
-itemsliderbar.forEach(function(menu,index){
-    menu.addEventListener("click",function(){
-        menu.classList.toggle("block")
-    })
-})
-
-</script>    
+<script src="/js/function.js"></script>   
 </body>
 </html>
