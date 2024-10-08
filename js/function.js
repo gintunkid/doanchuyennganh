@@ -60,3 +60,16 @@ if(butTon){
         document.querySelector(".product-content-right-bottom-content-big").classList.toggle("activeB")
     })
 }
+
+//------------------------- LOGIN-SIGN UP---------------------
+const container = document.getElementById('container')
+const registerBtn = document.getElementById('register')
+const loginBtn = document.getElementById('login')
+
+registerBtn.addEventListener('click',() => {
+    container.classList.add("active")
+})
+
+loginBtn.addEventListener('click', () => {
+    container.classList.remove("active")
+})

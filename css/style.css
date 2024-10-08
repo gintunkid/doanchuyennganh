@@ -793,7 +793,7 @@ a {
 
 .cart-top-wrap {
     display: flex;
-    justify-content: center;
+    justify-content:center;
 }
 
 .cart-top {
@@ -1200,11 +1200,11 @@ a {
     color: #dddddd;
 }
 
-.delivery-top-payment {
+.payment-top-payment {
     border: 1px solid #0DB7EA;
 }
 
-.delivery-top-payment i {
+.payment-top-payment i {
     color: #0DB7EA;
 }
 
