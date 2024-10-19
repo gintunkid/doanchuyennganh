@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mailbox</title>
+    <link rel="stylesheet" href="/css/mail.css">
+</head>
+<body>
+    <div class="mailbox">
+        <div class="mailbox-header">
+            <h1>Inbox</h1>
+        </div>
+        <div class="mail-list" id="mail-list">
+            <div class="mail-item" id="mail-1" onclick="openMail('1')">
+                <h3>Subject: Welcome!</h3>
+                <p>Sender: admin@example.com</p>
+                <span class="preview">Welcome to our service! Click to read more...</span>
+                <button class="delete-button" onclick="deleteMail(event, '1')">Delete</button>
+            </div>
+            <div class="mail-item" id="mail-2" onclick="openMail('2')">
+                <h3>Subject: Meeting Reminder</h3>
+                <p>Sender: hr@example.com</p>
+                <span class="preview">Don't forget about the meeting scheduled for tomorrow...</span>
+                <button class="delete-button" onclick="deleteMail(event, '2')">Delete</button>
+            </div>
+            <div class="mail-item" id="mail-2" onclick="openMail('2')">
+                <h3>Subject: Meeting Reminder</h3>
+                <p>Sender: hr@example.com</p>
+                <span class="preview">Don't forget about the meeting scheduled for tomorrow...</span>
+                <button class="delete-button" onclick="deleteMail(event, '2')">Delete</button>
+            </div>
+            <div class="mail-item" id="mail-2" onclick="openMail('2')">
+                <h3>Subject: Meeting Reminder</h3>
+                <p>Sender: hr@example.com</p>
+                <span class="preview">Don't forget about the meeting scheduled for tomorrow...</span>
+                <button class="delete-button" onclick="deleteMail(event, '2')">Delete</button>
+            </div>
+            <div class="mail-item" id="mail-3" onclick="openMail('3')">
+                <h3>Subject: Newsletter</h3>
+                <p>Sender: news@example.com</p>
+                <span class="preview">Here's your weekly newsletter, packed with updates...</span>
+                <button class="delete-button" onclick="deleteMail(event, '3')">Delete</button>
+            </div>
+        </div>
+        <div class="mail-content">
+            <h2 class="mail-subject">Select a message to read</h2>
+            <p class="mail-body"></p>
+            <button class="reply-button" onclick="showReplyForm()">Reply</button>
+        </div>
+        <div class="reply-form hidden">
+            <h2>Reply to: <span class="reply-to"></span></h2>
+            <textarea class="reply-message" rows="4" placeholder="Write your reply here..."></textarea>
+            <button class="send-button" onclick="sendReply()">Send</button>
+            <button class="cancel-button" onclick="hideReplyForm()">Cancel</button>
+        </div>
+    </div>
+    <script src="/function-js/mail.js"></script>
+</body>
+</html>
