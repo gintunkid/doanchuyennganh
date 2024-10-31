@@ -543,10 +543,8 @@ a {
     background-color: #4cae4c;
 }
 
-
-
 .product {
-    padding: 100%;
+    padding: 100px;
     border-bottom: 1px solid #dddddd;
 }
 
