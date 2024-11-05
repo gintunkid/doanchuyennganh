@@ -10,13 +10,13 @@
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script> 
-<script type="module" src="/js/Product.js"></script>
+<script type="module" src="../js/Product.js"></script>
 <script type="module">
-    import { viewProductDetail } from '/js/Product.js';
+    import { viewProductDetail } from '../js/Product.js';
     window.viewProductDetail = viewProductDetail;
 </script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-<link rel="stylesheet" href="/css/product-detail.css">
+<link rel="stylesheet" href="../css/product-detail.css">
 </head>
 
 <body>
@@ -24,11 +24,11 @@
         <div class="container">
             <div class="row">
                 <div class="top-logo">
-                    <a href="/home.html"><img src="/img/Screenshot_2024-09-28_162555-removebg-preview.png" alt=""></a>
+                    <a href="../home.html"><img src="../img/Screenshot_2024-09-28_162555-removebg-preview.png" alt=""></a>
                 </div>
                 <div class="top-menu-items">
                     <ul>
-                        <li><a href="/home.html">Home</a></li>
+                        <li><a href="../home.html">Home</a></li>
                         <li>
                             Giáo khoa tham khảo
                             <ul class="top-menu-item">
@@ -115,11 +115,11 @@
     </div>
 
     <!-- Firebase -->
-    <script type="module" src="/js/firebase-config.js"></script>
+    <script type="module" src="../js/firebase-config.js"></script>
 
-    <script type="module" src="/js/product-detail.js"></script>
+    <script type="module" src="../js/product-detail.js"></script>
     <script type="module">
-        import { loadProductDetail, increaseQuantity, decreaseQuantity, buyNow, addToCart } from '/js/product-detail.js';
+        import { loadProductDetail, increaseQuantity, decreaseQuantity, buyNow, addToCart } from '../js/product-detail.js';
     
         document.addEventListener('DOMContentLoaded', () => {
             loadProductDetail();

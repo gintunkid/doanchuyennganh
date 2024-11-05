@@ -73,5 +73,5 @@ async function displayProducts() {
 
 // Thêm hàm để xử lý việc chuyển trang
 function viewProductDetail(productId) {
-    window.location.href = `/html-cartegory/product-detail.html?id=${productId}`;
+    window.location.href = `../html-cartegory/product-detail.html?id=${productId}`;
 }
