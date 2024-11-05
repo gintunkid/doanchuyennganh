@@ -7,6 +7,15 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/home.html">
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script type="module" src="/js/firebase-config.js"></script>
+    <script type="module" src="/js/cart.js"></script>
+    <script type="module">
+        import { displayCart, updateQuantity, removeItem } from '/js/cart.js';
+        window.updateQuantity = updateQuantity;
+        window.removeItem = removeItem;
+    </script>
 </head>
 <body>
     <section class="top">
@@ -105,15 +114,15 @@
                     </tr>
                     <tr>
                         <td>TỔNG SẢM PHẨM</td>
-                        <td>2</td>
+                        <td id="total-quantity">0</td> <!-- ID để cập nhật số lượng sản phẩm -->
                     </tr>
                     <tr>
                         <td>TỔNG TIỀN HÀNG</td>
-                        <td><p>...<sub>đ</sub></p></td>
+                        <td id="total-price">0<sub>đ</sub></td> <!-- ID để cập nhật tổng tiền -->
                     </tr>
                     <tr>
                         <td>TẠM TÍNH</td>
-                        <td><p style="color: black;font-weight: bold;">...<sub>đ</sub></p></td>
+                        <td id="subtotal-price" style="color: black;font-weight: bold;">0<sub>đ</sub></td> <!-- ID để cập nhật tạm tính -->
                     </tr>
                 </table>
                 <div class="cart-content-right-text">
@@ -121,7 +130,7 @@
                     <p style="color: black; font-weight: bold;">Mua thêm <span style="font-size: 18px;">131.000đ</span>để được miễn phí ship</p>
                 </div>
                 <div class="cart-content-right-button">
-                    <button>TIẾP TỤC MUA SẢN PHẨM</button>
+                    <button onclick="window.location.href='/html-cartegory/CARTEGORY.html'">TIẾP TỤC MUA SẢN PHẨM</button>
                     <button>THANH TOÁN</button>
                 </div>
                 <div class="cart-content-right-dangnhap">
