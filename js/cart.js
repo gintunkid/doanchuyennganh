@@ -16,24 +16,40 @@ function saveCart(cart) {
 async function displayCart() {
     try {
         const cart = getCart();
+        console.log('Cart data:', cart); // Debug: kiểm tra dữ liệu giỏ hàng
+
         const cartContent = document.querySelector('.cart-content-left table tbody');
         const totalQuantityElement = document.getElementById('total-quantity');
         const totalPriceElement = document.getElementById('total-price');
         const subtotalPriceElement = document.getElementById('subtotal-price');
 
-        if (!cartContent) return;
-        cartContent.innerHTML = '';
+        if (!cartContent) {
+            console.error('Cart content element not found');
+            return;
+        }
 
+        cartContent.innerHTML = '';
         let total = 0;
         let totalItems = 0;
 
         for (const item of cart) {
             try {
-                const docRef = db.collection("product").doc("sach").collection("comic").doc(item.id);
-                const doc = await docRef.get();
-                
-                if (doc.exists) {
-                    const product = doc.data();
+                // Kiểm tra collection của sản phẩm
+                const collections = ["comic", "sachngoaingu", "tamlikinangsong"];
+                let productDoc = null;
+
+                // Tìm kiếm sản phẩm trong tất cả các collection
+                for (const collection of collections) {
+                    const docRef = db.collection("product").doc("sach").collection(collection).doc(item.id);
+                    const doc = await docRef.get();
+                    if (doc.exists) {
+                        productDoc = doc;
+                        break;
+                    }
+                }
+
+                if (productDoc && productDoc.exists) {
+                    const product = productDoc.data();
                     const subtotal = product.price * item.quantity;
                     total += subtotal;
                     totalItems += item.quantity;
@@ -44,9 +60,10 @@ async function displayCart() {
                             <td><p>${product.name}</p></td>
                             <td>
                                 <div class="quantity-controls">
-
+                                    <button onclick="decreaseQuantity('${item.id}')">-</button>
                                     <input type="number" value="${item.quantity}" min="1" 
                                            onchange="updateQuantity('${item.id}', this.value)">
+                                    <button onclick="increaseQuantity('${item.id}')">+</button>
                                 </div>
                             </td>
                             <td><p>${subtotal.toLocaleString('vi-VN')}đ</p></td>
@@ -54,6 +71,8 @@ async function displayCart() {
                         </tr>
                     `;
                     cartContent.innerHTML += row;
+                } else {
+                    console.error('Product not found:', item.id);
                 }
             } catch (error) {
                 console.error("Error loading product:", error);
@@ -61,9 +80,9 @@ async function displayCart() {
         }
 
         // Cập nhật tổng tiền và số lượng
-        totalPriceElement.textContent = `${total.toLocaleString('vi-VN')}đ`;
-        totalQuantityElement.textContent = totalItems.toString();
-        subtotalPriceElement.textContent = `${total.toLocaleString('vi-VN')}đ`;
+        if (totalQuantityElement) totalQuantityElement.textContent = totalItems.toString();
+        if (totalPriceElement) totalPriceElement.textContent = `${total.toLocaleString('vi-VN')}đ`;
+        if (subtotalPriceElement) subtotalPriceElement.textContent = `${total.toLocaleString('vi-VN')}đ`;
 
         // Hiển thị/ẩn thông báo giỏ hàng trống
         const emptyCartMessage = document.querySelector('.empty-cart-message');
@@ -154,3 +173,4 @@ window.decreaseQuantity = decreaseQuantity;
 window.removeItem = removeItem;
 window.clearCart = clearCart;
 window.proceedToCheckout = proceedToCheckout;
+export { displayCart, updateQuantity, increaseQuantity, decreaseQuantity, removeItem, clearCart };

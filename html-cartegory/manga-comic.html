@@ -26,6 +26,14 @@
         window.viewProductDetail = viewProductDetail; // Make it globally accessible
         window.onload = displayProducts;
     </script>
+    <script type="module">
+        import { displayProducts } from '../js/Product.js';
+        
+        // Khi trang load sẽ hiển thị sản phẩm comic
+        document.addEventListener('DOMContentLoaded', () => {
+            displayProducts('comic');
+        });
+    </script>
 </head>
 <body>
     <section class="top">

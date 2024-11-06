@@ -10,7 +10,14 @@ let currentProduct = null;
 // Hiển thị chi tiết sản phẩm
 async function loadProductDetail() {
     try {
-        const doc = await db.collection("product").doc("sach").collection("comic").doc(productId).get();
+        const collections = ["comic", "sachngoaingu", "tamlikinangsong"]; // Thêm tất cả các collection bạn muốn tìm kiếm
+        const queries = collections.map(collection => 
+            db.collection("product").doc("sach").collection(collection).doc(productId).get()
+        );
+
+        const results = await Promise.all(queries);
+        
+        const doc = results.find(result => result.exists);
         
         if (doc.exists) {
             currentProduct = doc.data();
