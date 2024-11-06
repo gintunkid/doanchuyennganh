@@ -4,18 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>mesach-bookhaven</title>
-    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js"></script>
 </head>
 <body>
     <div class="container" id="container">
+        <!-- Registration Form -->
         <div class="form-container sign-up">
             <form>
                 <h1>Tạo tài khoản</h1>
                 <div class="social-icons">
-                    <a href="#" class="icon">
-                        <i class="fa-brands fa-google-plus-g"></i>
-                    </a>
                     <a href="#" class="icon">
                         <i class="fa-brands fa-facebook-f"></i>
                     </a>
@@ -26,20 +27,18 @@
                         <i class="fa-brands fa-linkedin-in"></i>
                     </a>
                 </div>
-                <span>hoặc sử dụng email của bạn để đăng ký</span>
-                <input type="text" placeholder="Tên">
-                <input type="email" placeholder="Email">
-                <input type="password" placeholder="Mật khẩu">
-                <button>Đăng ký</button>
+                <span>hoặc sử dụng thông tin cá nhân để đăng nhập</span>
+                <input type="email" id="register-email" placeholder="Email">
+                <input type="password" id="register-password" placeholder="Mật khẩu">
+                <button id="register">Đăng ký</button>
             </form>
         </div>
+
+        <!-- Login Form -->
         <div class="form-container sign-in">
             <form>
                 <h1>Đăng nhập</h1>
                 <div class="social-icons">
-                    <a href="#" class="icon">
-                        <i class="fa-brands fa-google-plus-g"></i>
-                    </a>
                     <a href="#" class="icon">
                         <i class="fa-brands fa-facebook-f"></i>
                     </a>
@@ -51,28 +50,133 @@
                     </a>
                 </div>
                 <span>hoặc sử dụng mật khẩu email của bạn</span>
-                <input type="email" placeholder="Email">
-                <input type="password" placeholder="Mật khẩu">
+                <input type="email" id="login-email" placeholder="Email">
+                <input type="password" id="login-password" placeholder="Mật khẩu">                
                 <a href="/login-admin/forgotpassword.html">Quên mật khẩu ?</a>
-                <button>Đăng nhập</button>
-                <a href=""><span>&#171;</span><p>Quay lại Trang chủ</p></a>
+                <button id="login">Đăng nhập</button>
+                <a href="../home.html"><span>&#171;</span><p>Quay lại Trang chủ</p></a>
             </form>
         </div>
+
         <div class="toggle-container">
             <div class="toggle">
                 <div class="toggle-panel toggle-left">
                     <h1>Chào mừng trở lại !</h1>
                     <p>Nhập thông tin cá nhân của bạn để sử dụng tất cả các tính năng của trang web</p>
-                    <button class="hidden" id="login">Đăng nhập</button>
+                    <button class="hidden" id="login-change">Đăng nhập</button>
                 </div>
                 <div class="toggle-panel toggle-right">
                     <h1>Xin chào, bạn !</h1>
                     <p>Đăng ký với thông tin cá nhân của bạn để sử dụng tất cả các tính năng của trang web</p>
-                    <button class="hidden" id="register">Đăng ký</button>
+                    <button class="hidden" id="register-change">Đăng ký</button>
                 </div>
             </div>
         </div>
     </div>
- <script src="/js/function.js"></script>   
+
+    <script src="../js/function.js"></script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, fetchSignInMethodsForEmail } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js";
+
+        // Firebase initialization
+        const app = initializeApp({
+            apiKey: "AIzaSyBzjS1Zf-rh1txM7KtoiGm5LkdDaWzTh-U",
+            authDomain: "store-music-fae02.firebaseapp.com",
+            databaseURL: "https://store-music-fae02-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "store-music-fae02",
+            storageBucket: "store-music-fae02.appspot.com",
+            messagingSenderId: "35440000355",
+            appId: "1:35440000355:web:8a266ed1a96e7c2f812756",
+            measurementId: "G-4MEMTBYYMT"
+        });
+
+        const auth = getAuth(app); // Firebase Authentication
+
+        // Login function
+        async function loginUser() {
+            const email = document.querySelector('#login-email').value;
+            const password = document.querySelector('#login-password').value;
+
+            if (!email || !password) {
+                alert("Vui lòng nhập email và mật khẩu.");
+                return;
+            }
+
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+                alert("Đăng nhập thành công!");
+                console.log("Thông tin người dùng:", user);
+                window.location.href = "../home.html"; // Redirect to home page
+            } catch (error) {
+                console.error("Lỗi khi đăng nhập:", error);
+                alert("Tên đăng nhập hoặc mật khẩu không chính xác.");
+            }
+        }
+
+        // Check if email exists
+        async function isEmailExist(email) {
+            try {
+                const signInMethods = await fetchSignInMethodsForEmail(auth, email);
+                return signInMethods.length > 0; // If methods exist, email is registered
+            } catch (error) {
+                console.error("Lỗi khi kiểm tra email:", error);
+                return false;
+            }
+        }
+
+        // Register function
+        async function registerUser() {
+            const email = document.querySelector('#register-email').value;
+            const password = document.querySelector('#register-password').value;
+
+            if (!email || !password) {
+                alert("Vui lòng nhập email và mật khẩu.");
+                return;
+            }
+
+            // Check if email already exists
+            const emailExists = await isEmailExist(email);
+            if (emailExists) {
+                alert("Email này đã được sử dụng. Vui lòng chọn email khác.");
+                return;
+            }
+
+            try {
+                // Create new user with email and password
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+                alert("Đăng ký thành công!");
+                console.log("Thông tin người dùng:", user);
+                // Optionally redirect to login page or home page
+                window.location.href = "../home.html"; 
+            } catch (error) {
+                console.error("Lỗi khi đăng ký:", error);
+                alert("Không thể đăng ký. Vui lòng thử lại.");
+            }
+        }
+
+        // Event listener for Register button
+        document.addEventListener('DOMContentLoaded', () => {
+            const registerButton = document.getElementById('register');
+            if (registerButton) {
+                registerButton.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    registerUser();
+                });
+            }
+
+            // Event listener for Login button
+            const loginButton = document.getElementById('login');
+            if (loginButton) {
+                loginButton.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    loginUser();
+                });
+            }
+        });
+    </script>
 </body>
 </html>
