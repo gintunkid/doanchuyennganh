@@ -12,6 +12,10 @@
     <script src="product-detail.html"></script>
     <!-- Your Scripts -->
     <script type="module" src="../js/firebase-config.js"></script>
+    <script type="module">
+        import { displayCart } from '/js/cart.js';
+        // Sử dụng displayCart ở đây
+    </script>
    
     <script type="module">
         import { addProducts, displayProducts } from '../js/Product.js';
@@ -31,8 +35,8 @@
         
         // Khi trang load sẽ hiển thị sản phẩm comic
         document.addEventListener('DOMContentLoaded', () => {
-            displayProducts('comic');
-        });
+        displayProducts('sach', 'comic');
+    });
     </script>
 </head>
 <body>
@@ -114,8 +118,8 @@
                     </li>
                     <li class="cartegory-left-li"><a href="#">Đồ chơi</a>
                         <ul>
-                            <li><a href="html-cartegory/dochoigiaoduc.html">Đồ chơi giáo dục</a></li>
-                            <li><a href="html-cartegory/mohinhcacloai.html">Mô hình các loại</a></li>
+                            <li><a href="/html-cartegory/dochoigiaoduc.html">Đồ chơi giáo dục</a></li>
+                            <li><a href="/html-cartegory/mohinhcacloai.html">Mô hình các loại</a></li>
                         </ul>
                     </li>
                 </ul>

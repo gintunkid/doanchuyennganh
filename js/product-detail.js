@@ -1,8 +1,10 @@
 import { db } from './firebase-config.js';
 
-// Lấy ID sản phẩm từ URL
+// Lấy ID sản phẩm, category và subCategory từ URL
 const urlParams = new URLSearchParams(window.location.search);
 const productId = urlParams.get('id');
+const category = urlParams.get('category');
+const subCategory = urlParams.get('subCategory');
 
 // Biến lưu trữ thông tin sản phẩm hiện tại
 let currentProduct = null;
@@ -10,14 +12,8 @@ let currentProduct = null;
 // Hiển thị chi tiết sản phẩm
 async function loadProductDetail() {
     try {
-        const collections = ["comic", "sachngoaingu", "tamlikinangsong"]; // Thêm tất cả các collection bạn muốn tìm kiếm
-        const queries = collections.map(collection => 
-            db.collection("product").doc("sach").collection(collection).doc(productId).get()
-        );
-
-        const results = await Promise.all(queries);
-        
-        const doc = results.find(result => result.exists);
+        const docRef = db.collection("product").doc(category).collection(subCategory).doc(productId);
+        const doc = await docRef.get();
         
         if (doc.exists) {
             currentProduct = doc.data();
