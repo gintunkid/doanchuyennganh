@@ -987,6 +987,23 @@ a {
 }
 
 /*------------------------- DELIVERY ------------------------*/
+.map {
+    padding:25px 0 25px;
+    
+}
+
+.back-to-delivery {
+    text-align: center;
+    padding: 2px 0 12px;
+}
+
+.select {
+    width: 100%;
+    height: 35px;
+    font-family: var(--main-text-font);
+    border: 1px solid #dddddd;
+}
+
 .delivery {
     padding: 100px 0;
 }
@@ -1093,7 +1110,7 @@ a {
 
 .delivery-content-left-input-bottom input {
     height: 35px;
-    width: 100%;
+    width: 194%;
     border: 1px solid #dddddd;
     padding-left: 6px;
 }
@@ -1112,16 +1129,14 @@ a {
     height: 35px;
     border: 1px solid #dddddd;
     padding-left: 6px;
+    display: block;
 }
 
 .delivery-content-left-button p {
     display: inline-block;
     font-family: var(--main-text-font);
-    font-size: 12px;
-}
-
-.delivery-content-left-button span {
-    margin-right: 12px;
+    font-size: 11.5px;
+    align-items: center;
 }
 
 .delivery-content-left-button {

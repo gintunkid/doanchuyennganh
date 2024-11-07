@@ -10,9 +10,9 @@ const firebaseConfig = {
   appId: "1:35440000355:web:8a266ed1a96e7c2f812756",
   measurementId: "G-4MEMTBYYMT"
 };
+
 firebase.initializeApp(firebaseConfig);
 
 // Lấy reference đến Firestore
 const db = firebase.firestore();
-
 export { db };
