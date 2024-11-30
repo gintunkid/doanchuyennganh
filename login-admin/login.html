@@ -9,6 +9,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js"></script>
+    <script src="../js/checklogin.js"></script>
 </head>
 <body>
     <div class="container" id="container">
@@ -94,28 +95,35 @@
 
         const auth = getAuth(app); // Firebase Authentication
 
-        // Đăng nhập
         async function loginUser(event) {
             event.preventDefault();
             const email = document.querySelector('#login-email').value;
             const password = document.querySelector('#login-password').value;
-
+        
             if (!email || !password) {
                 alert("Vui lòng nhập email và mật khẩu.");
                 return;
             }
-
+        
             try {
                 const userCredential = await signInWithEmailAndPassword(auth, email, password);
                 const user = userCredential.user;
+                
+                // Lưu trạng thái đăng nhập
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('userEmail', user.email); // Lưu email người dùng nếu cần
+                
                 alert("Đăng nhập thành công!");
                 console.log("Thông tin người dùng:", user);
-                window.location.href = "../home.html"; // Chuyển hướng đến trang chủ
+                
+                // Chuyển hướng đến trang chủ
+                window.location.href = "../home.html";
             } catch (error) {
                 console.error("Lỗi khi đăng nhập:", error);
                 alert("Tên đăng nhập hoặc mật khẩu không chính xác.");
             }
         }
+        
 
         // Kiểm tra email đã đăng ký
         async function isEmailExist(email) {
@@ -127,50 +135,54 @@
                 return false;
             }
         }
+        
+        function handleLogin() {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            checkLogin(email, password);
+        }
 
         // Đăng ký
-async function registerUser(event) {
-    event.preventDefault();
-    const email = document.querySelector('#register-email').value;
-    const password = document.querySelector('#register-password').value;
+    async function registerUser(event) {
+        event.preventDefault();
+        const email = document.querySelector('#register-email').value;
+        const password = document.querySelector('#register-password').value;
 
-    if (!email || !password) {
-        alert("Vui lòng nhập email và mật khẩu.");
-        return;
+        if (!email || !password) {
+            alert("Vui lòng nhập email và mật khẩu.");
+            return;
+        }
+
+        // Kiểm tra độ dài mật khẩu
+        if (password.length < 6) {
+            alert("Mật khẩu phải có ít nhất 6 ký tự.");
+            return;
+        }
+
+        // Kiểm tra email đã tồn tại
+        const emailExists = await isEmailExist(email);
+        if (emailExists) {
+            alert("Email này đã được sử dụng. Vui lòng chọn email khác.");
+            return;
+        }
+
+        try {
+            // Tạo tài khoản mới với email và mật khẩu
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+            alert("Đăng ký thành công!");
+            console.log("Thông tin người dùng:", user);
+            window.location.reload();
+        } catch (error) {
+            console.error("Lỗi khi đăng ký:", error);
+            alert("Vui lòng kiểm tra lại email hoặc mật khẩu");
+        }
     }
+            // Lắng nghe sự kiện form đăng ký
+            document.getElementById('register-form').addEventListener('submit', registerUser);
 
-    // Kiểm tra độ dài mật khẩu
-    if (password.length < 6) {
-        alert("Mật khẩu phải có ít nhất 6 ký tự.");
-        return;
-    }
-
-    // Kiểm tra email đã tồn tại
-    const emailExists = await isEmailExist(email);
-    if (emailExists) {
-        alert("Email này đã được sử dụng. Vui lòng chọn email khác.");
-        return;
-    }
-
-    try {
-        // Tạo tài khoản mới với email và mật khẩu
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        const user = userCredential.user;
-        alert("Đăng ký thành công!");
-        console.log("Thông tin người dùng:", user);
-        window.location.reload();
-    } catch (error) {
-        console.error("Lỗi khi đăng ký:", error);
-        alert("Vui lòng kiểm tra lại email hoặc mật khẩu");
-    }
-}
-
-
-        // Lắng nghe sự kiện form đăng ký
-        document.getElementById('register-form').addEventListener('submit', registerUser);
-
-        // Lắng nghe sự kiện form đăng nhập
-        document.getElementById('login-form').addEventListener('submit', loginUser);
+            // Lắng nghe sự kiện form đăng nhập
+            document.getElementById('login-form').addEventListener('submit', loginUser);
     </script>
 </body>
 </html>
