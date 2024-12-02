@@ -1352,3 +1352,36 @@ a {
 .success > p {
     margin: 30px 0;
 }
+/* Quảng cáo bên trái */
+.ads-left {
+    position: absolute; /* Cố định vị trí khi cuộn trang */
+    left: 0;
+    top: 100px;
+    width: 200px; /* Độ rộng của quảng cáo */
+    height: auto; /* Chiều cao đầy đủ của màn hình */
+    z-index: 10; /* Hiển thị trên nội dung chính */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Đảm bảo không hiển thị phần ảnh thừa */
+    
+}
+
+/* Quảng cáo bên phải */
+.ads-right {
+    position: absolute;
+    right: 0;
+    top: 0;
+    top: 100px;
+    width: 200px; 
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ads-left img, 
+.ads-right img {
+    width: 100%; /* Đặt chiều rộng ảnh bằng với container */
+    height: auto; /* Tự động giữ tỉ lệ */
+    object-fit: contain; /* Đảm bảo không bị méo hoặc phóng to */
+}

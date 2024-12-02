@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="/js/Product.js"></script>   
     <style>
         .formContainer {
             padding: 20px;
@@ -83,6 +84,22 @@
                 max-width: 100%;
             }
         }
+
+        .product-display {
+            margin-top: 30px;
+        }
+
+        .cartegory-right-content-item {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        .cartegory-right-content-item img {
+            max-width: 100%;
+            height: auto;
+        }
     </style>
 </head>
 
@@ -95,10 +112,10 @@
                     <span class="icon">
                         <ion-icon name="finger-print-outline"></ion-icon>
                     </span>
-                    <span class="title">FlySky.com</span>
+                    <span class="title">BookHeaven Admin</span>
                 </a>
             </li>
-             <li>
+            <li>
                 <a href="../admin_main.html">
                     <span class="icon">
                         <ion-icon name="home-outline"></ion-icon>
@@ -114,7 +131,7 @@
                     <span class="title">Khách hàng</span>
                 </a>
             </li>
-            <li>
+            <li 
                 <a href="admin_selecttoadd.html">
                     <span class="icon">
                         <ion-icon name="chatbubble-outline"></ion-icon>
@@ -154,7 +171,6 @@
                     <span class="title">Đăng xuất</span>
                 </a>
             </li>
-            <!-- Add other navigation items here -->
         </ul>
     </div>
     
@@ -176,9 +192,7 @@
             </div>
         </div>
 
-        <!-- Forms for submitting data to different Firestore collections -->
         <div class="formGroup">
-            <!-- Form 1: Products Collection -->
             <div class="formContainer">
                 <h2>Thêm Truyện Comic </h2>
                 <form id="dataForm1">
@@ -193,7 +207,6 @@
                 </form>
             </div>
 
-            <!-- Form 2: Orders Collection -->
             <div class="formContainer">
                 <h2>Thêm Sách Ngoại Ngữ</h2>
                 <form id="dataForm2">
@@ -208,7 +221,6 @@
                 </form>
             </div>
 
-            <!-- Form 3: Customers Collection -->
             <div class="formContainer">
                 <h2>Thêm Sách Kĩ Năng Sống </h2>
                 <form id="dataForm3">
@@ -218,10 +230,39 @@
                     <input type="file" id="image3" accept="image/*" required><br>
                     <input type="number" id="price3" placeholder="Giá" required><br>
                     <input type="number" id="rate3" placeholder="Đánh giá" required><br>
-                    <input type="number" id="sold3" placeholder="Đã bán" required><br>
+                    <input type="number" id="sold3" placeholder=" Đã bán" required><br>
                     <button type="submit">Gửi</button>
                 </form>
             </div>
+        </div>
+
+        <div class="product-display">
+            <h2>Sản phẩm đã thêm</h2>
+            <div class="cartegory-right-content"></div>
+
+            <script type="module">
+                import { addProducts, displayProducts } from '/js/Product.js';
+                
+                window.onload = async function() { 
+                    // await addProducts(); // Uncomment để thêm sản phẩm mới
+                    await displayProducts();
+                };
+            </script>
+            <script type="module">
+                import { displayProducts, viewProductDetail } from '/js/Product.js';
+                window.viewProductDetail = viewProductDetail; // Make it globally accessible
+                window.onload = displayProducts;
+            </script>
+            <script type="module">
+                import { displayProducts } from '/js/Product.js';
+        
+                
+                // Khi trang load sẽ hiển thị sản phẩm comic
+                document.addEventListener('DOMContentLoaded', () => {
+                displayProducts('sach', 'tamlikinangsong');
+            });
+             
+            </script>
         </div>
     </div>
 </div>
@@ -273,6 +314,9 @@
                 rate,
                 sold
             });
+
+            // Gọi hàm để hiển thị sản phẩm
+            displayProducts('sach', 'comic');
         }
     });
 
@@ -302,9 +346,11 @@
                 rate,
                 sold
             });
+
+            // Gọi hàm để hiển thị sản phẩm
+            displayProducts('sach', 'snn');
         }
     });
-    
 
     // Handle form 3 submission (Customers Collection)
     document.getElementById('dataForm3').addEventListener('submit', async (e) => {
@@ -312,7 +358,7 @@
 
         const documentId = document.getElementById('documentId3').value;
         const name = document.getElementById('name3').value;
-        const description = document.getElementById('description3').value;
+        const description = document.getElementById('description 3').value;
         const imageFile = document.getElementById('image3').files[0];
         const price = document.getElementById('price3').value;
         const rate = document.getElementById('rate3').value;
@@ -332,9 +378,15 @@
                 rate,
                 sold
             });
+
+            // Gọi hàm để hiển thị sản phẩm
+            displayProducts('sach', 'tlkn');
         }
     });
+    
+    
 </script>
 <script src="/js/admin.js"></script>   
+<script type="module" src="/js/firebase-config.js"></script>
 </body>
 </html>
