@@ -18,10 +18,11 @@
     <!-- Your Scripts -->
     <script type="module" src="../js/firebase-config.js"></script>
 
+   
     <script type="module">
         import { addProducts, displayProducts } from '../js/Product.js';
-
-        window.onload = async function () {
+        
+        window.onload = async function() { 
             // await addProducts(); // Uncomment để thêm sản phẩm mới
             await displayProducts();
         };
@@ -34,10 +35,12 @@
     <script type="module">
         import { displayProducts } from '../js/Product.js';
 
-        // Khi trang load sẽ hiển thị sản phẩm novel
+        
+        // Khi trang load sẽ hiển thị sản phẩm comic
         document.addEventListener('DOMContentLoaded', () => {
-            displayProducts('tamlikinangsong');
-        });
+        displayProducts('sach', 'tamlikinangsong');
+    });
+     
     </script>
 </head>
 

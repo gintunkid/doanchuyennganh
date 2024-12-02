@@ -75,6 +75,5 @@ registerBtn.addEventListener('click', () => {
 
 // Khi nhấn vào nút Đăng nhập, chuyển form sang trang Đăng nhập
 loginBtn.addEventListener('click', () => {
-    container.classList.remove("active"); // Loại bỏ lớp 'active' khỏi container
-});
-
+    container.classList.remove("active")
+})

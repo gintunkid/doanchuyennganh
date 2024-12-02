@@ -23,6 +23,35 @@ body {
     position: relative;
     width: 100%;
 }
+.boxContainer {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.box {
+    width: 30%;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+    color: #0f0f0f;
+}
+
+.box:hover {
+    background-color: #e0e0e0;
+}
+
+.boxContent h2 {
+    margin: 0;
+}
+
+.boxContent p {
+    color: #666;
+}
 
 /*--------------------- ĐIỀU HƯỚNG ---------------------*/
 .navigation {

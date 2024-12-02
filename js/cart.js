@@ -2,7 +2,6 @@
 
 import { db } from './firebase-config.js';
 
-// Khởi tạo giỏ hàng từ localStorage
 function getCart() {
     return JSON.parse(localStorage.getItem('cart')) || [];
 }
@@ -16,7 +15,7 @@ function saveCart(cart) {
 async function displayCart() {
     try {
         const cart = getCart();
-        console.log('Cart data:', cart); // Debug: kiểm tra dữ liệu giỏ hàng
+        console.log('Cart data:', cart);
 
         const cartContent = document.querySelector('.cart-content-left table tbody');
         const totalQuantityElement = document.getElementById('total-quantity');
@@ -32,20 +31,27 @@ async function displayCart() {
         let total = 0;
         let totalItems = 0;
 
+        const collections = {
+            sach: ["comic", "sachngoaingu", "tamlikinangsong"],
+            dochoi: ["giaoduc", "mohinh"],
+            vpp:["dungcuvanphong"]
+        };
+
         for (const item of cart) {
             try {
-                // Kiểm tra collection của sản phẩm
-                const collections = ["comic", "sachngoaingu", "tamlikinangsong"];
                 let productDoc = null;
 
                 // Tìm kiếm sản phẩm trong tất cả các collection
-                for (const collection of collections) {
-                    const docRef = db.collection("product").doc("sach").collection(collection).doc(item.id);
-                    const doc = await docRef.get();
-                    if (doc.exists) {
-                        productDoc = doc;
-                        break;
+                for (const [mainCategory, subCollections] of Object.entries(collections)) {
+                    for (const subCollection of subCollections) {
+                        const docRef = db.collection("product").doc(mainCategory).collection(subCollection).doc(item.id);
+                        const doc = await docRef.get();
+                        if (doc.exists) {
+                            productDoc = doc;
+                            break;
+                        }
                     }
+                    if (productDoc) break;
                 }
 
                 if (productDoc && productDoc.exists) {
@@ -54,23 +60,21 @@ async function displayCart() {
                     total += subtotal;
                     totalItems += item.quantity;
 
-                    const row = `
-                        <tr>
-                            <td><img src="${product.imageURL}" alt="${product.name}"></td>
-                            <td><p>${product.name}</p></td>
-                            <td>
-                                <div class="quantity-controls">
-                                    <button onclick="decreaseQuantity('${item.id}')">-</button>
-                                    <input type="number" value="${item.quantity}" min="1" 
-                                           onchange="updateQuantity('${item.id}', this.value)">
-                                    <button onclick="increaseQuantity('${item.id}')">+</button>
-                                </div>
-                            </td>
-                            <td><p>${subtotal.toLocaleString('vi-VN')}đ</p></td>
-                            <td><button onclick="removeItem('${item.id}')" class="remove-btn">Xóa</button></td>
-                        </tr>
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td><img src="${product.imageURL}" alt="${product.name}"></td>
+                        <td><p>${product.name}</p></td>
+                        <td>
+                            <div class="quantity-controls">
+                                <button onclick="decreaseQuantity('${item.id}')">-</button>
+                                <input type="number" value="${item.quantity}" min="1" onchange="updateQuantity('${item.id}', this.value)">
+                                <button onclick="increaseQuantity('${item.id}')">+</button>
+                            </div>
+                        </td>
+                        <td><p>${product.price.toLocaleString('vi-VN')}đ</p></td>
+                        <td><span class="cart-delete" onclick="removeItem('${item.id}')">Xóa</span></td>
                     `;
-                    cartContent.innerHTML += row;
+                    cartContent.appendChild(row);
                 } else {
                     console.error('Product not found:', item.id);
                 }
@@ -94,7 +98,6 @@ async function displayCart() {
         console.error("Error displaying cart:", error);
     }
 }
-
 // Cập nhật số lượng sản phẩm
 function updateQuantity(productId, newQuantity) {
     let cart = getCart();
@@ -173,4 +176,5 @@ window.decreaseQuantity = decreaseQuantity;
 window.removeItem = removeItem;
 window.clearCart = clearCart;
 window.proceedToCheckout = proceedToCheckout;
+
 export { displayCart, updateQuantity, increaseQuantity, decreaseQuantity, removeItem, clearCart };
