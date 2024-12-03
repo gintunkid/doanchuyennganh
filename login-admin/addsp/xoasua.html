@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>admin</title>
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+<div class="container">
+    <div class="navigation">
+        <ul>
+            <li>
+                <a href="">
+                    <span class="icon">
+                        <ion-icon name="finger-print-outline"></ion-icon>
+                    </span>
+                    <span class="title">FlySky.com</span>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <span class="icon">
+                        <ion-icon name="home-outline"></ion-icon>
+                    </span>
+                    <span class="title">Tổng quan</span>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <span class="icon">
+                        <ion-icon name="people-outline"></ion-icon>
+                    </span>
+                    <span class="title">Khách hàng</span>
+                </a>
+            </li>
+            <li>
+                <a href="addsp/admin_selecttoadd.html">
+                    <span class="icon">
+                        <ion-icon name="chatbubble-outline"></ion-icon>
+                    </span>
+                    <span class="title">Sản Phẩm</span>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <span class="icon">
+                        <ion-icon name="help-outline"></ion-icon>
+                    </span>
+                    <span class="title">Thắc mắc</span>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <span class="icon">
+                        <ion-icon name="settings-outline"></ion-icon>
+                    </span>
+                    <span class="title">Cài đặt</span>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <span class="icon">
+                        <ion-icon name="lock-closed-outline"></ion-icon>
+                    </span>
+                    <span class="title">Mật khẩu</span>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <span class="icon">
+                        <ion-icon name="log-out-outline"></ion-icon>
+                    </span>
+                    <span class="title">Đăng xuất</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!---------------------- MAIN ------------------->
+    <div class="main">
+        <div class="topbar">
+            <div class="search">
+                <label>
+                    <input type="text" placeholder="Tìm kiếm tại đây">
+                    <ion-icon name="search-outline"></ion-icon>
+                </label>
+            </div>
+
+            <div class="user">
+                <img src="/img/1216678.jpg" alt="">
+            </div>
+        </div>
+        <div class="details">
+            <form id="productForm">
+                <h2>Chỉnh sửa sản phẩm</h2>
+                <div id="product-detail-container">
+                    <input type="hidden" id="productId" name="productId">
+                    <input type="hidden" id="collectionPath" name="collectionPath"> <!-- Đường dẫn collection -->
+                    <label for="name">Tên sản phẩm:</label>
+                    <input type="text" id="name" name="name" required>
+                    
+                    <label for="description">Mô tả:</label>
+                    <textarea id="description" name="description" required></textarea>
+                    
+                    <label for="price">Giá:</label>
+                    <input type="number" id="price" name="price" required>
+                    
+                    <label for="imageURL">URL Hình ảnh:</label>
+                    <input type="text" id="imageURL" name="imageURL" required>
+    
+                    <button type="submit">Cập nhật sản phẩm</button>
+                    <button type="button" id="deleteButton">Xóa sản phẩm</button>
+                </div>
+            </form>
+        </div>
+</div>
+<script type="module" src="/js admin/xoasua.js"></script>   
+</body>
+</html>
