@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     userMenu.innerHTML = `
                         <ul>
                             <li><a href="/orders.html"><i class="fas fa-receipt"></i> Đơn hàng của tôi</a></li>
-                            <li><a href="/recently-viewed.html"><i class="fas fa-eye"></i> Thông tin cá nhân</a></li>
+                            <li><a href="/html-information/information.html"><i class="fas fa-eye"></i> Thông tin cá nhân</a></li>
                             <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
                         </ul>
                     `;
@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         }
                     });
                 }
-
+                
                 // Hiển thị menu (ẩn nếu đang hiển thị)
                 userMenu.style.display = userMenu.style.display === "block" ? "none" : "block";
 
@@ -74,6 +74,5 @@ document.addEventListener("DOMContentLoaded", () => {
             if (userMenu) userMenu.remove();
         }
     }
-
     updateUserInterface();
 });
