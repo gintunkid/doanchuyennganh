@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>user</title>
     <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="/css/table.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
@@ -20,7 +21,7 @@
                 </a>
             </li>
             <li>
-                <a href="">
+                <a href="admin_main.html">
                     <span class="icon">
                         <ion-icon name="home-outline"></ion-icon>
                     </span>
@@ -40,7 +41,7 @@
                     <span class="icon">
                         <ion-icon name="chatbubble-outline"></ion-icon>
                     </span>
-                    <span class="title">Tin nhắn</span>
+                    <span class="title">Sản phẩm</span>
                 </a>
             </li>
             <li>
@@ -96,126 +97,25 @@
             </div>
         </div>
     <!-------------------- CÁC THẺ -------------------->
-        <div class="cardBox">
-            <a href="" style="text-decoration: none;">
-                <div class="card">
-                    <div>
-                        <div class="numbers">8,902</div>
-                        <div class="cardName">Thông Tin sản phẩm</div>
-                    </div>
-                    <div class="iconBx">
-                        <ion-icon name="desktop-outline"></ion-icon>
-                    </div>
-                </div>
-            </a>
-            <div class="card">
-                <div>
-                    <div class="numbers">80</div>
-                    <div class="cardName">Sản phẩm bán ra</div>
-                </div>
-                <div class="iconBx">
-                    <ion-icon name="cart-outline"></ion-icon>
-                </div>
-            </div>
-            <div class="card">
-                <div>
-                    <div class="numbers">284</div>
-                    <div class="cardName">Đánh giá</div>
-                </div>
-                <div class="iconBx">
-                    <ion-icon name="chatbubbles-outline"></ion-icon>
-                </div>
-            </div>
-            <div class="card">
-                <div>
-                    <div class="numbers">$10,000</div>
-                    <div class="cardName">Doanh thu</div>
-                </div>
-                <div class="iconBx">
-                    <ion-icon name="cash-outline"></ion-icon>
-                </div>
-            </div>
-        </div>
-    <!---------------------- DANH SÁCH CHI TIẾT ĐẶT HÀNG ---------------------->
-        <div class="details">
+        <div class="detail">
             <div class="recentOrders">
                 <div class="cardHeader">
-                    <h2>Đơn đặt hàng gần đây</h2>
-                    <a href="#" class="btn">Xem tất cả</a>
+                    <h2>Danh sách khách hàng</h2>
                 </div>
                 <table>
                     <thead>
                         <tr>
-                            <td>Tên sản phẩm</td>
-                            <td>Giá</td>
-                            <td>Thanh toán</td>
-                            <td>Trang thái</td>
+                            <td>Email</td>
+                            <td>Họ và Tên</td>
+                            <td>Số điện thoại</td>
+                            <td>Địa chỉ</td>
+                            <td>Quận</td>
+                            <td>Tỉnh thành</td>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>...</td>
-                            <td>$1,000</td>
-                            <td>Đã thanh toán</td>
-                            <td><span class="status delivered">Hoàn thành</span></td>
-                        </tr>
-                        <tr>
-                            <td>...</td>
-                            <td>$1,000</td>
-                            <td>Chưa thanh toán</td>
-                            <td><span class="status pending">Đang xử lý</span></td>
-                        </tr>
-                        <tr>
-                            <td>...</td>
-                            <td>$1,000</td>
-                            <td>Đã thanh toán</td>
-                            <td><span class="status return">Hoàn trả</span></td>
-                        </tr>
-                        <tr>
-                            <td>...</td>
-                            <td>$1,000</td>
-                            <td>Đã thanh toán</td>
-                            <td><span class="status pending">Đang xử lý</span></td>
-                        </tr>
+            
                     </tbody>
-                </table>
-            </div>
-    <!------------------------ KHÁCH HÀNG MỚI ------------------------->
-            <div class="recentCustomers">
-                <div class="cardHeader">
-                    <h2>Khách hàng gần đây</h2>
-                </div>
-                <table>
-                    <tr>
-                        <td width="60px">
-                            <div class="imgBx">
-                                <img src="" alt="">
-                            </div>
-                        </td>
-                        <td>
-                            <h4>Kiet <br> <span>Vietnam</span></h4>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="60px">
-                            <div class="imgBx">
-                                <img src="" alt="">
-                            </div>
-                        </td>
-                        <td>
-                            <h4>Kiet <br> <span>Vietnam</span></h4>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="60px">
-                            <div class="imgBx">
-                                <img src="" alt="">
-                            </div>
-                        </td>
-                        <td>
-                            <h4>Kiet <br> <span>Vietnam</span></h4>
-                        </td>
-                    </tr>
                 </table>
             </div>
         </div>
@@ -223,6 +123,63 @@
 </div>
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
- <script src="/js/admin.js"></script>   
+<script src="/js/admin.js"></script>   
+<script type="module">
+    // Cấu hình Firebase của bạn
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyBzjS1Zf-rh1txM7KtoiGm5LkdDaWzTh-U",
+        authDomain: "store-music-fae02.firebaseapp.com",
+        databaseURL: "https://store-music-fae02-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "store-music-fae02",
+        storageBucket: "store-music-fae02.appspot.com",
+        messagingSenderId: "35440000355",
+        appId: "1:35440000355:web:8a266ed1a96e7c2f812756",
+        measurementId: "G-4MEMTBYYMT"
+    };
+
+    // Khởi tạo Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Hàm lấy dữ liệu từ Firestore
+    async function getUserData() {
+        const tableBody = document.querySelector('tbody');
+
+        // Truy vấn tất cả các tài liệu trong collection 'user'
+        const usersRef = collection(db, "user");
+        const snapshot = await getDocs(usersRef);
+
+        tableBody.innerHTML = '';  // Xóa nội dung bảng hiện tại
+
+        // Lặp qua tất cả các tài liệu trong collection 'user'
+        snapshot.forEach((docSnapshot) => {
+            const user = docSnapshot.data(); // Lấy dữ liệu của người dùng
+            const email = docSnapshot.id;    // Lấy tên tài liệu (email)
+
+            // Tạo một dòng mới cho mỗi tài liệu
+            const row = document.createElement('tr');
+
+            // Tạo các ô cho từng trường cụ thể và điền dữ liệu đúng thứ tự
+            const rowContent = `
+                <td>${email}</td>
+                <td>${user.fullName || ''}</td>      <!-- Họ và tên -->
+                <td>${user.phone || ''}</td>         <!-- Số điện thoại -->
+                <td>${user.address || ''}</td>       <!-- Địa chỉ -->
+                <td>${user.district || ''}</td>      <!-- Quận -->
+                <td>${user.province || ''}</td>      <!-- Tỉnh thành -->
+            `;
+            
+            // Đặt nội dung vào dòng và thêm vào bảng
+            row.innerHTML = rowContent;
+            tableBody.appendChild(row);
+        });
+    }
+
+    // Gọi hàm để lấy dữ liệu từ Firestore
+    getUserData();
+</script>
 </body>
 </html>

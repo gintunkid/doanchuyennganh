@@ -1352,3 +1352,181 @@ a {
 .success > p {
     margin: 30px 0;
 }
+/* Quảng cáo bên trái */
+.ads-left {
+    position: absolute; /* Cố định vị trí khi cuộn trang */
+    left: 0;
+    top: 100px;
+    width: 200px; /* Độ rộng của quảng cáo */
+    height: auto; /* Chiều cao đầy đủ của màn hình */
+    z-index: 10; /* Hiển thị trên nội dung chính */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Đảm bảo không hiển thị phần ảnh thừa */
+    
+}
+
+/* Quảng cáo bên phải */
+.ads-right {
+    position: absolute;
+    right: 0;
+    top: 0;
+    top: 100px;
+    width: 200px; 
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ads-left img, 
+.ads-right img {
+    width: 100%; /* Đặt chiều rộng ảnh bằng với container */
+    height: auto; /* Tự động giữ tỉ lệ */
+    object-fit: contain; /* Đảm bảo không bị méo hoặc phóng to */
+}
+/* Thanh nhỏ để mở chat */
+.chat-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+/* Chatbox chính */
+.chatbox {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    height: 400px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    display: none;
+    flex-direction: column;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+/* Header */
+.chatbox-header {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+/* Khu vực hiển thị tin nhắn */
+.messages {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    border-bottom: 1px solid #ccc;
+    height: calc(100% - 80px); /* Điều chỉnh chiều cao phù hợp */
+}
+
+/* Khu vực hiển thị câu hỏi */
+.questions {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    background-color: #f9f9f9;
+    flex-shrink: 0; /* Giữ nguyên kích thước, không co lại */
+    max-height: 200px; /* Đảm bảo chiều cao của phần câu hỏi không vượt quá 200px */
+    overflow-y: auto;  /* Cho phép cuộn khi có quá nhiều câu hỏi */
+}
+
+/* Khu vực nhập liệu */
+.input-area {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    gap: 5px;
+    border-top: 1px solid #ccc;
+    background-color: #f9f9f9;
+    position: absolute;
+    bottom: 0; /* Đảm bảo thanh nhập luôn nằm dưới cùng */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Đảm bảo rằng input và button có kích thước phù hợp */
+.input-area input {
+    flex: 1;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.input-area button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+/* Style cho tin nhắn bot */
+.bot-message {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    background-color: #f1f1f1;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 80%;
+    word-wrap: break-word;
+}
+
+/* Style cho icon của bot */
+.bot-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #007bff; /* Màu nền cho icon bot */
+    margin-right: 10px;
+    display: inline-block;
+    background-image: url('../img/Screenshot_2024-09-28_162555-removebg-preview.png.png'); /* Đường dẫn đến biểu tượng của bạn */
+    background-size: cover; /* Tự động điều chỉnh kích thước icon */
+    background-position: center;
+}
+
+/* Style cho tin nhắn người dùng */
+.user-message {
+    display: flex;
+    justify-content: flex-start; /* Di chuyển tin nhắn về phía bên phải */
+    margin-bottom: 10px;
+    background-color: #007bff;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 80%;
+    color: white;
+    word-wrap: break-word;
+    flex-direction: row-reverse; /* Đưa icon và tin nhắn sang bên phải */
+}
+
+/* Nếu bạn muốn icon người dùng (nếu có), thêm phần sau vào CSS */
+.user-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: white; /* Màu nền của icon người dùng */
+    margin-left: 10px;
+    display: inline-block;
+    background-image: url('../img/user.png'); /* Đường dẫn tới icon người dùng */
+    background-size: cover;
+    background-position: center;
+}
+

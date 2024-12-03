@@ -80,6 +80,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, fetchSignInMethodsForEmail } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
 
         // Firebase initialization
         const app = initializeApp({
@@ -94,6 +95,7 @@
         });
 
         const auth = getAuth(app); // Firebase Authentication
+        const db = getFirestore(app);
 
         async function loginUser(event) {
             event.preventDefault();
@@ -143,41 +145,52 @@
         }
 
         // Đăng ký
-    async function registerUser(event) {
-        event.preventDefault();
-        const email = document.querySelector('#register-email').value;
-        const password = document.querySelector('#register-password').value;
+        async function registerUser(event) {
+            event.preventDefault();
+            const email = document.querySelector('#register-email').value.trim();
+            const password = document.querySelector('#register-password').value.trim();
 
-        if (!email || !password) {
-            alert("Vui lòng nhập email và mật khẩu.");
-            return;
-        }
+            if (!email || !password) {
+                alert("Vui lòng nhập email và mật khẩu.");
+                return;
+            }
 
-        // Kiểm tra độ dài mật khẩu
-        if (password.length < 6) {
-            alert("Mật khẩu phải có ít nhất 6 ký tự.");
-            return;
-        }
+            if (password.length < 6) {
+                alert("Mật khẩu phải có ít nhất 6 ký tự.");
+                return;
+            }
 
-        // Kiểm tra email đã tồn tại
-        const emailExists = await isEmailExist(email);
-        if (emailExists) {
-            alert("Email này đã được sử dụng. Vui lòng chọn email khác.");
-            return;
-        }
+            const emailExists = await isEmailExist(email);
+            if (emailExists) {
+                alert("Email này đã được sử dụng. Vui lòng chọn Email khác.");
+                return;
+            }
 
-        try {
-            // Tạo tài khoản mới với email và mật khẩu
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-            const user = userCredential.user;
-            alert("Đăng ký thành công!");
-            console.log("Thông tin người dùng:", user);
-            window.location.reload();
-        } catch (error) {
-            console.error("Lỗi khi đăng ký:", error);
-            alert("Vui lòng kiểm tra lại email hoặc mật khẩu");
+            try {
+                // Tạo tài khoản mới
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+
+                // Tạo document trống trong Firestore với email làm ID
+                const emailId = email.replace(/[.#$[\]]/g, "_"); // Thay các ký tự không hợp lệ
+                const userDocRef = doc(db, "user",  emailId); // Dùng UID của Firebase Auth làm ID
+                await setDoc(userDocRef, {
+                    email: email,
+                    fullName: "",
+                    phone: "",
+                    province: "",
+                    district: "",
+                    address: ""
+                });
+
+                alert("Đăng ký thành công");
+                // Reload lại trang hoặc chuyển hướng
+                window.location.reload();
+            } catch (error) {
+                console.error("Lỗi khi đăng ký:", error);
+                alert("Email đã được đăng ký, vui lòng thử bằng một Email khác!.");
+            }
         }
-    }
             // Lắng nghe sự kiện form đăng ký
             document.getElementById('register-form').addEventListener('submit', registerUser);
 

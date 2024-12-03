@@ -8,10 +8,7 @@
     <link rel="stylesheet" href="/css/user.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/home.html">
-<<<<<<< HEAD
-    <script src="/js/Api.js"></script>
-    <script src="../js/checklogin.js"></script>
-=======
+    <script src="../js/chatbot.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
     <script src="product-detail.html"></script>
@@ -41,7 +38,6 @@
     </script>
     
 
->>>>>>> bab67f2e8f90da97fb376a9bf393efa1d55199c1
 </head>
 <body>
     <section class="top">
@@ -98,6 +94,12 @@
 <!------------------ Cartegory ------------------->
 <section class="cartegory">
     <div class="container">
+        <div class="ads-left">
+            <a href="#"><img src="/img/poster7.png" alt="Ad Left"></a>
+        </div>
+        <div class="ads-right">
+            <a href="#"><img src="/img/poster7.png" alt="Ad Right"></a>
+        </div>
         <div class="cartegory-top row">
             <p><a href="/html-cartegory/CARTEGORY.html">Trang chủ</a></p> <span>&#10230; </span> <p><a href="">Đồ chơi</a></p> <span>&#10230; </span> <p>Đồ chơi giáo dục</p>
         </div>
@@ -228,6 +230,23 @@
                     <p><span>&#171;</span>1 2<span>&#187;</span>Trang cuối</p>
                 </div>
             </div>
+        </div>
+    </div>
+    <!-- Thanh nhỏ để mở chat -->
+    <div id="chatToggle" class="chat-toggle" onclick="toggleChat()">Chat Tư Vấn - Giải Đáp Mọi Thắc Mắc</div>
+
+    <!-- Chatbox chính -->
+    <div id="chatbox" class="chatbox">
+        <div class="chatbox-header">
+            <button class="close-btn" onclick="toggleChat()">X</button>
+        </div>
+        <div id="messages" class="messages"></div> <!-- Khu vực hiển thị đoạn chat -->
+        <div id="questions" class="questions">
+            <!-- Các câu hỏi sẽ được thêm ở đây -->
+        </div>
+        <div class="input-area">
+            <input type="text" id="userInput" placeholder="Nhập tin nhắn....">
+            <button onclick="sendMessage()">Gửi</button>
         </div>
     </div>
  </section>
