@@ -92,31 +92,39 @@ async function deleteProduct() {
 // Hàm để cập nhật sản phẩm
 async function updateProduct(event) {
     event.preventDefault();
+
     const productData = {
         name: document.getElementById('name').value,
         description: document.getElementById('description').value,
-        price: parseFloat(document.getElementById('price').value),
-        imageFile: document.getElementById('imageFile').files[0] // Thay đổi ID nếu cần
+        price: parseFloat(document.getElementById('price').value)
     };
 
-    // Kiểm tra xem giá có hợp lệ không
+    // Kiểm tra giá
     if (isNaN(productData.price)) {
         alert("Giá không hợp lệ. Vui lòng nhập giá bằng số.");
-        return; // Dừng hàm nếu giá không hợp lệ
+        return;
     }
 
-    // Nếu có file hình ảnh, tải lên Firebase Storage
-    if (productData.imageFile) {
-        const storageRef = ref(storage, `images/${productData.imageFile.name}`);
-        await uploadBytes(storageRef, productData.imageFile);
-        const imageURL = await getDownloadURL(storageRef);
-        productData.imageURL = imageURL; // Lưu URL hình ảnh vào productData
+    const imageFile = document.getElementById('imageFile').files[0]; // Lấy tệp từ input
+
+    if (imageFile) {
+        try {
+            // Tải tệp lên Firebase Storage
+            const storageRef = ref(storage, `images/${Date.now()}_${imageFile.name}`); // Tạo tên file duy nhất
+            await uploadBytes(storageRef, imageFile);
+            const imageURL = await getDownloadURL(storageRef);
+            productData.imageURL = imageURL; // Cập nhật URL hình ảnh mới
+        } catch (error) {
+            console.error("Lỗi khi tải lên tệp:", error);
+            alert("Đã xảy ra lỗi khi tải tệp lên Firebase Storage.");
+            return;
+        }
     } else {
-        // Nếu không có file hình ảnh, lấy URL cũ từ Firestore
-        const docRef = doc(db, `product/sach/comic`, productId); // Thay đổi đường dẫn nếu cần
+        // Lấy URL hình ảnh cũ nếu không có tệp mới
+        const docRef = doc(db, `product/sach/comic`, productId); // Thay đường dẫn nếu cần
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-            productData.imageURL = docSnap.data().imageURL; // Lấy URL cũ
+            productData.imageURL = docSnap.data().imageURL;
         }
     }
 
@@ -131,19 +139,18 @@ async function updateProduct(event) {
 
     let docRef;
 
-    // Cập nhật sản phẩm trong Firestore
     for (const path of Object.values(collectionPaths)) {
         docRef = doc(db, path, productId);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-            await updateDoc(docRef, productData); // Cập nhật thông tin sản phẩm
-            alert("Sản phẩm đã được cập nhật");
-            window.location.href = 'admin_selecttoadd.html'; // Chuyển hướng về trang danh sách sản phẩm
-            return; // Nếu cập nhật thành công, không cần kiểm tra tiếp
+            await updateDoc(docRef, productData);
+            alert("Sản phẩm đã được cập nhật.");
+            window.location.href = 'admin_selecttoadd.html';
+            return;
         }
     }
 
-    alert("Không tìm thấy sản phẩm để cập nhật");
+    alert("Không tìm thấy sản phẩm để cập nhật.");
 }
 
 // Gán sự kiện cho nút xóa
@@ -151,6 +158,9 @@ document.getElementById('deleteButton').addEventListener('click', deleteProduct)
 
 // Gán sự kiện cho form khi được gửi
 document.getElementById('productForm').addEventListener('submit', updateProduct);
+
+// Gán sự kiện cho nút cập nhật
+document.getElementById('updateButton').addEventListener('click', updateProduct);
 
 // Tải thông tin sản phẩm khi trang được tải
 document.addEventListener('DOMContentLoaded', () => {

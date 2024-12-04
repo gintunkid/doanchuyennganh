@@ -6,7 +6,7 @@
     <title>admin</title>
     <link rel="stylesheet" href="/css/admin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-   
+    <script type="module" src="/js admin/xoasua.js"></script>   
 </head>
 <style>
     #productForm {
@@ -163,14 +163,16 @@
                     <input type="number" id="price" name="price" required>
                     
                     <label for="imageURL">URL Hình ảnh:</label>
-                    <input type="text" id="imageURL" name="imageURL" required>
-    
-                    <button type="submit">Cập nhật sản phẩm</button>
+                    <input type="text" id="imageURL" name="imageURL" placeholder="Nhập URL hình ảnh" disabled>
+
+                    <label for="imageFile">Tải ảnh lên:</label>
+                    <input type="file" id="imageFile" name="imageFile" accept="image/*">
+                                        
+                    <button type="submit" id="updateButton">Cập nhật sản phẩm</button>
                     <button type="button" id="deleteButton">Xóa sản phẩm</button>
                 </div>
         </form>
     </div>   
 </div>
-<script type="module" src="/js admin/xoasua.js"></script>   
 </body>
 </html>
