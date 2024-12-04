@@ -6,7 +6,64 @@
     <title>admin</title>
     <link rel="stylesheet" href="/css/admin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+   
 </head>
+<style>
+    #productForm {
+        background-color: #f9f9f9; /* Màu nền cho form */
+        border: 1px solid #ccc; /* Đường viền */
+        border-radius: 5px; /* Bo góc */
+        padding: 20px; /* Khoảng cách bên trong */
+        max-width: 500px; /* Chiều rộng tối đa */
+        margin: 20px auto; /* Căn giữa form */
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+    }
+
+    #productForm h2 {
+        text-align: center; /* Căn giữa tiêu đề */
+        color: #333; /* Màu chữ tiêu đề */
+    }
+
+    #productForm label {
+        display: block; /* Hiển thị label dưới dạng khối */
+        margin-bottom: 5px; /* Khoảng cách dưới label */
+        font-weight: bold; /* Chữ đậm */
+    }
+
+    #productForm input,
+    #productForm textarea {
+        width: 100%; /* Chiều rộng 100% */
+        padding: 10px; /* Khoảng cách bên trong */
+        margin-bottom: 15px; /* Khoảng cách dưới input/textarea */
+        border: 1px solid #ccc; /* Đường viền */
+        border-radius: 4px; /* Bo góc */
+        box-sizing: border-box; /* Đảm bảo padding không làm tăng chiều rộng */
+    }
+
+    #productForm button {
+        background-color: #4CAF50; /* Màu nền cho nút cập nhật */
+    color: white; /* Màu chữ */
+    padding: 10px 15px; /* Khoảng cách bên trong */
+    border: none; /* Không có đường viền */
+    border-radius: 4px; /* Bo góc */
+    cursor: pointer; /* Con trỏ khi di chuột */
+    width: 100%; /* Chiều rộng 100% */
+    margin-bottom: 10px; /* Khoảng cách giữa các nút */
+}
+
+#productForm button#deleteButton {
+    background-color: #f44336; /* Màu nền cho nút xóa (đỏ) */
+}
+
+#productForm button:hover {
+    opacity: 0.9; /* Hiệu ứng khi hover */
+}
+
+#productForm button#deleteButton:hover {
+    opacity: 0.9; /* Hiệu ứng khi hover cho nút xóa */
+}
+</style>
+
 <body>
 <div class="container">
     <div class="navigation">
@@ -91,8 +148,7 @@
                 <img src="/img/1216678.jpg" alt="">
             </div>
         </div>
-        <div class="details">
-            <form id="productForm">
+        <form id="productForm">
                 <h2>Chỉnh sửa sản phẩm</h2>
                 <div id="product-detail-container">
                     <input type="hidden" id="productId" name="productId">
@@ -112,8 +168,8 @@
                     <button type="submit">Cập nhật sản phẩm</button>
                     <button type="button" id="deleteButton">Xóa sản phẩm</button>
                 </div>
-            </form>
-        </div>
+        </form>
+    </div>   
 </div>
 <script type="module" src="/js admin/xoasua.js"></script>   
 </body>

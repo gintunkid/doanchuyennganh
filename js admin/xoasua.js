@@ -1,5 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-app.js";
 import { getFirestore, doc, getDoc, deleteDoc, updateDoc } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-firestore.js";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-storage.js";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -14,35 +15,78 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const storage = getStorage(app);
 
 // Lấy ID sản phẩm từ URL
 const urlParams = new URLSearchParams(window.location.search);
 const productId = urlParams.get('id'); // ID sản phẩm được truyền qua URL
-const category = urlParams.get('category'); // Lấy category từ URL (ví dụ: 'sach' hoặc 'comic')
 
 // Hàm để tải thông tin sản phẩm
-async function loadProductDetail() {
-    const docRef = doc(db, `product/sach/${category}`, productId);
-    const docSnap = await getDoc(docRef);
-    
-    if (docSnap.exists()) {
-        const product = docSnap.data();
-        document.getElementById('productId').value = docSnap.id;
-        document.getElementById('name').value = product.name;
-        document.getElementById('description').value = product.description;
-        document.getElementById('price').value = product.price;
-        document.getElementById('imageURL').value = product.imageURL;
-    } else {
-        console.log("Không tìm thấy sản phẩm");
+async function loadProductDetail(productId) {
+    const collectionPaths = {
+        comic: `product/sach/comic`,
+        foreignBook: `product/sach/sachngoaingu`,
+        stationery: `product/vpp/dungcuvanphong`,
+        psychology: `product/sach/tamlikinangsong`,
+        educationalToy: `product/dochoi/giaoduc`,
+        model: `product/dochoi/mohinh`
+    };
+
+    let docRef;
+
+
+    // Kiểm tra từng loại sản phẩm
+    for (const path of Object.values(collectionPaths)) {
+        docRef = doc(db, path, productId);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+            setProductDetails(docSnap.data(), docSnap.id); // Gọi hàm để thiết lập thông tin sản phẩm
+            return; // Nếu tìm thấy sản phẩm, không cần kiểm tra tiếp
+        }
+    }
+
+    console.log("Không tìm thấy sản phẩm");
+}
+
+// Hàm để thiết lập thông tin sản phẩm vào các input
+function setProductDetails(product, id) {
+    document.getElementById('productId').value = id;
+    document.getElementById('name').value = product.name;
+    document.getElementById('description').value = product.description;
+    document.getElementById('price').value = product.price;
+    document.getElementById('imageURL').value = product.imageURL; // Cập nhật đường dẫn hình ảnh
+    const imageElement = document.getElementById('productImage'); // ID của thẻ <img> trong HTML
+    if (imageElement) {
+        imageElement.src = product.imageURL; // Cập nhật src của thẻ <img> với URL hình ảnh
     }
 }
 
 // Hàm để xóa sản phẩm
 async function deleteProduct() {
-    const docRef = doc(db, `product/sach/${category}`, productId);
-    await deleteDoc(docRef);
-    alert("Sản phẩm đã được xóa");
-    window.location.href = 'admin_selecttoadd.html'; // Chuyển hướng về trang danh sách sản phẩm
+    const collectionPaths = {
+        comic: `product/sach/comic`,
+        foreignBook: `product/sach/sachngoaingu`,
+        stationery: `product/vpp/dungcuvanphong`,
+        psychology: `product/sach/tamlikinangsong`,
+        educationalToy: `product/dochoi/giaoduc`,
+        model: `product/dochoi/mohinh`
+    };
+
+    let docRef;
+
+    // Kiểm tra từng loại sản phẩm
+    for (const path of Object.values(collectionPaths)) {
+        docRef = doc(db, path, productId);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+            await deleteDoc(docRef); // Xóa sản phẩm
+            alert("Sản phẩm đã được xóa");
+            window.location.href = 'admin_selecttoadd.html'; // Chuyển hướng về trang danh sách sản phẩm
+            return; // Nếu xóa thành công, không cần kiểm tra tiếp
+        }
+    }
+
+    alert("Không tìm thấy sản phẩm để xóa");
 }
 
 // Hàm để cập nhật sản phẩm
@@ -52,13 +96,54 @@ async function updateProduct(event) {
         name: document.getElementById('name').value,
         description: document.getElementById('description').value,
         price: parseFloat(document.getElementById('price').value),
-        imageURL: document.getElementById('imageURL').value
+        imageFile: document.getElementById('imageFile').files[0] // Thay đổi ID nếu cần
     };
 
-    const docRef = doc(db, `product/sach/${category}`, productId);
-    await updateDoc(docRef, productData);
-    alert("Sản phẩm đã được cập nhật");
-    window.location.href = 'admin_selecttoadd.html'; // Chuyển hướng về trang danh sách sản phẩm
+    // Kiểm tra xem giá có hợp lệ không
+    if (isNaN(productData.price)) {
+        alert("Giá không hợp lệ. Vui lòng nhập giá bằng số.");
+        return; // Dừng hàm nếu giá không hợp lệ
+    }
+
+    // Nếu có file hình ảnh, tải lên Firebase Storage
+    if (productData.imageFile) {
+        const storageRef = ref(storage, `images/${productData.imageFile.name}`);
+        await uploadBytes(storageRef, productData.imageFile);
+        const imageURL = await getDownloadURL(storageRef);
+        productData.imageURL = imageURL; // Lưu URL hình ảnh vào productData
+    } else {
+        // Nếu không có file hình ảnh, lấy URL cũ từ Firestore
+        const docRef = doc(db, `product/sach/comic`, productId); // Thay đổi đường dẫn nếu cần
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+            productData.imageURL = docSnap.data().imageURL; // Lấy URL cũ
+        }
+    }
+
+    const collectionPaths = {
+        comic: `product/sach/comic`,
+        foreignBook: `product/sach/sachngoaingu`,
+        stationery: `product/vpp/dungcuvanphong`,
+        psychology: `product/sach/tamlikinangsong`,
+        educationalToy: `product/dochoi/giaoduc`,
+        model: `product/dochoi/mohinh`
+    };
+
+    let docRef;
+
+    // Cập nhật sản phẩm trong Firestore
+    for (const path of Object.values(collectionPaths)) {
+        docRef = doc(db, path, productId);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+            await updateDoc(docRef, productData); // Cập nhật thông tin sản phẩm
+            alert("Sản phẩm đã được cập nhật");
+            window.location.href = 'admin_selecttoadd.html'; // Chuyển hướng về trang danh sách sản phẩm
+            return; // Nếu cập nhật thành công, không cần kiểm tra tiếp
+        }
+    }
+
+    alert("Không tìm thấy sản phẩm để cập nhật");
 }
 
 // Gán sự kiện cho nút xóa
@@ -68,4 +153,6 @@ document.getElementById('deleteButton').addEventListener('click', deleteProduct)
 document.getElementById('productForm').addEventListener('submit', updateProduct);
 
 // Tải thông tin sản phẩm khi trang được tải
-loadProductDetail();
+document.addEventListener('DOMContentLoaded', () => {
+    loadProductDetail(productId);
+});
