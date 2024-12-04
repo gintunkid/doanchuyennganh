@@ -11,8 +11,10 @@
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script> 
 <link rel="stylesheet" href="/css/user.css">
+<link rel="stylesheet" href="/css/style.css">
 <script src="../js/checklogin.js"></script>
 <script type="module" src="../js/Product.js"></script>
+<script src="../js/chatbot.js"></script>
 <script type="module">
     import { viewProductDetail } from '../js/Product.js';
     window.viewProductDetail = viewProductDetail;
@@ -132,6 +134,23 @@
             document.getElementById('add-to-cart').addEventListener('click', addToCart);
         });
     </script>
+    <!-- Thanh nhỏ để mở chat -->
+    <div id="chatToggle" class="chat-toggle" onclick="toggleChat()">Chat Tư Vấn - Giải Đáp Mọi Thắc Mắc</div>
+
+    <!-- Chatbox chính -->
+    <div id="chatbox" class="chatbox">
+        <div class="chatbox-header">
+            <button class="close-btn" onclick="toggleChat()">X</button>
+        </div>
+        <div id="messages" class="messages"></div> <!-- Khu vực hiển thị đoạn chat -->
+        <div id="questions" class="questions">
+            <!-- Các câu hỏi sẽ được thêm ở đây -->
+        </div>
+        <div class="input-area">
+            <input type="text" id="userInput" placeholder="Nhập tin nhắn....">
+            <button onclick="sendMessage()">Gửi</button>
+        </div>
+    </div>
 </body>
 
 </html>

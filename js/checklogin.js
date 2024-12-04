@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }, { once: true }); // Chỉ chạy 1 lần
             });
         } else {
-            userLink.href = "login-admin/login.html"; // Điều hướng đến trang đăng nhập
+            userLink.href = "../login-admin/login.html"; // Điều hướng đến trang đăng nhập
             userIcon.classList.add("fa-regular");
             userIcon.classList.remove("fa-solid");
 

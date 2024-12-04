@@ -10,6 +10,8 @@
     <link href="html-cartegory/">
     <script src="/js/search.js"></script>
     <script src="/js/checklogin.js" ></script>
+    <script src="/js/chatbot.js"></script>
+    <script src="/js/cart.js"></script>
 </head>
 <body>
     <section class="top">
@@ -61,7 +63,26 @@
                     </ul>
                 </div>
             </div>
+        <!-- Thanh nhỏ để mở chat -->
+        <div id="chatToggle" class="chat-toggle" onclick="toggleChat()">Chat Tư Vấn - Giải Đáp Mọi Thắc Mắc</div>
+
+        <!-- Chatbox chính -->
+        <div id="chatbox" class="chatbox">
+            <div class="chatbox-header">
+                <button class="close-btn" onclick="toggleChat()">
+                    <i class="fas fa-times"></i> <!-- Icon "X" -->
+                </button>
+            </div>
+            <div id="messages" class="messages"></div> <!-- Khu vực hiển thị đoạn chat -->
+            <div id="questions" class="questions">
+                <!-- Các câu hỏi sẽ được thêm ở đây -->
+            </div>
+            <div class="input-area">
+                <input type="text" id="userInput" placeholder="Nhập tin nhắn....">
+                <button onclick="sendMessage()">Gửi</button>
+            </div>
         </div>
+    
     </section>
 <!----------------------SLIDER--------------------->
     <section class="sliders">

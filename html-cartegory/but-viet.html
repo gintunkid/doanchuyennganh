@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/css/user.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/home.html">
+    <script src="../js/chatbot.js"></script>
 </head>
 <body>
     <section class="top">
@@ -54,7 +55,7 @@
                             <a href="../login-admin/login.html"><i class="fa-regular fa-user"></i></a>
                         </li>
                         <li>
-                            <i class="fas fa-shopping-cart"></i>
+                            <a href="../html-cart/cart.html"><i class="fas fa-shopping-cart"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -194,6 +195,23 @@
                     <p><span>&#171;</span>1 2<span>&#187;</span>Trang cuối</p>
                 </div>
             </div>
+        </div>
+    </div>
+    <!-- Thanh nhỏ để mở chat -->
+    <div id="chatToggle" class="chat-toggle" onclick="toggleChat()">Chat Tư Vấn - Giải Đáp Mọi Thắc Mắc</div>
+
+    <!-- Chatbox chính -->
+    <div id="chatbox" class="chatbox">
+        <div class="chatbox-header">
+            <button class="close-btn" onclick="toggleChat()">X</button>
+        </div>
+        <div id="messages" class="messages"></div> <!-- Khu vực hiển thị đoạn chat -->
+        <div id="questions" class="questions">
+            <!-- Các câu hỏi sẽ được thêm ở đây -->
+        </div>
+        <div class="input-area">
+            <input type="text" id="userInput" placeholder="Nhập tin nhắn....">
+            <button onclick="sendMessage()">Gửi</button>
         </div>
     </div>
  </section>

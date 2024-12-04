@@ -15,6 +15,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
     <script src="../js/checklogin.js"></script>
     <script src="product-detail.html"></script>
+    <script src="../js/chatbot.js"></script>
     <!-- Your Scripts -->
     <script type="module" src="../js/firebase-config.js"></script>
 
@@ -89,7 +90,7 @@
                             <a href="../login-admin/login.html"><i class="fa-regular fa-user"></i></a>
                         </li>
                         <li>
-                            <i class="fas fa-shopping-cart"></i>
+                            <a href="../html-cart/cart.html"><i class="fas fa-shopping-cart"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -237,6 +238,23 @@
                         <p><span>&#171;</span>1 2<span>&#187;</span>Trang cuối</p>
                     </div>
                 </div>
+            </div>
+        </div>
+        <!-- Thanh nhỏ để mở chat -->
+        <div id="chatToggle" class="chat-toggle" onclick="toggleChat()">Chat Tư Vấn - Giải Đáp Mọi Thắc Mắc</div>
+
+        <!-- Chatbox chính -->
+        <div id="chatbox" class="chatbox">
+            <div class="chatbox-header">
+                <button class="close-btn" onclick="toggleChat()">X</button>
+            </div>
+            <div id="messages" class="messages"></div> <!-- Khu vực hiển thị đoạn chat -->
+            <div id="questions" class="questions">
+                <!-- Các câu hỏi sẽ được thêm ở đây -->
+            </div>
+            <div class="input-area">
+                <input type="text" id="userInput" placeholder="Nhập tin nhắn....">
+                <button onclick="sendMessage()">Gửi</button>
             </div>
         </div>
     </section>

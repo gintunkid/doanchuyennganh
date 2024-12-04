@@ -48,6 +48,8 @@ async function saveAddressToFirestore(fullName, phone, province, district, addre
         });
 
         alert("Địa chỉ đã được lưu thành công!");
+         // Chuyển hướng đến trang payment.html
+         window.location.href = "../html-payment/payment.html";  // Thay thế đường dẫn nếu cần
     } catch (error) {
         console.error("Lỗi khi lưu địa chỉ:", error);
         alert("Có lỗi xảy ra. Vui lòng thử lại.");
