@@ -63,43 +63,12 @@
         </div>
     </section>
 
-    <section class="delivery">
-        <div class="container">
-            <div class="delivery-content row">
-                <div class="delivery-content-left">
-                    <p>Vui lòng nhập thông tin cá nhân</p>
-                    <div class="delivery-content-left-input-top row">
-                        <div class="delivery-content-left-input-top-item">
-                            <label for="fullName">Họ tên <span style="color: red;">*</span></label>
-                            <input type="text" id="fullName" name="fullName">
-                        </div>
-                        <div class="delivery-content-left-input-top-item">
-                            <label for="phone">Điện thoại <span style="color: red;">*</span></label>
-                            <input type="text" id="phone" name="phone">
-                        </div>
-                        <div class="delivery-content-left-input-top-item">
-                            <label for="provinceDropdown">Tỉnh/tp <span style="color: red;">*</span></label>
-                            <select id="provinceDropdown" class="select">
-                                <option value="">--Chọn tỉnh thành--</option>
-                            </select>
-                        </div>
-                        <div class="delivery-content-left-input-top-item">
-                            <label for="districtDropdown">Quận/huyện <span style="color: red;">*</span></label>
-                            <select id="districtDropdown" class="select">
-                                <option value="">--Chọn quận/huyện--</option>
-                            </select>
-                        </div>
-                        <div class="delivery-content-left-input-top-item">
-                            <label for="addressInput">Địa chỉ <span style="color: red;">*</span></label>
-                            <input type="text" id="addressInput" name="addressInput">
-                        </div>
-                        <div class="delivery-content-left-button row">
-                            <button onclick="updatePersonalInfo()" id="update-info-btn"><p style="font-weight: bold;">CẬP NHẬT THÔNG TIN CÁ NHÂN</p></button>
-                        </div>
-                    </div>                
-                </div>       
-            </div>
-        </div>
+    <section class="user-info">
+        <p>Email: <input type="text" id="display-email" readonly></p>
+        <P>Password: 
+            <input type="password" id="display-password" readonly>
+            <button id="toggle-password"><ion-icon name="eye-outline"></ion-icon></button>
+        </P>
     </section>
 
     <section class="footer">
@@ -123,7 +92,7 @@
             </div>
         </div>  
     </section>
-
+    <script src="/js/information.js"></script>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js";
