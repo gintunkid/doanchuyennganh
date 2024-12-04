@@ -151,6 +151,8 @@ function autoReply(userInput) {
         botResponse = "Thời gian ship hàng là 2-3 ngày kể từ khi nhận được đơn hàng.";
     } else if (userInput.toLowerCase().includes("đi mua cơm sườn")) {
         botResponse = "Địt Mẹ Cộng Sản !";
+    } else if (userInput.toLowerCase().includes("anh biết gì")) {
+        botResponse = "Anh biết em còn nhiều tiền mà";
     }
     // Tạo tin nhắn bot trả lời
     const botMessage = document.createElement("div");
