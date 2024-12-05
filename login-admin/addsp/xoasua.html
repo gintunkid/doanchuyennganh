@@ -149,28 +149,31 @@
             </div>
         </div>
         <form id="productForm">
-                <h2>Chỉnh sửa sản phẩm</h2>
-                <div id="product-detail-container">
-                    <input type="hidden" id="productId" name="productId">
-                    <input type="hidden" id="collectionPath" name="collectionPath"> <!-- Đường dẫn collection -->
-                    <label for="name">Tên sản phẩm:</label>
-                    <input type="text" id="name" name="name" required>
-                    
-                    <label for="description">Mô tả:</label>
-                    <textarea id="description" name="description" required></textarea>
-                    
-                    <label for="price">Giá:</label>
-                    <input type="number" id="price" name="price" required>
-                    
-                    <label for="imageURL">URL Hình ảnh:</label>
-                    <input type="text" id="imageURL" name="imageURL" placeholder="Nhập URL hình ảnh" disabled>
-
-                    <label for="imageFile">Tải ảnh lên:</label>
-                    <input type="file" id="imageFile" name="imageFile" accept="image/*">
-                                        
-                    <button type="submit" id="updateButton">Cập nhật sản phẩm</button>
-                    <button type="button" id="deleteButton">Xóa sản phẩm</button>
-                </div>
+            <input type="hidden" id="productId" name="productId">
+            <label for="name">Tên sản phẩm:</label>
+            <input type="text" id="name" name="name" required>
+            
+            <label for="description">Mô tả:</label>
+            <textarea id="description" name="description" required></textarea>
+            
+            <label for="price">Giá:</label>
+            <input type="number" id="price" name="price" required>
+            
+            <label for="imageFile">Tải ảnh lên:</label>
+            <input type="file" id="imageFile" name="imageFile" accept="image/*">
+            
+            <label for="productType">Chọn loại sản phẩm:</label>
+            <select id="productType" required>
+                <option value="comic">Truyện Comic</option>
+                <option value="foreignBook">Sách Ngoại Ngữ</option>
+                <option value="psychology">Sách Kỹ Năng Sống</option>
+                <option value="stationery">Dụng cụ văn phòng</option>
+                <option value="educationalToy">Đồ chơi giáo dục</option>
+                <option value="model">Mô hình</option>
+            </select>
+            
+            <button type="submit" id="updateButton">Cập nhật sản phẩm</button>
+            <button type="button" id="deleteButton">Xóa sản phẩm</button>
         </form>
     </div>   
 </div>

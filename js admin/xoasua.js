@@ -34,7 +34,6 @@ async function loadProductDetail(productId) {
 
     let docRef;
 
-
     // Kiểm tra từng loại sản phẩm
     for (const path of Object.values(collectionPaths)) {
         docRef = doc(db, path, productId);
@@ -107,10 +106,28 @@ async function updateProduct(event) {
 
     const imageFile = document.getElementById('imageFile').files[0]; // Lấy tệp từ input
 
+    let imagePath = ''; // Đường dẫn lưu hình ảnh
+
+    // Xác định đường dẫn lưu hình ảnh dựa trên loại sản phẩm
+    const productType = document.getElementById('productType').value; // Giả sử bạn có một input để chọn loại sản phẩm
+    if (productType === 'comic') {
+        imagePath = 'image/sach/comic/';
+    } else if (productType === 'foreignBook') {
+        imagePath = 'image/sach/sachngoaingu/';
+    } else if (productType === 'psychology') {
+        imagePath = 'image/sach/tamlikinangsong/';
+    } else if (productType === 'stationery') {
+        imagePath = 'image/vpp/dungcuvanphong/';
+    } else if (productType === 'educationalToy') {
+        imagePath = 'image/dochoi/giaoduc/'; // Đường dẫn cho Đồ chơi giáo dục
+    } else if (productType === 'model') {
+        imagePath = 'image/dochoi/mohinh/'; // Đường dẫn cho Mô hình
+    }
+
     if (imageFile) {
         try {
             // Tải tệp lên Firebase Storage
-            const storageRef = ref(storage, `images/${Date.now()}_${imageFile.name}`); // Tạo tên file duy nhất
+            const storageRef = ref(storage, `${imagePath}${Date.now()}_${imageFile.name}`); // Tạo tên file duy nhất
             await uploadBytes(storageRef, imageFile);
             const imageURL = await getDownloadURL(storageRef);
             productData.imageURL = imageURL; // Cập nhật URL hình ảnh mới

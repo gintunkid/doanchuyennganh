@@ -53,8 +53,10 @@ async function addProduct(documentId, name, description, imageFile, price, rate,
     }    else if (productType === 'vpp') {
         collectionPath = "product/vpp/dungcuvanphongpham";
         imagePath = 'image/dochoi/dungcuvanphongpham/'; 
-    } 
-
+    }   else if (productType =='butviet'){
+        collectionPath = "product/vpp/butviet";
+        imagePath = 'image/vpp/butviet/';
+    }
     if (imageFile) {
         const storageRef = ref(storage, imagePath + imageFile.name);
         await uploadBytes(storageRef, imageFile);
