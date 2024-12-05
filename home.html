@@ -64,11 +64,11 @@
                 </div>
             </div>
         <!-- Thanh nhỏ để mở chat -->
-        <div id="chatToggle" class="chat-toggle" onclick="toggleChat()">Chat Tư Vấn - Giải Đáp Mọi Thắc Mắc</div>
-
+        <div id="chatToggle" class="chat-toggle" onclick="toggleChat()"><i class="fa-solid fa-comment-medical"></i></div>
         <!-- Chatbox chính -->
         <div id="chatbox" class="chatbox">
             <div class="chatbox-header">
+                <h1>Tư vấn khách hàng</h1>
                 <button class="close-btn" onclick="toggleChat()">
                     <i class="fas fa-times"></i> <!-- Icon "X" -->
                 </button>
@@ -78,11 +78,10 @@
                 <!-- Các câu hỏi sẽ được thêm ở đây -->
             </div>
             <div class="input-area">
-                <input type="text" id="userInput" placeholder="Nhập tin nhắn....">
+                <input type="text" id="userInput" placeholder="Nhập câu hỏi của bạn....">
                 <button onclick="sendMessage()">Gửi</button>
             </div>
         </div>
-    
     </section>
 <!----------------------SLIDER--------------------->
     <section class="sliders">
