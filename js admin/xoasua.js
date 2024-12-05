@@ -127,7 +127,9 @@ async function updateProduct(event) {
     if (imageFile) {
         try {
             // Tải tệp lên Firebase Storage
-            const storageRef = ref(storage, `${imagePath}${Date.now()}_${imageFile.name}`); // Tạo tên file duy nhất
+
+            const storageRef = ref(storage, `image/${Date.now()}_${imageFile.name}`); // Tạo tên file duy nhất
+
             await uploadBytes(storageRef, imageFile);
             const imageURL = await getDownloadURL(storageRef);
             productData.imageURL = imageURL; // Cập nhật URL hình ảnh mới
