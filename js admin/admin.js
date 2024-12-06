@@ -53,9 +53,12 @@ async function addProduct(documentId, name, description, imageFile, price, rate,
     }    else if (productType === 'vpp') {
         collectionPath = "product/vpp/dungcuvanphongpham";
         imagePath = 'image/dochoi/dungcuvanphongpham/'; 
-    }   else if (productType =='butviet'){
+    }   else if (productType ==='butviet'){
         collectionPath = "product/vpp/butviet";
         imagePath = 'image/vpp/butviet/';
+    }else if (productType ==='giay'){
+        collectionPath = "product/vpp/sanphamgiay";
+        imagePath = 'image/vpp/sanphamgiay/';
     }
     if (imageFile) {
         const storageRef = ref(storage, imagePath + imageFile.name);
@@ -64,6 +67,7 @@ async function addProduct(documentId, name, description, imageFile, price, rate,
 
         // Lưu dữ liệu vào Firestore
         await setDoc(doc(db, collectionPath, documentId), {
+            documentId,
             name,
             description,
             imageURL,
@@ -129,6 +133,10 @@ document.addEventListener("DOMContentLoaded", function() {
             collectionPath = 'product/dochoi/mohinh';
         } else if (category === 'vpp') {
             collectionPath = 'product/vpp/dungcuvanphong';
+        } else if (category === 'butviet') {
+            collectionPath = 'product/vpp/butviet';
+        } else if(category === 'giay'){
+            collectionPath = 'product/vpp/sanphamgiay';
         }
     
         try {

@@ -29,7 +29,9 @@ async function loadProductDetail(productId) {
         stationery: `product/vpp/dungcuvanphong`,
         psychology: `product/sach/tamlikinangsong`,
         educationalToy: `product/dochoi/giaoduc`,
-        model: `product/dochoi/mohinh`
+        model: `product/dochoi/mohinh`,
+        butviet:  `product/vpp/butviet`,
+         giay: `product/vpp/sanphamgiay`
     };
 
     let docRef;
@@ -68,7 +70,9 @@ async function deleteProduct() {
         stationery: `product/vpp/dungcuvanphong`,
         psychology: `product/sach/tamlikinangsong`,
         educationalToy: `product/dochoi/giaoduc`,
-        model: `product/dochoi/mohinh`
+        model: `product/dochoi/mohinh`,
+        butviet:  `product/vpp/butviet`,
+         giay: `product/vpp/sanphamgiay`
     };
 
     let docRef;
@@ -122,13 +126,17 @@ async function updateProduct(event) {
         imagePath = 'image/dochoi/giaoduc/'; // Đường dẫn cho Đồ chơi giáo dục
     } else if (productType === 'model') {
         imagePath = 'image/dochoi/mohinh/'; // Đường dẫn cho Mô hình
+    } else if(productType === 'butviet'){
+        imagePath ='image/vpp/butviet/';
+    } else if(productType === 'giay'){
+        imagePath ='image/vpp/sanphamgiay/';
     }
 
     if (imageFile) {
         try {
             // Tải tệp lên Firebase Storage
 
-            const storageRef = ref(storage, `image/${Date.now()}_${imageFile.name}`); // Tạo tên file duy nhất
+            const storageRef = ref(storage, `${imagePath}${Date.now()}_${imageFile.name}`); // Tạo tên file duy nhất // Tạo tên file duy nhất
 
             await uploadBytes(storageRef, imageFile);
             const imageURL = await getDownloadURL(storageRef);
@@ -153,7 +161,9 @@ async function updateProduct(event) {
         stationery: `product/vpp/dungcuvanphong`,
         psychology: `product/sach/tamlikinangsong`,
         educationalToy: `product/dochoi/giaoduc`,
-        model: `product/dochoi/mohinh`
+        model: `product/dochoi/mohinh`,
+        butviet:  `product/vpp/butviet`,
+        giay: `product/vpp/sanphamgiay`
     };
 
     let docRef;
