@@ -106,6 +106,7 @@
                 <table>
                     <thead>
                         <tr>
+                            <td>ID</td>
                             <td>Email</td>
                             <td>Họ và Tên</td>
                             <td>Số điện thoại</td>
@@ -145,42 +146,39 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    // Hàm lấy dữ liệu từ Firestore
-    async function getUserData() {
-        const tableBody = document.querySelector('tbody');
+   // Hàm lấy dữ liệu từ Firestore
+async function getUserData() {
+    const tableBody = document.querySelector('tbody');
 
-        // Truy vấn tất cả các tài liệu trong collection 'user'
-        const usersRef = collection(db, "user");
-        const snapshot = await getDocs(usersRef);
+    // Truy vấn tất cả các tài liệu trong collection 'user'
+    const usersRef = collection(db, "user");
+    const snapshot = await getDocs(usersRef);
 
-        tableBody.innerHTML = '';  // Xóa nội dung bảng hiện tại
+    tableBody.innerHTML = ''; // Xóa nội dung bảng hiện tại
 
-        // Lặp qua tất cả các tài liệu trong collection 'user'
-        snapshot.forEach((docSnapshot) => {
-            const user = docSnapshot.data(); // Lấy dữ liệu của người dùng
-            const email = docSnapshot.id;    // Lấy tên tài liệu (email)
+    snapshot.forEach((docSnapshot) => {
+        const user = docSnapshot.data(); // Lấy dữ liệu của người dùng
+        const userid = user.userid || docSnapshot.id; // Lấy userid từ trường hoặc ID tài liệu làm dự phòng
+    
+        // Tạo một dòng mới cho mỗi tài liệu
+        const row = document.createElement('tr');
+        const rowContent = `
+            <td>${userid}</td>                      <!-- User ID -->
+            <td>${user.email || ''}</td>            <!-- Email -->
+            <td>${user.fullName || ''}</td>         <!-- Họ và tên -->
+            <td>${user.phone || ''}</td>            <!-- Số điện thoại -->
+            <td>${user.address || ''}</td>          <!-- Địa chỉ -->
+            <td>${user.district || ''}</td>         <!-- Quận -->
+            <td>${user.province || ''}</td>         <!-- Tỉnh thành -->
+        `;
+        row.innerHTML = rowContent;
+        tableBody.appendChild(row);
+    });
+}    
 
-            // Tạo một dòng mới cho mỗi tài liệu
-            const row = document.createElement('tr');
+// Gọi hàm để lấy dữ liệu từ Firestore
+getUserData();
 
-            // Tạo các ô cho từng trường cụ thể và điền dữ liệu đúng thứ tự
-            const rowContent = `
-                <td>${email}</td>
-                <td>${user.fullName || ''}</td>      <!-- Họ và tên -->
-                <td>${user.phone || ''}</td>         <!-- Số điện thoại -->
-                <td>${user.address || ''}</td>       <!-- Địa chỉ -->
-                <td>${user.district || ''}</td>      <!-- Quận -->
-                <td>${user.province || ''}</td>      <!-- Tỉnh thành -->
-            `;
-            
-            // Đặt nội dung vào dòng và thêm vào bảng
-            row.innerHTML = rowContent;
-            tableBody.appendChild(row);
-        });
-    }
-
-    // Gọi hàm để lấy dữ liệu từ Firestore
-    getUserData();
 </script>
 </body>
 </html>
