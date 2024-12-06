@@ -5,13 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>mesach-bookhaven</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/user.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="html-cartegory/">
-    <script src="/js/search.js"></script>
+    <script type="module" src="/js/search.js"></script>
     <script src="/js/checklogin.js" ></script>
     <script src="/js/chatbot.js"></script>
-    <script src="/js/cart.js"></script>
+    <script type="module" src="/js/cart.js"></script>
 </head>
 <body>
     <section class="top">
@@ -52,10 +51,10 @@
                     <ul>
                         <li>
                             <input type="text" id="searchInput" placeholder="Tìm kiếm">
-                            <i class="fas fa-search" id="searchIcon"></i>
+                            <button type="button" id="searchIcon" class="fas fa-search"></button>
                         </li>
                         <li>
-                            <a href="login-admin/login.html"><i class="fa-regular fa-user"></i></a><p style="padding: 4px;">kiet</p>
+                            <a href="login-admin/login.html"><i class="fa-regular fa-user"></i></a>
                         </li>
                         <li>
                             <a href="html-cart/cart.html"><i class="fas fa-shopping-cart"></i></a>

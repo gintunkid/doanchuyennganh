@@ -17,7 +17,7 @@
         <div class="form-container sign-up">
             <form id="register-form">
                 <h1>Tạo tài khoản</h1>
-                <div class="social-icons">
+                <div class="social-icons">g
                     <a href="#" class="icon">
                         <i class="fa-brands fa-facebook-f"></i>
                     </a>
@@ -29,12 +29,13 @@
                     </a>
                 </div>
                 <span>hoặc sử dụng thông tin cá nhân để đăng nhập</span>
-                <input type="email" id="register-email" placeholder="Email">
-                <input type="password" id="register-password" placeholder="Mật khẩu">
+                <input type="email" id="register-email" placeholder="Email" required>
+                <input type="password" id="register-password" placeholder="Mật khẩu" required>
+                <input type="text" id="register-name" placeholder="Họ và Tên" required>
+                <input type="text" id="register-phone" placeholder="Số điện thoại" required>
                 <button type="submit" id="register">Đăng ký</button>
             </form>
         </div>
-
         <!-- Form Đăng nhập -->
         <div class="form-container sign-in">
             <form id="login-form">
@@ -149,6 +150,8 @@
             event.preventDefault();
             const email = document.querySelector('#register-email').value.trim();
             const password = document.querySelector('#register-password').value.trim();
+            const fullName = document.querySelector('#register-name').value.trim();
+            const phone = document.querySelector('#register-phone').value.trim();
 
             if (!email || !password) {
                 alert("Vui lòng nhập email và mật khẩu.");
@@ -160,6 +163,11 @@
                 return;
             }
 
+            if (phone.length < 10){
+                alert("Số điện thoại phải có ít nhất 10 số.");
+                return;
+            }
+
             const emailExists = await isEmailExist(email);
             if (emailExists) {
                 alert("Email này đã được sử dụng. Vui lòng chọn Email khác.");
@@ -168,7 +176,7 @@
 
             try {
                 // Tạo tài khoản mới
-                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password, fullName , phone);
                 const user = userCredential.user;
 
                 // Tạo document trống trong Firestore với email làm ID
@@ -176,8 +184,8 @@
                 const userDocRef = doc(db, "user",  emailId); // Dùng UID của Firebase Auth làm ID
                 await setDoc(userDocRef, {
                     email: email,
-                    fullName: "",
-                    phone: "",
+                    fullName: fullName,
+                    phone: phone,
                     province: "",
                     district: "",
                     address: "" ,
