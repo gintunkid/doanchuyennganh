@@ -15,7 +15,7 @@ table {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     background-color: #fff;
     border-radius: 50px;
-    table-layout: auto; /* Cố định kích thước cột */
+    table-layout: fixed; /* Cố định kích thước cột */
 }
 
 thead {
