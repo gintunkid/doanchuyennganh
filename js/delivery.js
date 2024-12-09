@@ -2,7 +2,7 @@
 
 // Import Firebase modules
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
+import { getFirestore, doc, getDoc, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -105,80 +105,104 @@ async function displayCartInDelivery() {
     const totalRow = document.createElement('tr');
     totalRow.innerHTML = `
         <td style="font-weight: bold;" colspan="2">Tổng</td>
-        <td style="font-weight: bold;">${total.toLocaleString('vi-VN')}đ</td>
+               <td style="font-weight: bold;">${total.toLocaleString('vi-VN')}đ</td>
     `;
     table.appendChild(totalRow);
 
-        // Lấy quận từ dropdown
-        const selectedDistrict = document.getElementById('districtDropdown').value;
-        const shippingFee = calculateShippingFee(selectedDistrict);
-        
-        // Thêm phí ship vào bảng
-        const shippingRow = document.createElement('tr');
-        shippingRow.innerHTML = `
-            <td style="font-weight: bold;" colspan="2">Phí ship</td>
-            <td style="font-weight: bold;">${shippingFee.toLocaleString('vi-VN')}đ</td>
-        `;
-        table.appendChild(shippingRow);
+    // Lấy quận từ dropdown
+    const selectedDistrict = document.getElementById("districtDropdown").value;
+    const shippingFee = calculateShippingFee(selectedDistrict);
     
-        // Tính tổng tiền bao gồm phí ship
-        const grandTotal = total + shippingFee;
-        const grandTotalRow = document.createElement('tr');
-        grandTotalRow.innerHTML = `
-            <td style="font-weight: bold;" colspan="2">Tổng cộng</td>
-            <td style="font-weight: bold;">${grandTotal.toLocaleString('vi-VN')}đ</td>
-        `;
-        table.appendChild(grandTotalRow);
-    
-        // Thêm bảng vào phần tử hiển thị
-        deliveryContentRight.appendChild(table);
+    // Thêm phí ship vào bảng
+    const shippingRow = document.createElement('tr');
+    shippingRow.innerHTML = `
+        <td style="font-weight: bold;" colspan="2">Phí ship</td>
+        <td style="font-weight: bold;">${shippingFee.toLocaleString('vi-VN')}đ</td>
+    `;
+    table.appendChild(shippingRow);
+
+    // Cập nhật tổng tiền bao gồm phí ship
+    const grandTotal = total + shippingFee;
+    const grandTotalRow = document.createElement('tr');
+    grandTotalRow.innerHTML = `
+        <td style="font-weight: bold;" colspan="2">Tổng cộng</td>
+        <td style="font-weight: bold;">${grandTotal.toLocaleString('vi-VN')}đ</td>
+    `;
+    table.appendChild(grandTotalRow);
+
+    // Thêm bảng vào giao diện
+    deliveryContentRight.appendChild(table);
+}
+
+// Hàm để lưu đơn hàng vào Firestore
+async function saveOrder(orderData) {
+    try {
+        const docRef = await addDoc(collection(db, "orders"), orderData);
+        console.log("Đơn hàng đã được lưu với ID: ", docRef.id);
+        alert("Đơn hàng đã được lưu thành công!");
+    } catch (e) {
+        console.error("Lỗi khi lưu đơn hàng: ", e);
+        alert("Có lỗi xảy ra. Vui lòng thử lại.");
     }
-    
-    // Cập nhật phí ship khi quận được chọn
-    document.getElementById('districtDropdown').addEventListener('change', function() {
+}
+
+// Hàm để xử lý khi người dùng nhấn nút thanh toán
+async function submitOrder() {
+    const fullName = document.getElementById("fullName").value;
+    const phone = document.getElementById("phone").value;
+    const province = document.getElementById("provinceDropdown").value;
+    const district = document.getElementById("districtDropdown").value;
+    const address = document.getElementById("addressInput").value;
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // Tính tổng tiền và tạo mảng items
+    let total = 0;
+    const items = []; // Mảng để lưu thông tin sản phẩm
+
+    for (const item of cart) {
+        const product = await getProductById(item.id); // Gọi hàm lấy thông tin sản phẩm
+        if (product) {
+            const subtotal = product.price * item.quantity;
+            total += subtotal;
+            const shippingFee = calculateShippingFee(district);
+            const grandTotal = total + shippingFee; 
+
+            // Thêm thông tin sản phẩm vào mảng items
+            items.push({
+                name: product.name, // Tên sản phẩm
+                quantity: item.quantity, // Số lượng
+                price: product.price, // Giá sản phẩm
+                subtotal: subtotal, // Thành tiền
+                grandTotal:grandTotal,
+                shippingFee:shippingFee,
+            });
+        }
+    }
+
+    // Lấy phí ship
+    const shippingFee = calculateShippingFee(district);
+    const grandTotal = total + shippingFee; // Tổng tiền bao gồm phí ship
+
+    // Tạo đối tượng đơn hàng
+    const orderData = {
+        fullName,
+        phone,
+        province,
+        district,
+        address,
+        items, // Lưu mảng items vào đơn hàng
+        total: grandTotal, // Lưu tổng tiền
+        createdAt: new Date() // Thêm thời gian tạo đơn hàng
+    };
+
+    // Gọi hàm lưu đơn hàng
+    await saveOrder(orderData);
+}
+
+// Gán sự kiện cho nút thanh toán
+document.querySelector('.delivery-content-left-button button:last-child').addEventListener('click', submitOrder);
+document.getElementById('districtDropdown').addEventListener('change', function() {
         displayCartInDelivery(); // Cập nhật lại giỏ hàng khi quận thay đổi
     });
-    async function submitOrder() {
-        const fullName = document.getElementById("fullName").value;
-        const phone = document.getElementById("phone").value;
-        const province = document.getElementById("provinceDropdown").value;
-        const district = document.getElementById("districtDropdown").value;
-        const address = document.getElementById("addressInput").value;
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
-        const totalAmount = document.getElementById('total-amount').textContent.replace('đ', '').replace('.', '').trim(); // Lấy tổng tiền
-    
-        // Kiểm tra xem tất cả các trường đã được nhập hay chưa
-        if (!fullName || !phone || !province || !district || !address) {
-            alert("Vui lòng nhập đầy đủ thông tin!");
-            return;
-        }
-    
-        try {
-            const orderRef = doc(db, 'orders', 'order_' + Date.now()); // Tạo một document mới trong collection "orders"
-            
-            await setDoc(orderRef, {
-                full_name: fullName,
-                phone: phone,
-                province: province,
-                district: district,
-                address: address,
-                cart: cart,
-                total_amount: totalAmount,
-                created_at: new Date() // Thêm thời gian tạo
-            });
-    
-            alert("Đơn hàng đã được lưu thành công!");
-            // Chuyển hướng đến trang payment.html
-            window.location.href = "../html-payment/payment.html";  // Thay thế đường dẫn nếu cần
-        } catch (error) {
-            console.error("Lỗi khi lưu đơn hàng:", error);
-            alert("Có lỗi xảy ra. Vui lòng thử lại.");
-        }
-    }
-    
-    // Gán hàm submitOrder cho nút thanh toán
-    document.querySelector('.delivery-content-left-button button:last-child').addEventListener('click', submitOrder);
-    
-    document.addEventListener('DOMContentLoaded', () => {
-        displayCartInDelivery();
-    });
+// Hiển thị giỏ hàng khi trang được tải
+document.addEventListener('DOMContentLoaded', displayCartInDelivery);
