@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="html-cartegory/">
-    <script type="module" src="/js/search.js"></script>
     <script src="/js/checklogin.js" ></script>
     <script src="/js/chatbot.js"></script>
     <script type="module" src="/js/cart.js"></script>
@@ -50,37 +49,36 @@
                 <div class="top-menu-icons">
                     <ul>
                         <li>
-                            <input type="text" id="searchInput" placeholder="Tìm kiếm">
-                            <button type="button" id="searchIcon" class="fas fa-search"></button>
+                            <div class="search-container">
+                                <input type="text" id="searchInput" placeholder="Nhập từ cần tìm">
+                                <button type="button" id="searchIcon" class="fas fa-search" onclick="handleSearch()"></button>
+                            </div>
                         </li>
-                        <li>
-                            <a href="login-admin/login.html"><i class="fa-regular fa-user"></i></a>
-                        </li>
-                        <li>
-                            <a href="html-cart/cart.html"><i class="fas fa-shopping-cart"></i></a>
-                        </li>
+                        <li><a href="login-admin/login.html"><i class="fa-regular fa-user"></i></a></li>
+                        <li><a href="html-cart/cart.html"><i class="fas fa-shopping-cart"></i></a></li>
                     </ul>
+                </div>                
+            </div>
+            <div id="chatToggle" class="chat-toggle" onclick="toggleChat()">
+                <i class="fa-solid fa-comment-medical"></i>
+                <span class="wave"></span>
+                <span class="wave"></span>
+                <span class="wave"></span>
+            </div>
+            <div id="chatbox" class="chatbox">
+                <div class="chatbox-header">
+                    <h1>Tư vấn khách hàng</h1>
+                    <button class="close-btn" onclick="toggleChat()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div id="messages" class="messages"></div>
+                <div id="questions" class="questions"></div>
+                <div class="input-area">
+                    <input type="text" id="userInput" placeholder="Nhập câu hỏi của bạn....">
+                    <button id="sendBtn" onclick="sendMessage()">Gửi</button>
                 </div>
             </div>
-        <!-- Thanh nhỏ để mở chat -->
-        <div id="chatToggle" class="chat-toggle" onclick="toggleChat()"><i class="fa-solid fa-comment-medical"></i></div>
-        <!-- Chatbox chính -->
-        <div id="chatbox" class="chatbox">
-            <div class="chatbox-header">
-                <h1>Tư vấn khách hàng</h1>
-                <button class="close-btn" onclick="toggleChat()">
-                    <i class="fas fa-times"></i> <!-- Icon "X" -->
-                </button>
-            </div>
-            <div id="messages" class="messages"></div> <!-- Khu vực hiển thị đoạn chat -->
-            <div id="questions" class="questions">
-                <!-- Các câu hỏi sẽ được thêm ở đây -->
-            </div>
-            <div class="input-area">
-                <input type="text" id="userInput" placeholder="Nhập câu hỏi của bạn....">
-                <button onclick="sendMessage()">Gửi</button>
-            </div>
-        </div>
     </section>
 <!----------------------SLIDER--------------------->
     <section class="sliders">
@@ -94,20 +92,50 @@
             <div class="dot"></div>
         </div>
     </section>
+<!------------------------ APP-SHOW ----------------------->
+<section class="app-show">
+    <div class="container-app">
+        <div class="icon-1">
+            <i class="fa-solid fa-clipboard-check"></i>
+            <h3>CAM KẾT CHÍNH HÃNG</h3>
+            <p>100% Authentic</p>
+            <div class="text-icon">
+                <p>Cam kết sản phẩm chính hãng từ các nhãn hàng lớn</p>
+            </div>
+        </div>
+        <div class="icon-1">
+            <i class="fa-solid fa-truck"></i>
+            <h3>GIAO HÀNG TẬN NƠI</h3>
+            <p>Express delivery</p>
+            <div class="text-icon">
+                <p>SHIP nhận hàng trong nội thành HCM</p>
+            </div>
+        </div>
+        <div class="icon-1">
+            <i class="fa-solid fa-phone-volume"></i>
+            <h3>HỖ TRỢ 24/24</h3>
+            <p>Supporting 24/24</p>
+            <div class="text-icon">
+                <p>Gọi ngay 
+                    <a href="tel:0797268602">0797268602</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
 <!----------------------- FOOTER ----------------------->
 <section class="footer">
     <div class="footer-container">
         <p>Truy cập Fanpage <a href="https://www.facebook.com/profile.php?id=61569810176348" target="_blank">Book Haven Store</a></p>
         <div class="app-google">
-            <a href="https://www.apple.com/app-store/"><img src="img/Screenshot 2024-05-15 003849.png" alt=""></a>
-            <a href="https://play.google.com/store/games?hl=vi&pli=1"><img src="img/Screenshot 2024-05-15 003813.png" alt=""></a>
+            <a href="https://www.apple.com/app-store/" target="_blank"><img src="img/Screenshot 2024-05-15 003849.png" alt=""></a>
+            <a href="https://play.google.com/store/games?hl=vi&pli=1" target="_blank"><img src="img/Screenshot 2024-05-15 003813.png" alt=""></a>
         </div>
         <div class="footer-items">
             <li><a href=""><img src="img/Screenshot 2024-05-15 003506.png" alt=""></a></li>
             <li><a href="">Liên hệ</a></li>
-            <li><a href="">Tuyển dụng</a></li>
             <li><a href="">Giới thiệu</a></li>
-            <li><a href=""><i class="fab fa-facebook-f"></i></a><a href=""><i class="fab fa-youtube"></i></a></li>
+            <li><a href="https://www.facebook.com/profile.php?id=61569810176348" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
         </div>
         <div class="footer-text">
             Địa chỉ đăng ký: 254/5, đường Lê Văn Thọ, phường 11, quận Gò Vấp
@@ -150,23 +178,7 @@
 
     // Hiển thị hình ảnh đầu tiên
     showImage(currentIndex);
-
-    // Ẩn,hiện thanh tác vụ
-    let lastScrollTop = 0; // Lưu vị trí cuộn trước đó
-    const topSection = document.querySelector('.top');
-
-    window.addEventListener('scroll', function() {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-        if (scrollTop > lastScrollTop) {
-            // Kéo chuột xuống
-            topSection.style.top = "-100px"; // Ẩn phần tử
-        } else {
-            // Kéo chuột lên
-            topSection.style.top = "0"; // Hiện phần tử
-        }
-        lastScrollTop = scrollTop; // Cập nhật vị trí cuộn
-    });
 </script>
+<script src="/js/function.js"></script>
 </body>
 </html>
