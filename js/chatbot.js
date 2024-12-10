@@ -47,7 +47,7 @@ function displayQuestions() {
     const messageArea = document.getElementById("messages");
     const questions = [
         { text: "Sách đang bán chạy nhất ở đây là gì?", answer: "Sách bán chạy nhất hiện nay là 'Cô gái đến từ hôm qua' của tác giả Nguyễn Nhật Ánh." },
-        { text: "Chính sách bảo hành ở đây là gì?", answer: "Sách không có chính sách bảo hành, nhưng có thể đổi trả trong vòng 7 ngày nếu sách bị lỗi." },
+        { text: "Chính sách bảo hành ở đây là gì?", answer: " Mỗi sản phẩm đều có chính sách bảo hành riêng, nhưng có thể đổi trả trong vòng 7 ngày nếu sách bị lỗi." },
         { text: "Shop có bán sách chính hãng không?", answer: "Tất cả sách bán tại Book Haven đều là sách chính hãng." }
     ];
 
@@ -142,17 +142,17 @@ function autoReply(userInput) {
     let botResponse = "Xin lỗi, tôi không hiểu câu hỏi của bạn. Đây là tin nhắn tự động. Vui lòng liên hệ thông qua trang facebook chính thức";
     // Kiểm tra các từ khóa trong câu hỏi người dùng và trả lời phù hợp
     if (userInput.toLowerCase().includes("sách bán chạy")|| userInput.toLowerCase().includes("sách hot")|| userInput.toLowerCase().includes("best seller")|| userInput.toLowerCase().includes("sách hot")) {
-        botResponse = "Sách bán chạy nhất hiện nay là 'Cô gái đến từ hôm qua' của tác giả Nguyễn Nhật Ánh.";
+        botResponse = "Sách bán chạy nhất hiện nay là 'Cô gái đến từ hôm qua' của tác giả Nguyễn Nhật Ánh.(Bot Reply)";
     } else if (userInput.toLowerCase().includes("bảo hành")|| userInput.toLowerCase().includes("đổi trả")) {
-        botResponse = "Sách không có chính sách bảo hành, nhưng có thể đổi trả trong vòng 7 ngày nếu sách bị lỗi.";
-    } else if (userInput.toLowerCase().includes("sách chính hãng")) {
-        botResponse = "Tất cả sách bán tại Book Haven đều là sách chính hãng.";
+        botResponse = "Sách không có chính sách bảo hành, nhưng có thể đổi trả trong vòng 7 ngày nếu sách bị lỗi.(Bot Reply)";
+    } else if (userInput.toLowerCase().includes("sách chính hãng")|| userInput.toLowerCase().includes("hợp lệ")|| userInput.toLowerCase().includes("uy tín")) {
+        botResponse = "Tất cả sách bán tại Book Haven đều là sách chính hãng.(Bot Reply)";
     } else if (userInput.toLowerCase().includes("ship")|| userInput.toLowerCase().includes("có ship không ạ ?")|| userInput.toLowerCase().includes("giao hàng ")) {
-        botResponse = "Thời gian ship hàng là 2-3 ngày kể từ khi nhận được đơn hàng.";
-    } else if (userInput.toLowerCase().includes("đi mua cơm sườn")) {
-        botResponse = "Địt Mẹ Cộng Sản !";
-    } else if (userInput.toLowerCase().includes("anh biết gì")) {
-        botResponse = "Anh biết em còn nhiều tiền mà";
+        botResponse = "Thời gian ship hàng là 2-3 ngày kể từ khi nhận được đơn hàng.(Bot Reply)";
+    } else if (userInput.toLowerCase().includes("chào shop")|| userInput.toLowerCase().includes("hi")|| userInput.toLowerCase().includes("hello")|| userInput.toLowerCase().includes("dạ chào shop")) {
+        botResponse = "Chào bạn, tôi là bot của shop bán sách Book Haven, mọi câu trả lời của tôi được lập trình sẵn. Nếu cần tư vấn riêng hãy liên hệ trang facebook cá nhân của shop ";
+    } else if (userInput.toLowerCase().includes("mượn sách")|| userInput.toLowerCase().includes("thuê sách")|| userInput.toLowerCase().includes("rent")|| userInput.toLowerCase().includes("mướn sách")) {
+        botResponse = "Shop chỉ bán sách chứ không cho thuê. Mong bạn thông cảm. (Bot Reply)";
     }
     // Tạo tin nhắn bot trả lời
     const botMessage = document.createElement("div");
