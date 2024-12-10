@@ -437,7 +437,7 @@ a {
 .footer-items li:last-child i:hover {
     color: black;
 }
-
+f
 .footer-items img {
     width: 100px;
 }
@@ -1266,9 +1266,6 @@ a {
     padding: 6px 0;
 }
 
-.delivery-content-right table tr:nth-child(4) td {
-    border-top: 2px solid #dddddd;
-}
 
 .delivery-content-right table tr td:last-child {
     text-align: right;

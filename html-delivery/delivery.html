@@ -13,9 +13,8 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script> 
-    <script src="../js/vietnam.js"></script>
-    <script src="../js/cart.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script type="module" src="/js/delivery.js"></script>
 </head>
 <body>
     <section class="top">
@@ -103,13 +102,25 @@
                     <div class="delivery-content-left-input-top-item">
                         <label for="provinceDropdown">Tỉnh/tp <span style="color: red;">*</span></label>
                         <select id="provinceDropdown" class="select">
-                            <option value="">--Chọn tỉnh thành--</option>
+                            <option value="">TP Hồ Chí Minh</option>
                         </select>
                     </div>
                     <div class="delivery-content-left-input-top-item">
                         <label for="districtDropdown">Quận/huyện <span style="color: red;">*</span></label>
                         <select id="districtDropdown" class="select">
                             <option value="">--Chọn quận/huyện--</option>
+                            <option value="Quận 1">Quận 1</option>
+                            <option value="Quận 2">Quận 2</option>
+                            <option value="Quận 3">Quận 3</option>
+                            <option value="Quận 4">Quận 4</option>
+                            <option value="Quận 5">Quận 5</option>
+                            <option value="Quận 6">Quận 6</option>
+                            <option value="Quận 7">Quận 7</option>
+                            <option value="Quận 8">Quận 8</option>
+                            <option value="Quận 9">Quận 9</option>
+                            <option value="Quận 10">Quận 10</option>
+                            <option value="Quận 11">Quận 11</option>
+                            <option value="Quận 12">Quận 12</option>
                         </select>
                     </div>
                     <div class="delivery-content-left-input-top-item">
@@ -118,7 +129,7 @@
                     </div>
                     <div class="delivery-content-left-button row">
                         <button style="align-items: center;"><span>&#171;</span><p style="font-weight: bold;"><a href="/html-cart/cart.html">QUAY LẠI GIỎ HÀNG</a></p></button>
-                        <button onclick="submitForm()"><p style="font-weight: bold;">THANH TOÁN VÀ GIAO HÀNG</p></button>
+                        <button onclick="submitOrder()"><p style="font-weight: bold;">THANH TOÁN VÀ GIAO HÀNG</p></button>
                     </div>
                 </div>                
             </div>       
@@ -136,17 +147,17 @@
                         </tr>
                         <tr>
                             <td style="font-weight: bold;" colspan="3">Tổng</td>
-                            <td id="subtotal-price" style="font-weight: bold;"><p>... <sup>đ</sup></p></td>
+                            <td id="subtotal-price" style="font-weight: bold;"><p>0 <sup>đ</sup></p></td>
                         </tr>
                         <tr>
-                            <td style="font-weight: bold;" colspan="3">Phí ship</td>
-                            <td style="font-weight: bold;"><p>... <sup>đ</sup></p></td>
+                            <td style="font-weight: bold;" id="shipping-fee" colspan="3">Phí ship</td>
+                            <td style="font-weight: bold;"><p id="shipping-fee-value">0 <sup>đ</sup></p></td>
                         </tr>
                         <tr>
-                            <td id="subtotal-price" style="font-weight: bold;" colspan="3">Tổng tiền hàng</td>
-                            <td id="subtotal-price" style="font-weight: bold;"><p>... <sup>đ</sup></p></td>
+                            <td style="font-weight: bold;" colspan="3">Tổng tiền hàng</td>
+                            <td id="total-amount" style="font-weight: bold;"><p>0 <sup>đ</sup></p></td>
                         </tr>
-                    </table>
+                    </table> 
                 </div>
         </div>
     </div>
@@ -176,8 +187,6 @@
     </div>
 </section>
 <script src="/js/function.js"></script>
-<script src="/js/GHN.js"></script>
-<script src="/js/cart.js"></script>
 <script type="module">
     import { displayCart, updateQuantity, removeItem } from '/js/cart.js';
     window.updateQuantity = updateQuantity;
@@ -370,6 +379,7 @@ async function displayCart() {
         console.error("Error displaying cart:", error);
     }
 }
+
 </script>
 </body>
 </html>
