@@ -152,5 +152,6 @@ window.decreaseQuantity = decreaseQuantity;
 window.buyNow = buyNow;
 window.addToCart = addToCart;
 
+
 // Xuất các hàm cần thiết nếu cần import từ file khác
 export { loadProductDetail, increaseQuantity, decreaseQuantity, buyNow, addToCart };
