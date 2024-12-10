@@ -76,4 +76,4 @@ registerBtn.addEventListener('click', () => {
 // Khi nhấn vào nút Đăng nhập, chuyển form sang trang Đăng nhập
 loginBtn.addEventListener('click', () => {
     container.classList.remove("active")
-})
+});
