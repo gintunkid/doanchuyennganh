@@ -1,57 +1,45 @@
 // Lưu tin nhắn vào sessionStorage
 function saveChatHistory() {
     const messageArea = document.getElementById("messages");
-    if (messageArea) {
-        const messages = messageArea.innerHTML;
-        sessionStorage.setItem("chatHistory", messages);
-    }
+    const messages = messageArea.innerHTML;
+    sessionStorage.setItem("chatHistory", messages);
 }
-
 // Tải lại lịch sử trò chuyện từ sessionStorage khi mở lại trang
 function loadChatHistory() {
     const messageArea = document.getElementById("messages");
-    if (messageArea) {
-        const savedMessages = sessionStorage.getItem("chatHistory");
-        if (savedMessages) {
-            messageArea.innerHTML = savedMessages;
-        }
+    const savedMessages = sessionStorage.getItem("chatHistory");
+    if (savedMessages) {
+        messageArea.innerHTML = savedMessages;
     }
 }
-
 // Hàm để chuyển đổi trạng thái của chatbox (hiện/ẩn)
 function toggleChat() {
     const chatbox = document.getElementById("chatbox");
     const messageArea = document.getElementById("messages");
-
-    if (chatbox && messageArea) {
-        if (chatbox.style.display === "block") {
-            chatbox.style.display = "none";
-        } else {
-            chatbox.style.display = "block";
-            if (messageArea.innerHTML === "") {
-                // Gửi câu hỏi ban đầu khi mở chat
-                sendBotMessage(
-                    "Book Haven là một trang web bán sách trực tuyến, chuyên cung cấp các cuốn sách đa dạng từ nhiều thể loại khác nhau, bao gồm các sách tự xuất bản của tác giả. Với sứ mệnh hỗ trợ các tác giả tự xuất bản, Book Haven không chỉ cung cấp nền tảng xuất bản dễ dàng mà còn giúp các tác giả xây dựng thương hiệu và tăng cường sự hiện diện trực tuyến."
-                );
-                displayQuestions(); // Hiển thị câu hỏi sau khi mở chat
-            }
-            scrollToBottom(); // Cuộn xuống dưới khi mở chat
+    
+    if (chatbox.style.display === "block") {
+        chatbox.style.display = "none";
+    } else {
+        chatbox.style.display = "block";
+        if (messageArea.innerHTML === "") {
+            // Gửi câu hỏi ban đầu khi mở chat
+            sendBotMessage('Book Haven là một trang web bán sách trực tuyến, chuyên cung cấp các cuốn sách đa dạng từ nhiều thể loại khác nhau, bao gồm các sách tự xuất bản của tác giả. Với sứ mệnh hỗ trợ các tác giả tự xuất bản, Book Haven không chỉ cung cấp nền tảng xuất bản dễ dàng mà còn giúp các tác giả xây dựng thương hiệu và tăng cường sự hiện diện trực tuyến.');
+            displayQuestions();  // Hiển thị câu hỏi sau khi mở chat
         }
+        scrollToBottom(); // Cuộn xuống dưới khi mở chat
     }
 }
 
 // Hàm gửi tin nhắn của bot
 function sendBotMessage(message) {
     const messageArea = document.getElementById("messages");
-    if (messageArea) {
-        const botMessage = document.createElement("div");
-        botMessage.classList.add("bot-message");
-        botMessage.innerText = message;
-        messageArea.appendChild(botMessage);
+    const botMessage = document.createElement("div");
+    botMessage.classList.add("bot-message");
+    botMessage.innerText = message;
+    messageArea.appendChild(botMessage);
 
-        // Cuộn xuống dưới khi có tin nhắn mới
-        messageArea.scrollTop = messageArea.scrollHeight;
-    }
+    // Cuộn xuống dưới khi có tin nhắn mới
+    messageArea.scrollTop = messageArea.scrollHeight;
 }
 
 // Hàm tạo câu hỏi và thêm vào chatbox
@@ -63,6 +51,7 @@ function displayQuestions() {
         { text: "Chính sách bảo hành ở đây là gì?", answer: " Mỗi sản phẩm đều có chính sách bảo hành riêng, nhưng có thể đổi trả trong vòng 7 ngày nếu sách bị lỗi." },
         { text: "Shop có bán sách chính hãng không?", answer: "Tất cả sách bán tại Book Haven đều là sách chính hãng." }
     ];
+
 
     if (messageArea) {
         const questions = [
@@ -81,52 +70,92 @@ function displayQuestions() {
             messageArea.appendChild(button); // Thêm câu hỏi vào messageArea
         });
     }
+
+    questions.forEach(question => {
+        const button = document.createElement("button");
+        button.innerText = question.text;
+        button.onclick = function() {
+            sendAnswer(question.answer, button);
+        };
+        messageArea.appendChild(button);  // Thêm câu hỏi vào messageArea
+    });
+
 }
 
 function sendAnswer(answer, questionButton) {
     const messageArea = document.getElementById("messages");
-    if (messageArea) {
-        const botMessage = document.createElement("div");
-        botMessage.classList.add("bot-message");
-        botMessage.innerText = answer;
 
-        messageArea.appendChild(botMessage);
+    // Tạo tin nhắn bot
+    const botMessage = document.createElement("div");
+    botMessage.classList.add("bot-message");
 
-        // Cuộn xuống cuối cùng để thấy tin nhắn mới
-        messageArea.scrollTop = messageArea.scrollHeight;
+    // Kiểm tra nếu câu trả lời chứa một URL
+    const linkRegex = /https?:\/\/[^\s]+/g;
+    const containsLink = answer.match(linkRegex);
 
-        // Xóa câu hỏi đã được nhấn
-        if (questionButton) {
-            questionButton.remove();
-        }
+    if (containsLink) {
+        // Nếu câu trả lời có chứa đường link, thay thế URL bằng thẻ <a>
+        answer = answer.replace(linkRegex, function(url) {
+            return `<a href="${url}" target="_blank">${url}</a>`;
+        });
+
+        botMessage.innerHTML = answer;  // Dùng innerHTML để có thể hiển thị đường link
+    } else {
+        botMessage.innerText = answer;  // Nếu không có URL, dùng innerText để tránh thẻ HTML
     }
-}
+
+    messageArea.appendChild(botMessage);
+
+    // Cuộn xuống cuối cùng để thấy tin nhắn mới
+    messageArea.scrollTop = messageArea.scrollHeight;
+
+    // Xóa câu hỏi đã được nhấn
+    if (questionButton) {
+        questionButton.remove();
+    }
+
+    scrollToBottom(); // Cuộn xuống cuối sau khi gửi câu trả lời
+};
 
 // Hàm kiểm tra và gửi câu trả lời từ người dùng
 function sendMessage() {
-    const userInput = document.getElementById("userInput");
-    if (userInput && userInput.value.trim()) {
-        const messageArea = document.getElementById("messages");
+    const userInput = document.getElementById("userInput").value;
+    if (!userInput.trim()) return;  // Nếu input rỗng thì không gửi tin nhắn
 
-        // Tạo một container cho tin nhắn người dùng
-        const messageContainer = document.createElement("div");
-        messageContainer.classList.add("user-message");
+    const messageArea = document.getElementById("messages");
 
-        const userMessage = document.createElement("div");
-        userMessage.classList.add("message-text");
-        userMessage.innerText = userInput.value;
+    // Tạo một container cho tin nhắn người dùng và icon
+    const messageContainer = document.createElement("div");
+    messageContainer.classList.add("user-message");
 
-        messageContainer.appendChild(userMessage);
-        messageArea.appendChild(messageContainer);
+    // Tạo icon cho người dùng (nếu cần)
+    const userIcon = document.createElement("div");
+    userIcon.classList.add("user-icon");
 
-        // Gửi câu trả lời tự động từ bot dựa trên câu hỏi của người dùng
-        autoReply(userInput.value);
+    // Tạo tin nhắn của người dùng
+    const userMessage = document.createElement("div");
+    userMessage.classList.add("message-text");
+    userMessage.innerText = userInput;
 
-        // Làm sạch input sau khi gửi
-        userInput.value = "";
-        saveChatHistory(); // Lưu lịch sử
-    }
-}
+    // Thêm icon và tin nhắn vào container
+    messageContainer.appendChild(userIcon);
+    messageContainer.appendChild(userMessage);
+
+    // Thêm container vào khu vực tin nhắn
+    messageArea.appendChild(messageContainer);
+
+    // Cuộn xuống dưới khi có tin nhắn mới
+    messageArea.scrollTop = messageArea.scrollHeight;
+
+    // Gửi câu trả lời tự động từ bot dựa trên câu hỏi của người dùng
+    autoReply(userInput);
+
+    // Làm sạch input sau khi gửi
+    document.getElementById("userInput").value = '';
+    
+    // Lưu lịch sử
+    saveChatHistory();
+}   
 
 // Hàm trả lời tự động từ bot dựa trên câu hỏi của người dùng
 function autoReply(userInput) {
@@ -153,6 +182,7 @@ function autoReply(userInput) {
     botMessage.innerText = botResponse;
     messageArea.appendChild(botMessage);
 
+
     if (messageArea) {
         let botResponse = "Xin lỗi, tôi không hiểu câu hỏi của bạn. Vui lòng liên hệ hỗ trợ.";
 
@@ -170,25 +200,15 @@ function autoReply(userInput) {
 
         sendBotMessage(botResponse);
     }
+
+    // Cuộn xuống dưới khi có tin nhắn mới
+    messageArea.scrollTop = messageArea.scrollHeight;
+
 }
 
 // Hàm cuộn xuống dưới cùng của khung chat
 function scrollToBottom() {
     const messageArea = document.getElementById("messages");
-    if (messageArea) {
-        messageArea.scrollTop = messageArea.scrollHeight;
-    }
+    messageArea.scrollTop = messageArea.scrollHeight;
 }
-
-// Thêm sự kiện nhấn phím Enter
-document.getElementById("userInput").addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
-        event.preventDefault(); // Ngăn việc Enter tạo dòng mới
-        sendMessage(); // Gọi hàm gửi tin nhắn
-    }
-});
-
-// Thêm sự kiện nhấn nút "Gửi"
-document.getElementById("sendBtn").onclick = sendMessage;
-
 window.onload = loadChatHistory;
