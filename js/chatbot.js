@@ -57,20 +57,20 @@ function sendBotMessage(message) {
 // Hàm tạo câu hỏi và thêm vào chatbox
 function displayQuestions() {
     const messageArea = document.getElementById("messages");
-<<<<<<< HEAD
+
     const questions = [
         { text: "Sách đang bán chạy nhất ở đây là gì?", answer: "Sách bán chạy nhất hiện nay là 'Cô gái đến từ hôm qua' của tác giả Nguyễn Nhật Ánh." },
         { text: "Chính sách bảo hành ở đây là gì?", answer: " Mỗi sản phẩm đều có chính sách bảo hành riêng, nhưng có thể đổi trả trong vòng 7 ngày nếu sách bị lỗi." },
         { text: "Shop có bán sách chính hãng không?", answer: "Tất cả sách bán tại Book Haven đều là sách chính hãng." }
     ];
-=======
+
     if (messageArea) {
         const questions = [
             { text: "Sách đang bán chạy nhất ở đây là gì?", answer: "Sách bán chạy nhất hiện nay là 'Cô gái đến từ hôm qua' của tác giả Nguyễn Nhật Ánh." },
             { text: "Chính sách bảo hành ở đây là gì?", answer: "Sách không có chính sách bảo hành, nhưng có thể đổi trả trong vòng 7 ngày nếu sách bị lỗi." },
             { text: "Shop có bán sách chính hãng không?", answer: "Tất cả sách bán tại Book Haven đều là sách chính hãng." }
         ];
->>>>>>> 1bf3aa94101084d6ff909c5f529f3427c11ba23d
+
 
         questions.forEach((question) => {
             const button = document.createElement("button");
@@ -131,7 +131,7 @@ function sendMessage() {
 // Hàm trả lời tự động từ bot dựa trên câu hỏi của người dùng
 function autoReply(userInput) {
     const messageArea = document.getElementById("messages");
-<<<<<<< HEAD
+
     let botResponse = "Xin lỗi, tôi không hiểu câu hỏi của bạn. Đây là tin nhắn tự động. Vui lòng liên hệ thông qua trang facebook chính thức";
     // Kiểm tra các từ khóa trong câu hỏi người dùng và trả lời phù hợp
     if (userInput.toLowerCase().includes("sách bán chạy")|| userInput.toLowerCase().includes("sách hot")|| userInput.toLowerCase().includes("best seller")|| userInput.toLowerCase().includes("sách hot")) {
@@ -152,10 +152,10 @@ function autoReply(userInput) {
     botMessage.classList.add("bot-message");
     botMessage.innerText = botResponse;
     messageArea.appendChild(botMessage);
-=======
+
     if (messageArea) {
         let botResponse = "Xin lỗi, tôi không hiểu câu hỏi của bạn. Vui lòng liên hệ hỗ trợ.";
->>>>>>> 1bf3aa94101084d6ff909c5f529f3427c11ba23d
+
 
         // Kiểm tra từ khóa
         if (/sách bán chạy|sách hot|best seller/.test(userInput.toLowerCase())) {
