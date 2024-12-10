@@ -359,7 +359,7 @@ a {
 
 /* -------------------------FOOTER ------------------------*/
 .footer {
-    padding: 100px 0 0;
+    padding: 80px 0 0;
     border-top:2px solid black;
 }
 
@@ -437,9 +437,9 @@ a {
 .footer-items li:last-child i:hover {
     color: black;
 }
-f
+
 .footer-items img {
-    width: 100px;
+    width: 150px;
 }
 
 .footer-text {
