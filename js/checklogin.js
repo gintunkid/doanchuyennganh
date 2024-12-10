@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     userMenu.className = "menu-dropdown";
                     userMenu.innerHTML = `
                         <ul>
-                            <li><a href="/orders.html"><i class="fas fa-receipt"></i> Đơn hàng của tôi</a></li>
+                            <li><a href="/html-information/orders.html"><i class="fas fa-receipt"></i> Đơn hàng của tôi</a></li>
                             <li><a href="/html-information/information.html"><i class="fas fa-eye"></i> Thông tin cá nhân</a></li>
                              <li><a href="/login-admin/forgotpassword.html"><i class="fas fa-lock"></i> Đổi mật khẩu</a></li>
                             <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>

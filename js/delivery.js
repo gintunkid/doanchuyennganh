@@ -48,17 +48,28 @@ async function getProductById(productId) {
 function calculateShippingFee(district) {
     const shippingFees = {
         "Quận 1": 20000,
-        "Quận 2": 30000,
+        "Quận 2": 40000,
         "Quận 3": 0, // Quận 3 đến Quận 3 thì không tính phí
         "Quận 4": 25000,
         "Quận 5": 25000,
         "Quận 6": 30000,
         "Quận 7": 30000,
         "Quận 8": 30000,
-        "Quận 9": 35000,
+        "Quận 9": 40000,
         "Quận 10": 25000,
         "Quận 11": 25000,
-        "Quận 12": 30000,
+        "Quận 12": 35000,
+        "Quận Phú Nhuận":30000,
+        "Quận Bình Thạnh":30000,
+        "Quận Tân Bình":30000,
+        "Quận Bình Tân":35000,
+        "Quận Thủ Đức":40000,
+        "Quận Gò Vấp":35000,
+        "Huyện Bình Chánh":40000,
+        "Huyện Nhà Bè":40000,
+        "Huyện Cần Giờ":50000,
+        "Huyện Củ Chi":50000,
+        "Huyện Cần Giờ":50000,
     };
 
     return shippingFees[district] || 0; // Trả về 0 nếu quận không có trong danh sách
@@ -140,6 +151,7 @@ async function saveOrder(orderData) {
         const docRef = await addDoc(collection(db, "orders"), orderData);
         console.log("Đơn hàng đã được lưu với ID: ", docRef.id);
         alert("Đơn hàng đã được lưu thành công!");
+        window.location.href = "../html-payment/payment.html";
     } catch (e) {
         console.error("Lỗi khi lưu đơn hàng: ", e);
         alert("Có lỗi xảy ra. Vui lòng thử lại.");

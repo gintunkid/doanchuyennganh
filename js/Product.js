@@ -1,6 +1,6 @@
 // Product.js
 import { db } from './firebase-config.js';
-export { addProducts, displayProducts, viewProductDetail, getProductDetail, searchProducts };
+export { addProducts, displayProducts, viewProductDetail, getProductDetail };
 
 // Hàm upload ảnh và lấy URL
 async function uploadImageAndGetURL(imageFile, category, subCategory, imageName) {
@@ -105,24 +105,6 @@ async function getProductDetail(productId, category, subCategory) {
     } catch (error) {
         console.error("Error getting product detail: ", error);
         return null;
-    }
-}
-
-// Hàm tìm kiếm sản phẩm
-async function searchProducts(query, category, subCategory) {
-    try {
-        const db = firebase.firestore();
-        const snapshot = await db.collection("product")
-                               .doc(category)
-                               .collection(subCategory)
-                               .where("name", ">=", query)
-                               .where("name", "<=", query + '\uf8ff')
-                               .get();
-
-        return snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}));
-    } catch (error) {
-        console.error("Error searching products: ", error);
-        return [];
     }
 }
 
