@@ -187,7 +187,7 @@
                 return;
             }
         
-            // Lấy email của người dùng hiện tại
+            // Lấy email của người dùng hiện tại , hello
             onAuthStateChanged(auth, async (user) => {
                 if (user) {
                     const emailId = user.email.replace(/[.#$[\]]/g, "_"); // Chuyển email thành ID hợp lệ
