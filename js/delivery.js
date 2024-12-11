@@ -167,7 +167,7 @@ async function submitOrder() {
     const address = document.getElementById("addressInput").value;
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     const user = firebase.auth().currentUser ; // Lấy thông tin người dùng hiện tại
-    const userId = user ? user.uid : null; // Lấy userId
+    const useremail = user ? user.email : null; // Lấy userId
 
     // Tính tổng tiền và tạo mảng items
     let total = 0;
@@ -199,7 +199,7 @@ async function submitOrder() {
 
     // Tạo đối tượng đơn hàng
     const orderData = {
-        userId, 
+        useremail, 
         fullName,
         phone,
         province,

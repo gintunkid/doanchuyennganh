@@ -204,9 +204,9 @@
     const auth = getAuth(app);
     //Hello
     // Function to fetch orders for the current user
-    async function fetchUserOrders(userId) {
+    async function fetchUserOrders(userEmail) {
         const ordersCollection = collection(db, "orders");
-        const q = query(ordersCollection, where("userId", "==", userId)); // Assuming you store userId in orders
+        const q = query(ordersCollection, where("useremail", "==", userEmail)); // Assuming you store userId in orders
         const ordersSnapshot = await getDocs(q);
         const ordersList = ordersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
@@ -245,8 +245,8 @@
     // Call the fetchUser Orders function when the user is authenticated
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            const userId = user.uid; // Get the current user's ID
-            fetchUserOrders(userId); // Fetch orders for the current user
+            const userEmail = user.email; // Get the current user's ID
+            fetchUserOrders(userEmail); // Fetch orders for the current user
         } else {
             console.log("Người dùng chưa đăng nhập.");
             // Optionally, you can redirect to login page or show a message

@@ -34,7 +34,7 @@ async function displayCart() {
         const collections = {
             sach: ["comic", "sachngoaingu", "tamlikinangsong"],
             dochoi: ["giaoduc", "mohinh"],
-            vpp:["dungcuvanphong","butviet"],
+            vpp:["dungcuvanphong","butviet","sanphamgiay"],
         };
 
         for (const item of cart) {
