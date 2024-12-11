@@ -19,7 +19,7 @@ table {
 }
 
 thead {
-    background-color: #4CAF50;
+    background-color: black;
     color: white;
     font-weight: bold;
 }
@@ -73,3 +73,4 @@ td:nth-child(6), th:nth-child(6) {
 td, th {
     text-align: center; /* Căn giữa nội dung trong các cột */
 }
+

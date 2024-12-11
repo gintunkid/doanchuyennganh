@@ -7,12 +7,23 @@ document.addEventListener("DOMContentLoaded", () => {
     function checkSession() {
         const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
         const userEmail = localStorage.getItem("userEmail");
-        return { isLoggedIn, userEmail };
+        const passwordChanged = localStorage.getItem("passwordChanged") === "true";
+        return { isLoggedIn, userEmail, passwordChanged };
     }
 
     // Cập nhật giao diện
     function updateUserInterface() {
-        const { isLoggedIn, userEmail } = checkSession();
+        const { isLoggedIn, userEmail, passwordChanged } = checkSession();
+
+        if (passwordChanged) {
+            // Nếu mật khẩu đã đổi, tự động đăng xuất
+            localStorage.removeItem("isLoggedIn");
+            localStorage.removeItem("userEmail");
+            localStorage.removeItem("passwordChanged");
+            alert("Bạn cần đăng nhập lại sau khi đổi mật khẩu.");
+            window.location.href = "/login-admin/login.html"; // Chuyển hướng đến trang đăng nhập
+            return;
+        }
 
         if (isLoggedIn && userEmail) {
             userLink.href = "#"; // Ngăn điều hướng khi đã đăng nhập
@@ -33,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <ul>
                             <li><a href="/html-information/orders.html"><i class="fas fa-receipt"></i> Đơn hàng của tôi</a></li>
                             <li><a href="/html-information/information.html"><i class="fas fa-eye"></i> Thông tin cá nhân</a></li>
-                             <li><a href="/login-admin/forgotpassword.html"><i class="fas fa-lock"></i> Đổi mật khẩu</a></li>
+                            <li><a href="/login-admin/forgotpassword.html"><i class="fas fa-lock"></i> Đổi mật khẩu</a></li>
                             <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a></li>
                         </ul>
                     `;
