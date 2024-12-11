@@ -207,7 +207,8 @@ async function submitOrder() {
         address,
         items, // Lưu mảng items vào đơn hàng
         total: grandTotal, // Lưu tổng tiền
-        createdAt: new Date() // Thêm thời gian tạo đơn hàng
+        createdAt: new Date(), // Thêm thời gian tạo đơn hàng
+        orderId: `ORDER-${Date.now()}` 
     };
 
     // Gọi hàm lưu đơn hàng
