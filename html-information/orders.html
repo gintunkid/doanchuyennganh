@@ -225,7 +225,7 @@
             orderDiv.innerHTML = `
                 <div class="order-header">
                     <h2>ID Đơn hàng: ${order.id}</h2>
-                    <span class="status">${order.status || 'Đang xử lý'}</span>
+                    <span class="status">${order.status}</span>
                 </div>
                 <div class="product-list">
                     ${order.items.map(item => `
