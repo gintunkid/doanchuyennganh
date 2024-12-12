@@ -150,13 +150,14 @@ async function saveOrder(orderData) {
     try {
         const docRef = await addDoc(collection(db, "orders"), orderData);
         console.log("Đơn hàng đã được lưu với ID: ", docRef.id);
-        alert("Đơn hàng đã được lưu thành công!");
-        window.location.href = "../html-payment/payment.html";
+        alert("Bạn đã đặt hàng thành công !");
+        window.location.href = "../home.html"; // Chuyển hướng về trang chủ (home)
     } catch (e) {
         console.error("Lỗi khi lưu đơn hàng: ", e);
         alert("Có lỗi xảy ra. Vui lòng thử lại.");
     }
 }
+
 
 // Hàm để xử lý khi người dùng nhấn nút thanh toán
 async function submitOrder() {
@@ -198,7 +199,7 @@ async function submitOrder() {
         useremail, 
         fullName,
         phone,
-        province,
+        province:"Thành phố Hồ Chí Minh",
         district,
         address,
         items, // Lưu mảng items vào đơn hàng
@@ -207,6 +208,7 @@ async function submitOrder() {
         createdAt: new Date(), // Thêm thời gian tạo đơn hàng
         orderId: `ORDER-${Date.now()}`, // Tạo mã đơn hàng duy nhất
         status: "Đang chờ tiếp nhận", // Trạng thái mặc định
+        payment: "Thanh toán khi nhận hàng"
     };
 
     // Gọi hàm lưu đơn hàng

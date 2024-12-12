@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const userIcon = document.querySelector(".fa-user");
     const userLink = userIcon.closest("a"); // Tham chiếu đến thẻ <a> bọc icon
     const topMenuIcons = document.querySelector(".top-menu-icons");
+    const cartIcon = document.querySelector(".fa-shopping-cart"); // Chọn biểu tượng giỏ hàng
 
     // Kiểm tra trạng thái đăng nhập
     function checkSession() {
@@ -86,6 +87,23 @@ document.addEventListener("DOMContentLoaded", () => {
             if (userMenu) userMenu.remove();
         }
     }
-    
+
+    // Xử lý sự kiện cho giỏ hàng
+    if (cartIcon) {
+        cartIcon.addEventListener("click", (e) => {
+            e.preventDefault();
+
+            const { isLoggedIn } = checkSession();
+
+            if (isLoggedIn) {
+                // Nếu đã đăng nhập, chuyển đến trang giỏ hàng
+                window.location.href = "/html-cart/cart.html";
+            } else {
+                // Nếu chưa đăng nhập, chuyển đến trang đăng nhập
+                window.location.href = "../login-admin/login.html";
+            }
+        });
+    }
+
     updateUserInterface();
 });

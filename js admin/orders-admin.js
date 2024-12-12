@@ -37,7 +37,7 @@ async function fetchUserOrders(userEmail) {
 
         // Hàm tạo dropdown cho trạng thái
         const createStatusDropdown = (status) => {
-            const statuses = ["Đang xử lý", "Đang giao hàng", "Đã giao thành công"];
+            const statuses = ["Đang chờ tiếp nhận", "Đang xử lý", "Đang giao hàng", "Đã giao thành công","Đã hủy"];
             return `
                 <select class="status-dropdown" data-order-id="${order.id}">
                     ${statuses.map(option => `
@@ -59,6 +59,8 @@ async function fetchUserOrders(userEmail) {
                 <p><strong>Số điện thoại:</strong> ${order.phone || 'Chưa cập nhật'}</p>
                 <p><strong>Địa chỉ:</strong> ${order.address || 'Chưa cập nhật'}</p>
                 <p><strong>Quận:</strong> ${order.district || 'Chưa cập nhật'}</p>
+                <p><strong>Tỉnh:</strong> ${order.province || 'Chưa cập nhật'}</p>
+                <p><strong>Phương thức thanh toán:</strong> ${order.payment}</p>
             </div>
             <div class="product-list">
                 ${order.items.map(item => `

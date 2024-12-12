@@ -28,6 +28,7 @@
                 </div>
                 <div class="top-menu-items">
                     <ul>
+                        <li><a href="/home.html">Home</a></li>
                         <li>
                             Giáo khoa tham khảo
                             <ul class="top-menu-item">
@@ -148,11 +149,6 @@
             <a href="https://www.apple.com/app-store/"><img src="/img/Screenshot 2024-05-15 003849.png" alt=""></a>
             <a href="https://play.google.com/store/games?hl=vi&pli=1"><img src="/img/Screenshot 2024-05-15 003813.png" alt=""></a>
         </div>
-        <p>Nhận bản tin -Mê sách-</p>
-        <div class="input-email">
-            <input type="text" placeholder="Nhập email của bạn">
-            <i class="fas fa-arow-left"></i>
-        </div>
         <div class="footer-items">
             <li><a href=""><img src="/img/Screenshot 2024-05-15 003506.png" alt=""></a></li>
             <li><a href="">Liên hệ</a></li>
@@ -170,28 +166,5 @@
     </div>
 </section>
 <script src="/js/function.js"></script>
-<script>
-    //Hello
-    const payButton = document.getElementById("pay"); // Nút "THANH TOÁN"
-        if (payButton) {
-            payButton.addEventListener("click", () => {
-                const { isLoggedIn } = checkSession();
-
-                if (isLoggedIn) {
-                    // Nếu đã đăng nhập, chuyển đến trang home.html
-                    console.log("User is logged in. Redirecting to home.html");
-                    window.location.href = "/home.html";
-                } else {
-                    // Nếu chưa đăng nhập, hiển thị thông báo và chuyển đến trang đăng nhập
-                    console.log("User is not logged in. Showing login prompt.");
-                    alert("Bạn cần đăng nhập để thanh toán.");
-                    // Chuyển đến trang đăng nhập sau 200ms để chắc chắn thông báo alert được hiển thị
-                    setTimeout(() => {
-                        window.location.href = "../login-admin/login.html"; // Chuyển đến trang đăng nhập
-                    }, 200); // Đợi 200ms trước khi chuyển trang
-                }
-            });
-        }
-</script>
 </body>
 </html>
