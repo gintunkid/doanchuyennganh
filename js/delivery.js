@@ -150,13 +150,14 @@ async function saveOrder(orderData) {
     try {
         const docRef = await addDoc(collection(db, "orders"), orderData);
         console.log("Đơn hàng đã được lưu với ID: ", docRef.id);
-        alert("Đơn hàng đã được lưu thành công!");
-        window.location.href = "../html-payment/payment.html";
+        alert("Bạn đã đặt hàng thành công !");
+        window.location.href = "../home.html"; // Chuyển hướng về trang chủ (home)
     } catch (e) {
         console.error("Lỗi khi lưu đơn hàng: ", e);
         alert("Có lỗi xảy ra. Vui lòng thử lại.");
     }
 }
+
 
 // Hàm để xử lý khi người dùng nhấn nút thanh toán
 async function submitOrder() {
@@ -164,10 +165,11 @@ async function submitOrder() {
     const phone = document.getElementById("phone").value;
     const province = document.getElementById("provinceDropdown").value;
     const district = document.getElementById("districtDropdown").value;
+    const ward = document.getElementById("wardInput").value;
     const address = document.getElementById("addressInput").value;
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const user = firebase.auth().currentUser ; // Lấy thông tin người dùng hiện tại
-    const useremail = user ? user.email : null; // Lấy userId
+    const user = firebase.auth().currentUser; // Lấy thông tin người dùng hiện tại
+    const useremail = user ? user.email : null; // Lấy email của người dùng
 
     // Tính tổng tiền và tạo mảng items
     let total = 0;
@@ -178,8 +180,6 @@ async function submitOrder() {
         if (product) {
             const subtotal = product.price * item.quantity;
             total += subtotal;
-            const shippingFee = calculateShippingFee(district);
-            const grandTotal = total + shippingFee; 
 
             // Thêm thông tin sản phẩm vào mảng items
             items.push({
@@ -187,8 +187,6 @@ async function submitOrder() {
                 quantity: item.quantity, // Số lượng
                 price: product.price, // Giá sản phẩm
                 subtotal: subtotal, // Thành tiền
-                grandTotal:grandTotal,
-                shippingFee:shippingFee,
             });
         }
     }
@@ -202,18 +200,23 @@ async function submitOrder() {
         useremail, 
         fullName,
         phone,
-        province,
+        province:"Thành phố Hồ Chí Minh",
         district,
+        ward,
         address,
         items, // Lưu mảng items vào đơn hàng
         total: grandTotal, // Lưu tổng tiền
+        shippingFee, // Lưu phí ship
         createdAt: new Date(), // Thêm thời gian tạo đơn hàng
-        orderId: `ORDER-${Date.now()}` 
+        orderId: `ORDER-${Date.now()}`, // Tạo mã đơn hàng duy nhất
+        status: "Đang chờ tiếp nhận", // Trạng thái mặc định
+        payment: "Thanh toán khi nhận hàng"
     };
 
     // Gọi hàm lưu đơn hàng
     await saveOrder(orderData);
 }
+
 
 // Gán sự kiện cho nút thanh toán
 document.querySelector('.delivery-content-left-button button:last-child').addEventListener('click', submitOrder);

@@ -102,9 +102,6 @@
                             <td>Email</td>
                             <td>Họ và Tên</td>
                             <td>Số điện thoại</td>
-                            <td>Địa chỉ</td>
-                            <td>Quận</td>
-                            <td>Tỉnh thành</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -159,9 +156,6 @@ async function getUserData() {
             <td>${user.email || ''}</td>            <!-- Email -->
             <td>${user.fullName || ''}</td>         <!-- Họ và tên -->
             <td>${user.phone || ''}</td>            <!-- Số điện thoại -->
-            <td>${user.address || ''}</td>          <!-- Địa chỉ -->
-            <td>${user.district || ''}</td>         <!-- Quận -->
-            <td>${user.province || ''}</td>         <!-- Tỉnh thành -->
         `;
         row.innerHTML = rowContent;
         tableBody.appendChild(row);
