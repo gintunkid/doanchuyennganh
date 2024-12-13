@@ -88,6 +88,10 @@
                             </select>
                         </div>
                         <div class="delivery-content-left-input-top-item">
+                            <label for="wardInput">Phường/Xã/Thị trấn<span style="color: red;">*</span></label>
+                            <input type="text" id="wardInput" name="wardInput">
+                        </div>
+                        <div class="delivery-content-left-input-top-item">
                             <label for="addressInput">Địa chỉ <span style="color: red;">*</span></label>
                             <input type="text" id="addressInput" name="addressInput">
                         </div>
@@ -162,6 +166,7 @@
                 document.getElementById('provinceDropdown').value = data.province || "";
                 document.getElementById('districtDropdown').value = data.district || "";
                 document.getElementById('addressInput').value = data.address || "";
+                document.getElementById('wardInput').value = data.ward || "";
                 document.getElementById('userId').value = data.userid || "";
             } else {
                 console.log("Không tìm thấy thông tin người dùng.");
@@ -174,6 +179,7 @@
             const phone = document.getElementById('phone').value;
             const province = document.getElementById('provinceDropdown').value;
             const district = document.getElementById('districtDropdown').value;
+            const ward = document.getElementById('wardInput').value;
             const address = document.getElementById('addressInput').value;
         
             if (!fullName || !phone || !province || !district || !address) {
@@ -203,6 +209,7 @@
                                 phone: phone,
                                 province: province,
                                 district: district,
+                                ward:ward,
                                 address: address
                             });
                             alert("Thông tin cá nhân đã được cập nhật thành công!");
@@ -213,6 +220,7 @@
                                 phone: phone,
                                 province: province,
                                 district: district,
+                                ward:ward,
                                 address: address
                             });
                             alert("Thông tin cá nhân đã được lưu thành công!");
