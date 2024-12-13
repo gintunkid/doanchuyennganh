@@ -165,6 +165,7 @@ async function submitOrder() {
     const phone = document.getElementById("phone").value;
     const province = document.getElementById("provinceDropdown").value;
     const district = document.getElementById("districtDropdown").value;
+    const ward = document.getElementById("wardInput").value;
     const address = document.getElementById("addressInput").value;
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     const user = firebase.auth().currentUser; // Lấy thông tin người dùng hiện tại
@@ -201,6 +202,7 @@ async function submitOrder() {
         phone,
         province:"Thành phố Hồ Chí Minh",
         district,
+        ward,
         address,
         items, // Lưu mảng items vào đơn hàng
         total: grandTotal, // Lưu tổng tiền
