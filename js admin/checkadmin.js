@@ -16,6 +16,16 @@ function checkAdminLogin() {
 // Kiểm tra đăng nhập khi tải trang admin
 window.onload = checkAdminLogin;
 
+// Hàm lấy dữ liệu từ collection admin
+async function getAdminNames() {
+    const adminCollection = collection(db, 'admin'); // Truy cập vào collection 'admin'
+    const snapshot = await getDocs(adminCollection);
+    const adminNames = snapshot.docs.map(doc => doc.id); // Lấy id của từng document
+    console.log("Admin Names:", adminNames);
+}
+
+// Gọi hàm để in dữ liệu
+getAdminNames();
 
 document.addEventListener('DOMContentLoaded', function() {
     // Hàm xử lý đăng xuất

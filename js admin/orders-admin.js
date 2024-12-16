@@ -39,7 +39,7 @@ async function fetchUserOrders(userEmail) {
         const createStatusDropdown = (status) => {
             const statuses = ["Đang chờ tiếp nhận", "Đang xử lý", "Đang giao hàng", "Đã giao thành công","Đã hủy"];
             return `
-                <select class="status-dropdown" data-order-id="${order.id}">
+                <select class="status-dropdown" data-order-id="${order.orderId}">
                     ${statuses.map(option => `
                         <option value="${option}" ${option === status ? "selected" : ""}>
                             ${option}
@@ -51,7 +51,7 @@ async function fetchUserOrders(userEmail) {
 
         orderDiv.innerHTML = `
             <div class="order-header">
-                <h2>ID Đơn hàng: ${order.id}</h2>
+                <h2>ID Đơn hàng: ${order.orderId}</h2>
                 <span class="status">${order.status || 'Đang xử lý'}</span>
             </div>
             <div class="customer-info">

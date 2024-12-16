@@ -158,6 +158,12 @@ async function saveOrder(orderData) {
     }
 }
 
+// Hàm kiểm tra số điện thoại với mã vùng +84 (có số 0 ở đầu trong số điện thoại Việt Nam)
+function validatePhoneNumber(phone) {
+    const phoneRegex = /^(0\d{9}|\+84\d{9})$/; // Kiểm tra số điện thoại bắt đầu với 0 hoặc +84 và có 9 chữ số sau đó
+    return phoneRegex.test(phone);
+}
+
 
 // Hàm để xử lý khi người dùng nhấn nút thanh toán
 async function submitOrder() {
@@ -170,6 +176,12 @@ async function submitOrder() {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     const user = firebase.auth().currentUser; // Lấy thông tin người dùng hiện tại
     const useremail = user ? user.email : null; // Lấy email của người dùng
+
+     // Kiểm tra số điện thoại
+     if (!validatePhoneNumber(phone)) {
+        alert("Số điện thoại phải có 10 số ");
+        return; // Dừng xử lý nếu số điện thoại không hợp lệ
+    }
 
     // Tính tổng tiền và tạo mảng items
     let total = 0;

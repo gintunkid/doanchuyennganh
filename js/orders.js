@@ -38,7 +38,7 @@ async function fetchUserOrders(userEmail) {
         orderDiv.classList.add('order');
         orderDiv.innerHTML = `
             <div class="order-header">
-                <h2>ID Đơn hàng: ${order.id}</h2>
+                <h2>ID Đơn hàng: ${order.orderId}</h2>
                 <span class="status">${order.status || 'Đang xử lý'}</span>
             </div>
             <div class="order-details">
