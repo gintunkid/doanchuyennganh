@@ -1,5 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
 import { getFirestore, collection, getDocs, query, where, updateDoc, doc } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -14,33 +15,35 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const auth = getAuth(app);
 
 // Function to fetch orders for the current user
 async function fetchUserOrders(userEmail) {
     const ordersCollection = collection(db, "orders");
-    const q = query(ordersCollection, where("useremail", "==", userEmail)); // Assuming you store userId in orders
+    const q = query(ordersCollection, where("useremail", "==", userEmail)); // Query to fetch orders for the given user email
     const ordersSnapshot = await getDocs(q);
     const ordersList = ordersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
-    // Display orders in the container
     const ordersContainer = document.querySelector('.container-orders');
-    ordersContainer.innerHTML = ""; // Clear existing orders
+    ordersContainer.innerHTML = ""; // Clear any previous orders
 
     if (ordersList.length === 0) {
-        ordersContainer.innerHTML = "<p>Không có đơn hàng nào.</p>";
-        return;
+        // If no orders are found, display the default message
+        ordersContainer.innerHTML = "<p>Chưa có đơn hàng nào.</p>";
+        return; // Stop further processing if no orders
     }
 
+    // If orders are found, create and display the order elements
     ordersList.forEach(order => {
         const orderDiv = document.createElement('div');
         orderDiv.classList.add('order');
 
-        // Hàm tạo dropdown cho trạng thái
+        // Create a dropdown for status
         const createStatusDropdown = (status) => {
-            const statuses = ["Đang chờ tiếp nhận", "Đang xử lý", "Đang giao hàng", "Đã giao thành công","Đã hủy"];
-            return `
+            const statuses = ["Đang chờ tiếp nhận", "Đang xử lý", "Đang giao hàng", "Đã giao thành công", "Đã hủy"];
+            return ` 
                 <select class="status-dropdown" data-order-id="${order.orderId}">
-                    ${statuses.map(option => `
+                    ${statuses.map(option => ` 
                         <option value="${option}" ${option === status ? "selected" : ""}>
                             ${option}
                         </option>
@@ -58,7 +61,7 @@ async function fetchUserOrders(userEmail) {
                 <p><strong>Họ và tên:</strong> ${order.fullName || 'Chưa cập nhật'}</p>
                 <p><strong>Số điện thoại:</strong> ${order.phone || 'Chưa cập nhật'}</p>
                 <p><strong>Địa chỉ:</strong> ${order.address || 'Chưa cập nhật'}</p>
-                <p><strong>Phường/Xã/Thị trấn:</strong> ${order.ward ||'Chưa cập nhật'}</p>
+                <p><strong>Phường/Xã/Thị trấn:</strong> ${order.ward || 'Chưa cập nhật'}</p>
                 <p><strong>Quận:</strong> ${order.district || 'Chưa cập nhật'}</p>
                 <p><strong>Tỉnh:</strong> ${order.province || 'Chưa cập nhật'}</p>
                 <p><strong>Phương thức thanh toán:</strong> ${order.payment}</p>
@@ -81,35 +84,48 @@ async function fetchUserOrders(userEmail) {
         ordersContainer.appendChild(orderDiv);
     });
 
-    // Add event listener to update status when dropdown changes
+    // Handle status change event
     const statusDropdowns = document.querySelectorAll('.status-dropdown');
     statusDropdowns.forEach(dropdown => {
         dropdown.addEventListener('change', async (event) => {
             const orderId = event.target.getAttribute('data-order-id');
             const newStatus = event.target.value;
 
-            // Update status in Firestore
-            const orderRef = doc(db, "orders", orderId);
-            await updateDoc(orderRef, {
-                status: newStatus
-            });
+            const ordersCollection = collection(db, "orders");
+            const q = query(ordersCollection, where("orderId", "==", orderId));
+            const querySnapshot = await getDocs(q);
 
-            // Optionally, update the status in the DOM
+            if (querySnapshot.empty) {
+                console.error(`Tài liệu với orderId ${orderId} không tồn tại trong Firestore`);
+                return;
+            }
+
+            const orderDoc = querySnapshot.docs[0];
+            const orderRef = doc(db, "orders", orderDoc.id);
+
+            await updateDoc(orderRef, { status: newStatus });
+
+            // Update the status in DOM
             const statusElement = event.target.closest('.order').querySelector('.status');
             statusElement.textContent = newStatus;
         });
     });
 }
 
-// Lắng nghe sự kiện thay đổi của dropdown email
+// Listen for email selection change
 document.getElementById('emailOptions').addEventListener('change', (event) => {
     const selectedEmail = event.target.value;
-    if (selectedEmail) {
-        fetchUserOrders(selectedEmail); // Fetch orders for selected email
+    const ordersContainer = document.querySelector('.container-orders');
+
+    if (!selectedEmail) {
+        ordersContainer.innerHTML = "<p>Vui lòng chọn email để xem đơn hàng.</p>";
+        return;
     }
+
+    fetchUserOrders(selectedEmail); // Fetch orders for selected email
 });
 
-// Hàm để lấy danh sách email từ Firestore (nếu cần)
+// Fetch the list of emails from Firestore
 async function loadEmails() {
     const usersRef = collection(db, "user");
     const snapshot = await getDocs(usersRef);
@@ -124,5 +140,21 @@ async function loadEmails() {
     });
 }
 
-// Gọi hàm để tải danh sách email khi trang được tải
+// Load the email list when the page is loaded
 loadEmails();
+
+// Listen for user authentication state changes
+onAuthStateChanged(auth, async (user) => {
+    const ordersContainer = document.querySelector('.container-orders');
+    if (user) {
+        // User is logged in, set the email
+        const userEmail = user.email;
+
+        // Auto-select the email in the dropdown, but do NOT fetch orders automatically
+        const emailSelect = document.getElementById('emailOptions');
+        emailSelect.value = userEmail; // Set the email
+    } else {
+        // User is not logged in, clear the orders container and show the message
+        ordersContainer.innerHTML = "<p>Người dùng chưa đăng nhập. Vui lòng đăng nhập để xem đơn hàng.</p>";
+    }
+});
