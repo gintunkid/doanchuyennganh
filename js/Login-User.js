@@ -1,6 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, fetchSignInMethodsForEmail } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js";
 import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
+import { getDoc } from "https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js";
 
 // Firebase initialization
 const app = initializeApp({
@@ -114,27 +115,39 @@ async function isEmailExist(email) {
     }
 }
 
-// Đăng nhập với Google
+//Đăng nhập với Google
 async function loginWithGoogle() {
     const provider = new GoogleAuthProvider();
     try {
+        // Đăng nhập bằng Google
         const result = await signInWithPopup(auth, provider);
         const user = result.user;
 
-        // Lưu trạng thái đăng nhập
-        localStorage.setItem('isLoggedIn', 'true');
-        localStorage.setItem('userEmail', user.email);
+        // Xử lý email để làm ID hợp lệ trong Firestore
+        const emailId = user.email.replace(/[.#$[\]]/g, "_");
+        const userDocRef = doc(db, "user", emailId);
 
-        alert("Đăng nhập với Google thành công!");
-        console.log("Thông tin người dùng:", user);
+        // Kiểm tra tài khoản trong Firestore
+        const userDocSnapshot = await getDoc(userDocRef);
 
-        // Chuyển hướng đến trang chủ
-        window.location.href = "../home.html";
+        if (userDocSnapshot.exists()) {
+            // Tài khoản đã tồn tại trong Firestore
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('userEmail', user.email);
+
+            alert("Đăng nhập thành công!");
+            window.location.href = "../home.html"; // Chuyển hướng đến trang chủ
+        } else {
+            // Tài khoản không tồn tại
+            alert("Tài khoản chưa được đăng ký. Vui lòng đăng ký trước khi đăng nhập.");
+            await auth.signOut(); // Đăng xuất khỏi Google
+        }
     } catch (error) {
         console.error("Lỗi khi đăng nhập với Google:", error);
-        alert("Lỗi khi đăng nhập với Google.");
+        alert("Đã xảy ra lỗi khi đăng nhập bằng Google. Vui lòng thử lại!");
     }
 }
+
 
 // Đăng ký với Google
 async function registerWithGoogle() {
@@ -158,7 +171,7 @@ async function registerWithGoogle() {
 
         alert("Đăng ký với Google thành công!");
         // Chuyển hướng đến trang chủ
-        window.location.href = "../home.html";
+        window.location.href = "../login-admin/login.html";
     } catch (error) {
         console.error("Lỗi khi đăng ký với Google:", error);
         alert("Lỗi khi đăng ký với Google.");
