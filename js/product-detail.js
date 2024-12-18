@@ -3,8 +3,8 @@ import { db } from './firebase-config.js';
 // Lấy ID sản phẩm, category và subCategory từ URL
 const urlParams = new URLSearchParams(window.location.search);
 const productId = urlParams.get('id');
-const category = urlParams.get('category');
-const subCategory = urlParams.get('subCategory');
+const category = urlParams.get('categories');
+const subCategory = urlParams.get('subCategories');
 
 // Biến lưu trữ thông tin sản phẩm hiện tại
 let currentProduct = null;

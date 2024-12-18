@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mesach-Bookhaven</title>
+    <title>mesach-bookhaven</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="html-cartegory/">
@@ -20,7 +20,7 @@
                 </div>
                 <div class="top-menu-items">
                     <ul>
-                        <li><a href="/home.html">Home</a></li>
+                        <!-- <li><a href="/home.html">Home</a></li> -->
                         <li>
                             Giáo khoa tham khảo
                             <ul class="top-menu-item">
@@ -48,16 +48,16 @@
                 </div>
                 <div class="top-menu-icons">
                     <ul>
-                        <li>
-                            <div class="search-container">
+                        <li style="display: none;">  
+                            <div class="search-bar">
                                 <input type="text" id="searchInput" placeholder="Nhập từ cần tìm">
-                                <button type="button" id="searchIcon" class="fas fa-search" onclick="handleSearch()"></button>
+                                <button id="searchButton" class="fas fa-search"></button>
                             </div>
                         </li>
-                        <li><a href="login-admin/login.html"><i class="fa-regular fa-user"></i></a></li>
-                        <li><a href="html-cart/cart.html"><i class="fas fa-shopping-cart"></i></a></li>
+                        <li><a href="/login-admin/login.html"><i class="fa-regular fa-user"></i></a></li>
+                        <li><a href="/html-cart/cart.html"><i class="fas fa-shopping-cart"></i></a></li>
                     </ul>
-                </div>                
+                </div>               
             </div>
             <div id="chatToggle" class="chat-toggle" onclick="toggleChat()">
                 <i class="fa-solid fa-comment-medical"></i>
@@ -79,7 +79,7 @@
                     <button id="sendBtn" onclick="sendMessage()">Gửi</button>
                 </div>
             </div>
-    </section> 
+    </section>
 <!----------------------SLIDER--------------------->
     <section class="sliders">
         <div class="aspect-ratio-169">
@@ -135,9 +135,10 @@
             <li><a href="http://online.gov.vn" target="_blank"><img src="/img/Screenshot 2024-05-15 003506.png" alt="" ></a></li>
             <li><a href="tel:0797268602">Liên hệ</a></li>
             <li><a href="">Giới thiệu</a></li>
-            <li><a href="https://www.facebook.com/profile.php?id=61569810176348" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+            <li><a href="https://www.facebook.com/profile.php?id=61569810176348" target="_blank"><i class="fab fa-facebook-f"></i></a><a href="https://mail.google.com/mail/?view=cm&fs=1&to=bookhavenstoresince2024@gmail.com" target="_blank"><i class="fa-solid fa-envelope"></i></a></li>
         </div>
-        <div class="footer-text" style="display: col;">
+        <div class="footer-text">
+            <p></p>
             Địa chỉ đăng ký: 254/5, đường Lê Văn Thọ, phường 11, quận Gò Vấp
             Đặt hàng online: 0797268602
         </div>
@@ -175,8 +176,6 @@
         currentIndex = (currentIndex + 1) % images.length;
         showImage(currentIndex);
     }, 3000);
-    //hello
-    // Hiển thị hình ảnh đầu tiên
     showImage(currentIndex);
 </script>
 <script src="/js/function.js"></script>

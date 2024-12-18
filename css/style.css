@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Bebas+Neue&family=Edu+AU+VIC+WA+NT+Pre:wght@400..700&family=Lacquer&family=Oswald:wght@200..700&family=Sevillana&family=Slabo+27px&family=Teko:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Bebas+Neue&family=Edu+AU+VIC+WA+NT+Pre:wght@400..700&family=Lacquer&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Oswald:wght@200..700&family=Sevillana&family=Slabo+27px&family=Teko:wght@300..700&display=swap');
 :root {
     --main-text-font: Arial,Helvetica, sans-serif;
 }
@@ -65,9 +65,25 @@ a {
     flex: 3;
 }
 
-.top-menu-items >ul {
+.top-menu-items a {
+    color: black;
+    text-decoration: none;
+    transition: color 0.3s ease, background-color 0.3s ease; 
+    padding: 5px 2px; 
+}
+
+.top-menu-items a:hover {
+    color: #a7cf16;
+    border: 1px solid #a7cf16;
+    background-color: rgb(2, 2, 26); 
+    border-radius: 30px; 
+    transition: all 0.5s ease;
+}
+
+.top-menu-items > ul {
     height: 100%;
     display: flex;
+    padding: 1px;
 }
 
 .top-menu-items ul li:hover {
@@ -98,8 +114,7 @@ a {
     bottom: -50%;
 }
 
-
-.search-container {
+.search-bar {
     margin: 0;
     display: flex;
     justify-content: center;
@@ -108,26 +123,32 @@ a {
 #searchInput {
     width: 150px;
     padding: 5px 0 7px 10px;
-    border: 1px solid #ccc;
+    border-bottom: 1px solid #111111;
+    border-top: 1px solid #111111;
+    border-left: 1px solid #111111;
+    border-right: none;
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
     font-size: 15px;
     background-color: white;
 }
 
-#searchIcon {
-    border: 1px solid #111111;
+#searchButton {
+    border-top: 1px solid #111111;
+    border-bottom: 1px solid #111111;
+    border-right: 1px solid #111111;
+    border-left: none;
     padding: 2px 5px;
+    background-color: white;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
-#searchIcon:hover {
+#searchButton:hover {
     transition: all 0.3s ease;
     color: #a7cf16;
     background-color: #111111;
-    box-shadow: 0 0 10px #a7cf16;
+    box-shadow: 0 0 10px #111111;
 }
 
 #searchInput:focus {
@@ -148,7 +169,7 @@ a {
 .top-menu-item {
     position: absolute;
     width: 160px;
-    top: 100px;
+    top: 80px;
     display: none;
     opacity: 0;
     transition:  all 0.5s ease;
@@ -342,6 +363,9 @@ a {
     text-transform: uppercase;
     margin-top: 5px;
     box-shadow: 12px #111111;
+    font-family: "Barlow Semi Condensed", serif;
+  font-weight: 600;
+  font-style: normal;
 }
 
 .icon-1 p {
@@ -355,6 +379,15 @@ a {
     line-height: 1.6em;
     font-family: "Barlow Semi Condensed", sans-serif;
     font-weight: 500;
+}
+
+.text-icon p a {
+    color: #111111;
+}
+
+.text-icon p a:hover {
+    color: #a7cf16;
+    transition: all 0.3s ease;
 }
 
 /* -------------------------FOOTER ------------------------*/
@@ -528,15 +561,15 @@ a {
     width: calc(20% - 10px);
     text-align: center;
     padding: 12px 0;
-    border: 1px solid #ddd; /* Đường viền */
-    border-radius: 12px; /* Bo góc */
-    margin: 10px; /* Khoảng cách bên ngoài */
-    transition: transform 0.3s; /* Hiệu ứng chuyển động khi hover */
-    outline: 2px solid transparent; /* Đường viền ngoài, có thể tùy chỉnh */
+    border: 1px solid #ddd; 
+    border-radius: 12px; 
+    margin: 10px;
+    transition: transform 0.3s;
+    outline: 2px solid transparent;
 }
 .cartegory-right-content-item:hover {
-    transform: scale(1.05); /* Phóng to khi hover */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Đổ bóng */
+    transform: scale(1.1); 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
     outline: 2px solid black
 }
 
@@ -544,13 +577,12 @@ a {
     font-family: var(--main-text-font);
     margin-top: 6px;
     color: #333333;
-    font-size: 24px; /* Kích thước chữ cho tên sản phẩm */
-    font-weight: bold; /* Đậm chữ */
+    font-size: 24px; 
+    font-weight: bold; 
 }
 
 .cartegory-right-content-item p {
-    font-size: 20px; /* Kích thước chữ cho giá sản phẩm */
-     /* Màu chữ cho giá (tùy chọn) */
+    font-size: 20px; 
 }
 
 .cartegory-right-content-item img {
@@ -565,6 +597,7 @@ a {
 
 .cartegory-left ul li {
     padding: 12px 0;
+    position: relative;
 }
 
 .cartegory-left ul li>a {
@@ -995,13 +1028,17 @@ a {
 }
 
 .cart-content-right table th {
-    padding-bottom: 30px;
-    font-family: var(--main-text-font);
-    font-size: 12px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    font-size: 18px;
     text-transform: uppercase;
-    color: #333;
+    color: #fff;
     border-collapse: collapse;
     border-bottom: 2px solid #dddddd;
+    background-color: #111111;
+    font-family: "Teko", serif;
+    font-weight: 600;
+    font-style: normal;
 }
 
 .cart-content-right table td {
@@ -1048,7 +1085,8 @@ a {
 }
 
 .cart-content-right-button button:first-child:hover {
-    background-color: #dddd;
+    background-color: black;
+    color: #fff;
 }
 
 .cart-content-right-button button:last-child {
@@ -1150,6 +1188,7 @@ a {
     font-size: 12px;
     display: block;
     margin-bottom: 6px;
+    padding: 5px 0 5px 0;
 }
 
 .delivery-content-left >p {
@@ -1229,7 +1268,7 @@ a {
 
 .delivery-content-left-button {
     justify-content: space-between;
-    padding-top: 20px;
+    padding-top: 30px;
 }
 
 .delivery-content-left-button button {
@@ -1237,6 +1276,19 @@ a {
     padding: 6px 12px;
     border: 2px solid black;
     cursor: pointer;
+}
+
+.delivery-content-left-button button  span {
+    padding: 2px 0 5px 0;
+}
+
+
+.delivery-content-left-button button a {
+    color: #111111;
+}
+
+.delivery-content-left-button button a:hover {
+    color: #fff;
 }
 
 .delivery-content-left-button button:hover {
@@ -1251,6 +1303,10 @@ a {
     height: auto;
 }
 
+.delivery-content-right th {
+    background-color: black;
+}
+
 .delivery-content-right table {
     width: 100%;
     font-family: var(--main-text-font);
@@ -1259,7 +1315,7 @@ a {
 }
 
 .delivery-content-right table tr th:first-child {
-    text-align: right;
+    text-align: center;
 }
 
 .delivery-content-right table tr td {
@@ -1268,11 +1324,11 @@ a {
 
 
 .delivery-content-right table tr td:last-child {
-    text-align: right;
+    text-align: center;
 }
 
 .delivery-content-right table tr td:first-child {
-    text-align: left;
+    text-align: center;
 }
 
 

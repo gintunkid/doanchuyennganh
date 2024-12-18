@@ -14,7 +14,6 @@
     <script src="../js/checklogin.js"></script>
     <script type="module" src="../js/Product.js"></script>
     <script src="../js/chatbot.js"></script>
-    <script type="module" src="/js/cart.js"></script>
     <script type="module">
         import { viewProductDetail } from '../js/Product.js'; //Hello
         window.viewProductDetail = viewProductDetail;
@@ -60,15 +59,14 @@
                 </div>
                 <div class="top-menu-icons">
                     <ul>
-                        <li>
-                            <div class="search-container">
+                        <li style="display: none;">
+                            <div class="search-bar">
                                 <input type="text" id="searchInput" placeholder="Nhập từ cần tìm">
-                                <button type="button" id="searchIcon" class="fas fa-search" onclick="handleSearch()"></button>
+                                <button id="searchButton" class="fas fa-search"></button>
                             </div>
                         </li>
-
                         <li><a href="/login-admin/login.html"><i class="fa-regular fa-user"></i></a></li>
-                        <li><a href="/html-cart/cart.html"><i id="cart-icon"class="fas fa-shopping-cart"></i></a><span id="cart-count">0</span></li>
+                        <li><a href="/html-cart/cart.html"><i class="fas fa-shopping-cart"></i></a></li>
                     </ul>
                 </div>
             </div>
@@ -144,12 +142,13 @@
                 <a href="https://play.google.com/store/games?hl=vi&pli=1" target="_blank"><img src="/img/Screenshot 2024-05-15 003813.png" alt=""></a>
             </div>
             <div class="footer-items">
-                <li><a href=""><img src="/img/Screenshot 2024-05-15 003506.png" alt=""></a></li>
+                <li><a href="http://online.gov.vn" target="_blank"><img src="/img/Screenshot 2024-05-15 003506.png" alt="" ></a></li>
                 <li><a href="tel:0797268602">Liên hệ</a></li>
                 <li><a href="">Giới thiệu</a></li>
-                <li><a href="https://www.facebook.com/profile.php?id=61569810176348" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                <li><a href="https://www.facebook.com/profile.php?id=61569810176348" target="_blank"><i class="fab fa-facebook-f"></i></a><a href="https://mail.google.com/mail/?view=cm&fs=1&to=nguyentuankiet160804@gmail.com" target="_blank"><i class="fa-solid fa-envelope"></i></a></li>
             </div>
             <div class="footer-text">
+                <p></p>
                 Địa chỉ đăng ký: 254/5, đường Lê Văn Thọ, phường 11, quận Gò Vấp
                 Đặt hàng online: 0797268602
             </div>
@@ -157,8 +156,7 @@
                 @ Book Haven Store by BOYS Studio
             </div>
         </div>
-    </section>
-
+    </section> 
     <!-- Firebase -->
     <script type="module" src="../js/firebase-config.js"></script>
 
@@ -175,6 +173,7 @@
             document.getElementById('add-to-cart').addEventListener('click', addToCart);
         });
     </script>
+    <script src="/js/function.js"></script>
 </body>
 
 </html>

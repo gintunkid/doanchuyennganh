@@ -1,11 +1,11 @@
 // Product.js
 import { db } from './firebase-config.js';
-export { addProducts, displayProducts, viewProductDetail, getProductDetail };
+export { addProducts, displayProducts, viewProductDetail, getProductDetail, searchProductsByName, displaySearchResults };
 
 // Hàm upload ảnh và lấy URL
-async function uploadImageAndGetURL(imageFile, category, subCategory, imageName) {
+async function uploadImageAndGetURL(imageFile, categories, subCategories, imageName) {
     const storage = firebase.storage();
-    const storageRef = storage.ref(`image/${category}/${subCategory}/${imageName}`);
+    const storageRef = storage.ref(`image/${categories}/${subCategories}/${imageName}`);
     
     await storageRef.put(imageFile);
     const downloadURL = await storageRef.getDownloadURL();
@@ -13,7 +13,7 @@ async function uploadImageAndGetURL(imageFile, category, subCategory, imageName)
 }
 
 // Thêm sản phẩm vào Firebase
-async function addProducts(category, subCategory, products) {
+async function addProducts(categories, subCategories, products) {
     try {
         const db = firebase.firestore();
         for (const product of products) {
@@ -23,27 +23,27 @@ async function addProducts(category, subCategory, products) {
             const imageName = `${Date.now()}_${product.imageURL.split('/').pop()}`;
             
             // Tải ảnh lên Storage và lấy URL
-            const imageUrl = await uploadImageAndGetURL(imageBlob, category, subCategory, imageName);
+            const imageUrl = await uploadImageAndGetURL(imageBlob, categories, subCategories, imageName);
             
             // Thêm sản phẩm vào Firestore với URL ảnh mới
-            await db.collection("product").doc(category).collection(subCategory).add({
+            await db.collection("product").doc(categories).collection(subCategories).add({
                 ...product,
                 imageURL: imageUrl,
                 createdAt: firebase.firestore.FieldValue.serverTimestamp(),
                 updatedAt: firebase.firestore.FieldValue.serverTimestamp()
             });
         }
-        console.log(`Products added successfully to ${category}/${subCategory}!`);
+        console.log(`Products added successfully to ${categories}/${subCategories}!`);
     } catch (error) {
         console.error("Error adding products: ", error);
     }
 }
 
-// Lấy và hiển thị sản phẩm cho một category và sub-category cụ thể
-async function displayProducts(category, subCategory) {
+// Lấy và hiển thị sản phẩm cho một categories và subCategories cụ thể
+async function displayProducts(categories, subCategories) {
     try {
         const db = firebase.firestore();
-        const productsRef = db.collection("product").doc(category).collection(subCategory);
+        const productsRef = db.collection("product").doc(categories).collection(subCategories);
         const snapshot = await productsRef.get();
 
         const container = document.querySelector('.cartegory-right-content');
@@ -62,7 +62,7 @@ async function displayProducts(category, subCategory) {
                 : 'Giá không xác định';
 
             const productHTML = `
-                <div class="cartegory-right-content-item" onclick="viewProductDetail('${productId}', '${category}', '${subCategory}')">
+                <div class="cartegory-right-content-item" onclick="viewProductDetail('${productId}', '${categories}', '${subCategories}')">
                     <img src="${product.imageURL}" alt="${product.name}">
                     <h1>${product.name}</h1>
                     <p>${priceFormatted}<sup>đ</sup></p>
@@ -75,24 +75,109 @@ async function displayProducts(category, subCategory) {
     }
 }
 
+// Tìm kiếm sản phẩm theo tên qua nhiều categories và subCategories
+async function searchProductsByName(categories, subCategories, searchTerm) {
+    if (!categories || !subCategories || !searchTerm) {
+        console.error("Invalid parameters for searchProductsByName:", { categories, subCategories, searchTerm });
+        return [];
+    }
+
+    try {
+        const db = firebase.firestore();
+        const results = [];
+
+        // Lặp qua tất cả các categories và subCategories để tìm kiếm
+        for (const category of categories) {
+            for (const subCategory of subCategories) {
+                const productsRef = db.collection("product").doc(category).collection(subCategory);
+                const snapshot = await productsRef.get();
+
+                const filteredProducts = snapshot.docs
+                    .map(doc => ({
+                        id: doc.id,
+                        ...doc.data(),
+                        category, // Ghi lại category
+                        subCategory // Ghi lại subCategory
+                    }))
+                    .filter(product => product.name.toLowerCase().includes(searchTerm.toLowerCase()));
+
+                results.push(...filteredProducts);
+            }
+        }
+
+        return results;
+    } catch (error) {
+        console.error("Error searching products: ", error);
+        return [];
+    }
+}
+
+// Hiển thị kết quả tìm kiếm
+function displaySearchResults(products) {
+    const container = document.querySelector('.cartegory-right-content');
+    if (!container) {
+        console.error("Container element not found");
+        return;
+    }
+    container.innerHTML = '';
+
+    if (products.length === 0) {
+        container.innerHTML = '<p>Không tìm thấy sản phẩm nào.</p>';
+        return;
+    }
+
+    products.forEach(product => {
+        const priceFormatted = (typeof product.price === 'number' && !isNaN(product.price))
+            ? product.price.toLocaleString('vi-VN')
+            : 'Giá không xác định';
+
+        const productHTML = `
+            <div class="cartegory-right-content-item" onclick="viewProductDetail('${product.id}', '${product.category}', '${product.subCategory}')">  
+                <img src="${product.imageURL}" alt="${product.name}">
+                <h1>${product.name}</h1>
+                <p>${priceFormatted}<sup>đ</sup></p>
+            </div>
+        `;
+        container.innerHTML += productHTML;
+    });
+}
+
+// Xử lý sự kiện tìm kiếm
+document.getElementById('searchButton').addEventListener('click', async () => {
+    const searchTerm = document.getElementById('searchInput').value.trim();
+    const categories = ['sach', 'dochoi', 'vpp']; // Thay thế với categories hiện tại
+    const subCategories = [
+        'comic', 'sachngoaingu', 'tamlikinangsong', 'giaoduc',
+        'mohinh', 'butviet', 'dungcuvanphong', 'sanphamgiay'
+    ]; // Thay thế với sub-categories hiện tại
+
+    if (searchTerm) {
+        const products = await searchProductsByName(categories, subCategories, searchTerm);
+        displaySearchResults(products);
+    } else {
+        alert('Vui lòng nhập từ khóa tìm kiếm!');
+    }
+});
+
+
 // Hàm để xử lý việc chuyển trang đến chi tiết sản phẩm
-function viewProductDetail(productId, category, subCategory) {
-    window.location.href = `product-detail.html?id=${productId}&category=${category}&subCategory=${subCategory}`;
+function viewProductDetail(productId, categories, subCategories) {
+    window.location.href = `product-detail.html?id=${productId}&categories=${categories}&subCategories=${subCategories}`;
 }
 
 // Hàm lấy chi tiết sản phẩm
-async function getProductDetail(productId, category, subCategory) {
+async function getProductDetail(productId, categories, subCategories) {
     try {
         // Kiểm tra các tham số đầu vào
-        if (!productId || !category || !subCategory) {
-            console.error('Missing parameters:', { productId, category, subCategory });
+        if (!productId || !categories || !subCategories) {
+            console.error('Missing parameters:', { productId, categories, subCategories });
             return null;
         }
 
         const db = firebase.firestore();
         const productDoc = await db.collection("product")
-                                 .doc(category)
-                                 .collection(subCategory)
+                                 .doc(categories)
+                                 .collection(subCategories)
                                  .doc(productId)
                                  .get();
 
@@ -109,12 +194,12 @@ async function getProductDetail(productId, category, subCategory) {
 }
 
 // Hàm lọc sản phẩm theo giá
-async function filterProductsByPrice(category, subCategory, minPrice, maxPrice) {
+async function filterProductsByPrice(categories, subCategories, minPrice, maxPrice) {
     try {
         const db = firebase.firestore();
         const snapshot = await db.collection("product")
-                               .doc(category)
-                               .collection(subCategory)
+                               .doc(categories)
+                               .collection(subCategories)
                                .where("price", ">=", minPrice)
                                .where("price", "<=", maxPrice)
                                .get();
@@ -127,12 +212,12 @@ async function filterProductsByPrice(category, subCategory, minPrice, maxPrice) 
 }
 
 // Hàm sắp xếp sản phẩm
-async function sortProducts(category, subCategory, field, direction = 'asc') {
+async function sortProducts(categories, subCategories, field, direction = 'asc') {
     try {
         const db = firebase.firestore();
         const snapshot = await db.collection("product")
-                               .doc(category)
-                               .collection(subCategory)
+                               .doc(categories)
+                               .collection(subCategories)
                                .orderBy(field, direction)
                                .get();
 
@@ -144,12 +229,12 @@ async function sortProducts(category, subCategory, field, direction = 'asc') {
 }
 
 // Hàm cập nhật sản phẩm
-async function updateProduct(category, subCategory, productId, updateData) {
+async function updateProduct(categories, subCategories, productId, updateData) {
     try {
         const db = firebase.firestore();
         await db.collection("product")
-               .doc(category)
-               .collection(subCategory)
+               .doc(categories)
+               .collection(subCategories)
                .doc(productId)
                .update({
                    ...updateData,
@@ -162,12 +247,12 @@ async function updateProduct(category, subCategory, productId, updateData) {
 }
 
 // Hàm xóa sản phẩm
-async function deleteProduct(category, subCategory, productId) {
+async function deleteProduct(categories, subCategories, productId) {
     try {
         const db = firebase.firestore();
         await db.collection("product")
-               .doc(category)
-               .collection(subCategory)
+               .doc(categories)
+               .collection(subCategories)
                .doc(productId)
                .delete();
         console.log("Product deleted successfully!");

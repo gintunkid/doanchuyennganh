@@ -83,9 +83,9 @@
                 <div class="top-menu-icons">
                     <ul>
                         <li>
-                            <div class="search-container">
+                            <div class="search-bar">
                                 <input type="text" id="searchInput" placeholder="Nhập từ cần tìm">
-                                <button type="button" id="searchIcon" class="fas fa-search" onclick="handleSearch()"></button>
+                                <button id="searchButton" class="fas fa-search"></button>
                             </div>
                         </li>
                         <li><a href="/login-admin/login.html"><i class="fa-regular fa-user"></i></a></li>
@@ -105,9 +105,7 @@
                 <a href="#"><img src="/img/poster4.png" alt="Ad Right"></a>
             </div>
             <div class="cartegory-top row">
-                <p><a href="/html-cartegory/CARTEGORY.html">Trang chủ</a></p> <span>&#10230; </span>
-                <p>Giáo khoa tham khảo</p> <span>&#10230; </span>
-                <p>Tâm lý - Kĩ năng sống</p>
+                <p><a href="/home.html">Trang chủ</a></p> <span>&#10230; </span> <p>Giáo khoa tham khảo</p> <span>&#10230; </span> <p>Tâm lý - Kĩ năng sống</p>
             </div>
         </div>
         <div class="container">
@@ -150,90 +148,82 @@
                             <option value="">Giá thấp đến cao</option>
                         </select>
                     </div>
-                </div>
-                <div class="cartegory-right-content row">
-                    <div class="cartegory-right-content-item">
-                        <img src="" alt="">
-                        <h1>...</h1>
-                        <p>...<sup>đ</sup></p>
-                    </div>
-                    <div class="cartegory-right-content-item">
-                        <img src="" alt="">
-                        <h1>...</h1>
-                        <p>...<sup>đ</sup></p>
-                    </div>
-                    <div class="cartegory-right-content-item">
-                        <img src="" alt="">
-                        <h1>...</h1>
-                        <p>...<sup>đ</sup></p>
-                    </div>
-                    <div class="cartegory-right-content-item">
-                        <img src="" alt="">
-                        <h1>...</h1>
-                        <p>...<sup>đ</sup></p>
-                    </div>
-                    <div class="cartegory-right-content-item">
-                        <img src="" alt="">
-                        <h1>...</h1>
-                        <p>...<sup>đ</sup></p>
-                    </div>
-                    <div class="cartegory-right-content-item">
-                        <img src="" alt="">
-                        <h1>...</h1>
-                        <p>...<sup>đ</sup></p>
-                    </div>
-                    <div class="cartegory-right-content-item">
-                        <img src="" alt="">
-                        <h1>...</h1>
-                        <p>...<sup>đ</sup></p>
-                    </div>
-                    <div class="cartegory-right-content-item">
-                        <img src="" alt="">
-                        <h1>...</h1>
-                        <p>...<sup>đ</sup></p>
-                    </div>
-                    <div class="cartegory-right-content-item">
-                        <img src="" alt="">
-                        <h1>...</h1>
-                        <p>...<sup>đ</sup></p>
-                    </div>
-                    <div class="cartegory-right-content-item">
-                        <img src="" alt="">
-                        <h1>...</h1>
-                        <p>...<sup>đ</sup></p>
-                    </div>
-                    <div class="cartegory-right-content-item">
-                        <img src="" alt="">
-                        <h1>...</h1>
-                        <p>...<sup>đ</sup></p>
-                    </div>
-                    <div class="cartegory-right-content-item">
-                        <img src="" alt="">
-                        <h1>...</h1>
-                        <p>...<sup>đ</sup></p>
-                    </div>
-                    <div class="cartegory-right-content-item">
-                        <img src="" alt="">
-                        <h1>...</h1>
-                        <p>...<sup>đ</sup></p>
-                    </div>
-                    <div class="cartegory-right-content-item">
-                        <img src="" alt="">
-                        <h1>...</h1>
-                        <p>...<sup>đ</sup></p>
-                    </div>
-                    <div class="cartegory-right-content-item">
-                        <img src="" alt="">
-                        <h1>...</h1>
-                        <p>...<sup>đ</sup></p>
-                    </div>
-                </div>
-                <div class="cartegory-right-bottom row">
-                    <div class="cartegory-right-bottom-items">
-                        <p>Hiển thị 2 <span> </span> 15 sản phẩm</p>
-                    </div>
-                    <div class="cartegory-right-bottom-items">
-                        <p><span>&#171;</span>1 2<span>&#187;</span>Trang cuối</p>
+                    <div class="cartegory-right-content row">
+                        <div class="cartegory-right-content-item">
+                            <img src="" alt="">
+                            <h1>...</h1>
+                            <p>...<sup>đ</sup></p>
+                        </div>
+                        <div class="cartegory-right-content-item">
+                            <img src="" alt="">
+                            <h1>...</h1>
+                            <p>...<sup>đ</sup></p>
+                        </div>
+                        <div class="cartegory-right-content-item">
+                            <img src="" alt="">
+                            <h1>...</h1>
+                            <p>...<sup>đ</sup></p>
+                        </div>
+                        <div class="cartegory-right-content-item">
+                            <img src="" alt="">
+                            <h1>...</h1>
+                            <p>...<sup>đ</sup></p>
+                        </div>
+                        <div class="cartegory-right-content-item">
+                            <img src="" alt="">
+                            <h1>...</h1>
+                            <p>...<sup>đ</sup></p>
+                        </div>
+                        <div class="cartegory-right-content-item">
+                            <img src="" alt="">
+                            <h1>...</h1>
+                            <p>...<sup>đ</sup></p>
+                        </div>
+                        <div class="cartegory-right-content-item">
+                            <img src="" alt="">
+                            <h1>...</h1>
+                            <p>...<sup>đ</sup></p>
+                        </div>
+                        <div class="cartegory-right-content-item">
+                            <img src="" alt="">
+                            <h1>...</h1>
+                            <p>...<sup>đ</sup></p>
+                        </div>
+                        <div class="cartegory-right-content-item">
+                            <img src="" alt="">
+                            <h1>...</h1>
+                            <p>...<sup>đ</sup></p>
+                        </div>
+                        <div class="cartegory-right-content-item">
+                            <img src="" alt="">
+                            <h1>...</h1>
+                            <p>...<sup>đ</sup></p>
+                        </div>
+                        <div class="cartegory-right-content-item">
+                            <img src="" alt="">
+                            <h1>...</h1>
+                            <p>...<sup>đ</sup></p>
+                        </div>
+                        <div class="cartegory-right-content-item">
+                            <img src="" alt="">
+                            <h1>...</h1>
+                            <p>...<sup>đ</sup></p>
+                        </div>
+                        <div class="cartegory-right-content-item">
+                            <img src="" alt="">
+                            <h1>...</h1>
+                            <p>...<sup>đ</sup></p>
+                        </div>
+                        <div class="cartegory-right-content-item">
+                            <img src="" alt="">
+                            <h1>...</h1>
+                            <p>...<sup>đ</sup></p>
+                        </div>
+                        <div class="cartegory-right-content-item">
+                            <img src="" alt="">
+                            <h1>...</h1>
+                            <p>...<sup>đ</sup></p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -263,12 +253,13 @@
                 <a href="https://play.google.com/store/games?hl=vi&pli=1" target="_blank"><img src="/img/Screenshot 2024-05-15 003813.png" alt=""></a>
             </div>
             <div class="footer-items">
-                <li><a href=""><img src="/img/Screenshot 2024-05-15 003506.png" alt=""></a></li>
+                <li><a href="http://online.gov.vn" target="_blank"><img src="/img/Screenshot 2024-05-15 003506.png" alt="" ></a></li>
                 <li><a href="tel:0797268602">Liên hệ</a></li>
                 <li><a href="">Giới thiệu</a></li>
-                <li><a href="https://www.facebook.com/profile.php?id=61569810176348" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                <li><a href="https://www.facebook.com/profile.php?id=61569810176348" target="_blank"><i class="fab fa-facebook-f"></i></a><a href="https://mail.google.com/mail/?view=cm&fs=1&to=bookhavenstoresince2024@gmail.com" target="_blank"><i class="fa-solid fa-envelope"></i></a></li>
             </div>
             <div class="footer-text">
+                <p></p>
                 Địa chỉ đăng ký: 254/5, đường Lê Văn Thọ, phường 11, quận Gò Vấp
                 Đặt hàng online: 0797268602
             </div>
