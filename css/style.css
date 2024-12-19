@@ -372,6 +372,9 @@ a {
     font-size: 20px;
     font-weight: 700;
     line-height: 1.7em;
+    font-family: "Barlow Semi Condensed", serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .text-icon p {
@@ -415,7 +418,9 @@ a {
 .footer-container p {
     font-weight: bold;
     font-size: 18px;
-    font-family: var(--main-text-font);
+    font-family: "Barlow Semi Condensed", serif;
+  font-weight: 700;
+  font-style: normal;
 }
 
 .app-google {
@@ -484,7 +489,9 @@ a {
 .footer-bottom {
     padding: 10px 0;
     font-size: 12px;
-    font-family: var(--main-text-font);
+    font-family: "Barlow Semi Condensed", serif;
+    font-weight: 500;
+    font-style: normal;
     background-color: #dddddd;
     width: 100%;
     text-align: center;
