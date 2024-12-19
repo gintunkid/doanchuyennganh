@@ -96,8 +96,8 @@ async function searchProductsByName(categories, subCategories, searchTerm) {
                     .map(doc => ({
                         id: doc.id,
                         ...doc.data(),
-                        category, // Ghi lại category
-                        subCategory // Ghi lại subCategory
+                        category, 
+                        subCategory 
                     }))
                     .filter(product => product.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
@@ -145,11 +145,11 @@ function displaySearchResults(products) {
 // Xử lý sự kiện tìm kiếm
 document.getElementById('searchButton').addEventListener('click', async () => {
     const searchTerm = document.getElementById('searchInput').value.trim();
-    const categories = ['sach', 'dochoi', 'vpp']; // Thay thế với categories hiện tại
+    const categories = ['sach', 'dochoi', 'vpp']; 
     const subCategories = [
         'comic', 'sachngoaingu', 'tamlikinangsong', 'giaoduc',
         'mohinh', 'butviet', 'dungcuvanphong', 'sanphamgiay'
-    ]; // Thay thế với sub-categories hiện tại
+    ]; 
 
     if (searchTerm) {
         const products = await searchProductsByName(categories, subCategories, searchTerm);
@@ -193,37 +193,57 @@ async function getProductDetail(productId, categories, subCategories) {
     }
 }
 
-// Hàm lọc sản phẩm theo giá
-async function filterProductsByPrice(categories, subCategories, minPrice, maxPrice) {
+// Thêm sự kiện onchange cho dropdown để lọc theo giá
+document.getElementById('priceDropdown').addEventListener('change', async (event) => {
+    const priceRange = event.target.value;
+    const categories = ['sach', 'dochoi', 'vpp']; 
+    const subCategories = [
+        'comic', 'sachngoaingu', 'tamlikinangsong', 'giaoduc',
+        'mohinh', 'butviet', 'dungcuvanphong', 'sanphamgiay'
+    ]; 
+
+    const filteredProducts = await filterProductsByPrice(categories, subCategories, priceRange);
+    displaySearchResults(filteredProducts);
+});
+
+// Hàm lọc sản phẩm theo mức giá
+async function filterProductsByPrice(categories, subCategories, priceRange) {
     try {
         const db = firebase.firestore();
-        const snapshot = await db.collection("product")
-                               .doc(categories)
-                               .collection(subCategories)
-                               .where("price", ">=", minPrice)
-                               .where("price", "<=", maxPrice)
-                               .get();
+        const results = [];
 
-        return snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}));
+        // Lặp qua tất cả các categories và subCategories để lọc sản phẩm
+        for (const category of categories) {
+            for (const subCategory of subCategories) {
+                const productsRef = db.collection("product").doc(category).collection(subCategory);
+                let query = productsRef;
+
+                // Thêm điều kiện lọc theo giá
+                if (priceRange === 'low') {
+                    query = query.where("price", "<", 50000);
+                } else if (priceRange === 'medium') {
+                    query = query.where("price", ">=", 50000).where("price", "<=", 200000);
+                } else if (priceRange === 'high') {
+                    query = query.where("price", ">", 200000);
+                }
+
+                const snapshot = await query.get();
+
+                snapshot.forEach(doc => {
+                    const product = doc.data();
+                    results.push({
+                        id: doc.id,
+                        ...product,
+                        category,
+                        subCategory
+                    });
+                });
+            }
+        }
+
+        return results;
     } catch (error) {
-        console.error("Error filtering products: ", error);
-        return [];
-    }
-}
-
-// Hàm sắp xếp sản phẩm
-async function sortProducts(categories, subCategories, field, direction = 'asc') {
-    try {
-        const db = firebase.firestore();
-        const snapshot = await db.collection("product")
-                               .doc(categories)
-                               .collection(subCategories)
-                               .orderBy(field, direction)
-                               .get();
-
-        return snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}));
-    } catch (error) {
-        console.error("Error sorting products: ", error);
+        console.error("Error filtering products by price: ", error);
         return [];
     }
 }
@@ -262,9 +282,8 @@ async function deleteProduct(categories, subCategories, productId) {
 }
 
 // Xuất thêm các hàm mới
-export { 
-    filterProductsByPrice, 
-    sortProducts, 
+export {
+    filterProductsByPrice,  
     updateProduct, 
     deleteProduct 
 };

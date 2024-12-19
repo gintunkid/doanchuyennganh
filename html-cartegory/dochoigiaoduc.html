@@ -91,15 +91,15 @@
     </section>
 <!------------------ Cartegory ------------------->
 <section class="cartegory">
-    <div class="container">
         <div class="ads-left">
             <a href="#"><img src="/img/poster7.png" alt="Ad Left"></a>
         </div>
         <div class="ads-right">
             <a href="#"><img src="/img/poster7.png" alt="Ad Right"></a>
         </div>
+    <div class="container">
         <div class="cartegory-top row">
-            <p><a href="/home.html">Trang chủ</a></p> <span>&#10230; </span> <p><a href="">Đồ chơi</a></p> <span>&#10230; </span> <p>Đồ chơi giáo dục</p>
+            <p><a href="/home.html">Trang chủ</a></p> <span>&#10230; </span> <p>Đồ chơi</p> <span>&#10230; </span> <p>Đồ chơi giáo dục</p>
         </div>
     </div>
     <div class="container">
@@ -133,15 +133,13 @@
                     <p>Đồ chơi giáo dục</p>
                 </div>
                 <div class="cartegory-right-top-item">
-                    <button><span>Bộ lọc</span><i class="fas fa-sort-down"></i></button>
-                </div>
-                <div class="cartegory-right-top-item">
-                    <select name="" id="">
-                        <option value="">Sắp xếp</option>
-                        <option value="">Giá cao đến thấp</option>
-                        <option value="">Giá thấp đến cao</option>
+                    <select id="priceDropdown">
+                        <option value="">Phân loại giá</option>
+                        <option value="low">Dưới 50.000đ</option>
+                        <option value="medium">Từ 50.000đ - 200.000đ</option>
+                        <option value="high">Trên 200.000đ</option>
                     </select>
-                </div>
+                </div> 
                 <div class="cartegory-right-content row">
                     <div class="cartegory-right-content-item">
                         <img src="" alt="">
@@ -222,21 +220,24 @@
             </div>
         </div>
     </div>
-    <!-- Thanh nhỏ để mở chat -->
-    <div id="chatToggle" class="chat-toggle" onclick="toggleChat()">Chat Tư Vấn - Giải Đáp Mọi Thắc Mắc</div>
-
-    <!-- Chatbox chính -->
+    <div id="chatToggle" class="chat-toggle" onclick="toggleChat()">
+        <i class="fa-solid fa-comment-medical"></i>
+        <span class="wave"></span>
+        <span class="wave"></span>
+        <span class="wave"></span>
+    </div>
     <div id="chatbox" class="chatbox">
         <div class="chatbox-header">
-            <button class="close-btn" onclick="toggleChat()">X</button>
+            <h1>Tư vấn khách hàng</h1>
+            <button class="close-btn" onclick="toggleChat()">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
-        <div id="messages" class="messages"></div> <!-- Khu vực hiển thị đoạn chat -->
-        <div id="questions" class="questions">
-            <!-- Các câu hỏi sẽ được thêm ở đây -->
-        </div>
+        <div id="messages" class="messages"></div>
+        <div id="questions" class="questions"></div>
         <div class="input-area">
-            <input type="text" id="userInput" placeholder="Nhập tin nhắn....">
-            <button onclick="sendMessage()">Gửi</button>
+            <input type="text" id="userInput" placeholder="Nhập câu hỏi của bạn....">
+            <button id="sendBtn" onclick="sendMessage()">Gửi</button>
         </div>
     </div>
  </section>

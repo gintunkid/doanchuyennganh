@@ -178,9 +178,14 @@ async function submitOrder() {
     const useremail = user ? user.email : null; // Lấy email của người dùng
 
      // Kiểm tra số điện thoại
+    if (!fullName && !phone && !province && !district && !ward && !address) {
+        alert("Vui lòng hãy nhập đầy đủ thông tin");
+        return;
+    }
+
      if (!validatePhoneNumber(phone)) {
-        alert("Số điện thoại phải có 10 số ");
-        return; // Dừng xử lý nếu số điện thoại không hợp lệ
+        alert("Vui lòng nhập số điện thoại và phải có 10 số");
+        return; 
     }
 
     // Tính tổng tiền và tạo mảng items

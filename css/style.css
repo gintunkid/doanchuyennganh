@@ -540,14 +540,13 @@ a {
     padding: 0 12px;
 }
 
-.cartegory-right-top-item button {
-    width: 100%;
-    padding: 10px 15px;
-    display: flex;
-    justify-content: space-between;
-    cursor: pointer;
-    background-color: #fff;
-    border: 1px solid #dddddd;
+.cartegory-right-top-item p {
+    padding-bottom: 12px;
+}
+
+.cartegory-right-top-item option {
+    background-color: #111111;
+    color: #fff;
 }
 
 .cartegory-right-top-item select {
@@ -1003,6 +1002,7 @@ a {
     display: flex;
     width: 20px;
     height: 20px;
+    padding-left: 18px;
     border: 1ox solid #dddddd;
     cursor: pointer;
 }
@@ -1043,9 +1043,8 @@ a {
     border-collapse: collapse;
     border-bottom: 2px solid #dddddd;
     background-color: #111111;
-    font-family: "Teko", serif;
-    font-weight: 600;
-    font-style: normal;
+    font-family: var(--main-text-font);
+    font-weight: 500;
 }
 
 .cart-content-right table td {
