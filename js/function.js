@@ -70,7 +70,7 @@ const loginBtn = document.getElementById('login-change');
 
 // Khi nhấn vào nút Đăng ký, chuyển form sang trang Đăng ký
 registerBtn.addEventListener('click', () => {
-    container.classList.add("active"); // Thêm lớp 'active' vào container
+    container.classList.add("active"); 
 });
 
 // Khi nhấn vào nút Đăng nhập, chuyển form sang trang Đăng nhập
