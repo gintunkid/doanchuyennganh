@@ -166,28 +166,48 @@ function validatePhoneNumber(phone) {
 
 
 // Hàm để xử lý khi người dùng nhấn nút thanh toán
-async function submitOrder() {
-    const fullName = document.getElementById("fullName").value;
-    const phone = document.getElementById("phone").value;
-    const province = document.getElementById("provinceDropdown").value;
-    const district = document.getElementById("districtDropdown").value;
-    const ward = document.getElementById("wardInput").value;
-    const address = document.getElementById("addressInput").value;
+async function submitOrder(event) {
+    event.preventDefault();
+
+    const fullName = document.getElementById("fullName").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const province = "Thành phố Hồ Chí Minh";
+    const district = document.getElementById("districtDropdown").value.trim();
+    const ward = document.getElementById("wardInput").value.trim();
+    const address = document.getElementById("addressInput").value.trim();
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     const user = firebase.auth().currentUser; // Lấy thông tin người dùng hiện tại
     const useremail = user ? user.email : null; // Lấy email của người dùng
 
-     // Kiểm tra số điện thoại
-    if (!fullName && !phone && !province && !district && !ward && !address) {
-        alert("Vui lòng hãy nhập đầy đủ thông tin");
+    if (!fullName) {
+        alert("Vui lòng nhập họ và tên.");
         return;
     }
 
-     if (!validatePhoneNumber(phone)) {
-        alert("Vui lòng nhập số điện thoại và phải có 10 số");
-        return; 
+    if (!phone) {
+        alert("Vui lòng nhập số điện thoại.");
+        return;
     }
 
+    if (!validatePhoneNumber(phone)) {
+        alert("Số điện thoại phải có 10 số hoặc định dạng hợp lệ.");
+        return;
+    }
+
+    if (!district) {
+        alert("Vui lòng chọn quận/huyện.");
+        return;
+    }
+
+    if (!ward) {
+        alert("Vui lòng nhập phường/xã.");
+        return;
+    }
+
+    if (!address) {
+        alert("Vui lòng nhập địa chỉ chi tiết.");
+        return;
+    }
     // Tính tổng tiền và tạo mảng items
     let total = 0;
     const items = []; // Mảng để lưu thông tin sản phẩm
